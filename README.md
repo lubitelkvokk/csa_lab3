@@ -22,11 +22,10 @@ asm | acc | harv | mc -> hw | instr | binary -> struct | stream | port | pstr | 
 <reserve> ::= "res" (" ")+ <number>
 <array_element> ::= ("\"" <any_ascii> "\"" | <number>)
 
-<label_arg_command> ::= ("push" | "jmp" 
-| "jz" | "jnz" | "js" | "jns" | "call") (" ")+ <label>
+<transfer_command> ::= ("jmp" | "jz" | "jnz" | "je" | "jge" | "jne") (" ")+ <label>
 
-<number_arg_command> ::= ("push" | "cmp" | "input" | "output") (" ")+ <number>
-<without_arg_command> ::= ("inc" | "hlt" | "pop" | "swap" | "add" | "sub" | "mul" | "div" | "ret" | "load" | "store")
+<number_arg_command> ::= ("cmp" | "input" | "output"| "add" | "sub" | "mul" | "div" | "mov" ) (" ")+ <number>
+<without_arg_command> ::= ("inc" | "hlt" | "ret" | "load" | "store")
 
 <number> ::= [-2^64; 2^64 - 1]
 <name> ::= (<letter_or_>)+
@@ -34,3 +33,12 @@ asm | acc | harv | mc -> hw | instr | binary -> struct | stream | port | pstr | 
 <letter> ::= [a-z] | [A-Z]
 ```
 
+### Описание языка
+- section .text - секция, в которой содержимое интерпретируется как инструкция
+- section .data - секция, в которой содержимое интерпретируется как данные
+- label - метка, после которой указывается ее название. Является указателем на адрес памяти. Может быть указана строка, числа через запятую
+
+- jmp - безусловный переход по указанному адресу (для упрощения только по метке).
+- jz - условный переход по указанному адресу, если содержимое аккумулятора равно 0, иначе осуществляется переход к следующей инструкции.
+- jnz - условный переход по указанному адресу, если содержимое аккумулятора не равно 0, иначе осуществляется переход к следующей инструкции.
+- je - условный переход по указанному адресу, если содержимое аккумулятора равно указанному значению
