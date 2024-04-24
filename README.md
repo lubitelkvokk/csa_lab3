@@ -24,8 +24,8 @@ asm | acc | harv | mc -> hw | instr | binary -> struct | stream | port | pstr | 
 
 <transfer_command> ::= ("jmp" | "jz" | "jnz" | "je" | "jge" | "jne") (" ")+ <label>
 
-<number_arg_command> ::= ("cmp" | "input" | "output"| "add" | "sub" | "mul" | "div" | "mov" ) (" ")+ <number>
-<without_arg_command> ::= ("inc" | "hlt" | "ret" | "load" | "store")
+<number_arg_command> ::= ("inc" | "cmp" | "input" | "output"| "add" | "sub" | "mul" | "div" | "mov" ) (" ")+ <number>
+<without_arg_command> ::= ( "hlt")
 
 <number> ::= [-2^64; 2^64 - 1]
 <name> ::= (<letter_or_>)+
