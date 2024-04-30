@@ -10,6 +10,8 @@ from isa import Opcode, Term, write_code
 TEXT_ADDR = 0
 DATA_ADDR = 300000
 
+# Проблема в том, чтоб непонятно на каком этапе нужно записывать данные в память
+
 
 def get_meaningful_token(line: str):
     """Извлекаем из строки содержательный токен (метка или инструкция), удаляем
@@ -61,6 +63,8 @@ def translate_stage_1(text: str):
             code.append({"addr": pc, "cmd": Opcode(cmd).value, "args": arg})
 
     return data_labels, text_labels, code
+
+def translate_data_labels_to_addr(data_labels):
 
 
 def translate_stage_2(data_labels: dict, text_labels: dict, code: list[dict]):
