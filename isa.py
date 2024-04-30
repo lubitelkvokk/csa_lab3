@@ -5,19 +5,19 @@ from enum import Enum
 
 class Opcode(str, Enum):
     ADD = "add"
-    INC = "increment"
-    DEC = "decrement"
+    INC = "inc"
+    DEC = "dec"
     INPUT = "input"
     OUTPUT = "output"
-    ST = "store"
-    LD = "load"
+    ST = "st"
+    LD = "ld"
 
-    CMP = "compare"
+    CMP = "cmp"
     JMP = "jmp"
     JZ = "jz"
     JGE = "jge"
 
-    HLT = "halt"
+    HLT = "hlt"
 
     def __str__(self):
         return str(self.value)

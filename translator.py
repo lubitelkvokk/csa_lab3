@@ -3,6 +3,7 @@
 """
 
 import sys
+import re
 
 from isa import Opcode, Term, write_code
 
@@ -10,18 +11,17 @@ TEXT_ADDR = 0
 DATA_ADDR = 300000
 
 
-def get_meaningful_token(line):
+def get_meaningful_token(line: str):
     """Извлекаем из строки содержательный токен (метка или инструкция), удаляем
     комментарии и пробелы в начале/конце строки.
     """
     return line.split(";", 1)[0].strip()
 
 
-def translate_stage_1(text):
+def translate_stage_1(text: str):
     datasec = text.split("section .data")[1].split("section .text")[0]
     textsec = text.split("section .text")[1]
-
-    labels = {}
+    data_labels = {}
     code = []
     data_ptr = DATA_ADDR
     # data section in address space started with #00030000
@@ -29,29 +29,62 @@ def translate_stage_1(text):
         data.strip()
         if data:
             label_name, args = data.split(":")
-            labels[label_name] = data_ptr
+            # labels[label_name] = data_ptr
+            list_args = []
+            if '"' in data:
+                for arg in args.split('"'):
+                    if arg and arg.strip() != ",":
+                        list_args.append(arg)
+            else:
+                for arg in args.split(','):
+                    list_args.append(arg.strip())
+            data_labels[label_name] = list_args
+            # возможно сделать обработку массива данных (разделение по запятой и тд) / корректный адрес для данных
 
-            data_ptr += len(
-                args)  # возможно сделать обработку массива данных (разделение по запятой и тд) / корректный адрес для данных
-
-    for line_num, raw_line in enumerate(text.splitlines(), 1):
+    text_labels = {}
+    for line_num, raw_line in enumerate(textsec.splitlines(), 1):
         token = get_meaningful_token(raw_line)
+        # print(token)
         if token == "":
             continue
-        print(token)
         pc = len(code)
-        cmd, arg = token.split()
-        # code.append({Opcode.})
-    return
+        if ":" in token:
+            text_labels[token.split(":")[0]] = pc
+        else:
+            token = token.split()
+            arg = ''
+            if len(token) == 1:
+                cmd = token[0]
+            else:
+                cmd = token[0]
+                arg = token[1]
+            code.append({"addr": pc, "cmd": Opcode(cmd).value, "args": arg})
 
-def translate_stage_2(labels, code):
+    return data_labels, text_labels, code
+
+
+def translate_stage_2(data_labels: dict, text_labels: dict, code: list[dict]):
     """Второй проход транслятора. В уже определённые инструкции подставляются
     адреса меток."""
+
     for instruction in code:
-        if "arg" in instruction:
-            label = instruction["arg"]
-            assert label in labels, "Label not defined: " + label
-            instruction["arg"] = labels[label]
+        print(instruction)
+        if "args" in instruction and re.search('[a-z]', instruction["args"]):
+            left_addition = ""
+            right_addition = ""
+            if "[" in instruction['args']:
+                label = instruction['args'].split('[')[1].split(']')[0]
+                left_addition = "["
+                right_addition = "]"
+            else:
+                label = instruction['args']
+
+            print(label)
+            if data_labels.get(label):
+                instruction['args'] = left_addition + data_labels[label] + right_addition
+            elif text_labels.get(label):
+                instruction["args"] = left_addition + text_labels[label] + right_addition
+            print(instruction["args"])
     return code
 
 

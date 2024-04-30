@@ -1,5 +1,5 @@
 section .data
-message: "Hello"
+message: "Hello, world", "\0"
 message_ptr: message
 
 section .text
