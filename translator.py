@@ -8,7 +8,8 @@ import re
 from isa import Opcode, Term, write_code
 
 TEXT_ADDR = 0
-DATA_ADDR = 300000
+DATA_ADDR = 0
+
 
 # Проблема в том, чтоб непонятно на каком этапе нужно записывать данные в память
 
@@ -46,7 +47,6 @@ def translate_stage_1(text: str):
     text_labels = {}
     for line_num, raw_line in enumerate(textsec.splitlines(), 1):
         token = get_meaningful_token(raw_line)
-        # print(token)
         if token == "":
             continue
         pc = len(code)
@@ -64,15 +64,27 @@ def translate_stage_1(text: str):
 
     return data_labels, text_labels, code
 
-def translate_data_labels_to_addr(data_labels):
+
+def translate_data_labels_to_addr(data_labels: dict):
+    translated_data_labels = {}
+    addr_ptr = DATA_ADDR
+    for label in data_labels.keys():
+        translated_data_labels[label] = addr_ptr
+        for element in data_labels[label]:
+            if re.search('[a-zA-Z]', element):
+                addr_ptr += len(element)
+            else:
+                addr_ptr += 1
+    return translated_data_labels
 
 
 def translate_stage_2(data_labels: dict, text_labels: dict, code: list[dict]):
     """Второй проход транслятора. В уже определённые инструкции подставляются
     адреса меток."""
 
+    translated_data_labels = translate_data_labels_to_addr(data_labels)
+
     for instruction in code:
-        print(instruction)
         if "args" in instruction and re.search('[a-z]', instruction["args"]):
             left_addition = ""
             right_addition = ""
@@ -83,11 +95,10 @@ def translate_stage_2(data_labels: dict, text_labels: dict, code: list[dict]):
             else:
                 label = instruction['args']
 
-            print(label)
             if data_labels.get(label):
-                instruction['args'] = left_addition + data_labels[label] + right_addition
+                instruction['args'] = left_addition + str(translated_data_labels[label]) + right_addition
             elif text_labels.get(label):
-                instruction["args"] = left_addition + text_labels[label] + right_addition
+                instruction["args"] = left_addition + str(text_labels[label]) + right_addition
             print(instruction["args"])
     return code
 
