@@ -1,0 +1,32 @@
+
+ld <label>
+---------------
+Control unit:
+    latch (PC->PM), latch (PM->InstrDec), latch (PC->PC+1), latch (ID->DataPath) ->
+DataPath:
+    latch (Control Unit -> addr register), latch (data memory -> ACC)
+
+-------------
+cmp 0
+--------------
+Control unit:
+    latch (PC->PM), latch (PM->ID), latch (PC->PC+1), latch (ID->DataPath) ->
+DataPath:
+    set left value, set right value, compare
+    ||
+    latch (ACC->Comparator), latch (Control Unit -> Comparator), latch (comparator -> LT, Z, GT)
+
+--------------
+jz <label>
+--------------
+Control unit:
+    latch (PC->PM), latch (PM->InstrDec), latch(LT, Z, GT->InstrDec), latch (InstrDec->PC{+1 or <label addr>})
+
+
+--------------
+output <port_number>
+--------------
+Control unit:
+    latch (PC->PM), latch (PM->InstrDec), latch (PC->PC+1), latch (ID->I/O port)
+DataPath:
+    latch (ACC -> I/O port)
