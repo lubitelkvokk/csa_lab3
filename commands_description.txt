@@ -79,5 +79,47 @@ jmp <label>
 Control unit:
     latch (PC->PM), latch (PM->InstrDec), latch (InstrDec->PC{<label addr>})
 
+--------------
+add <label>
+--------------
+Control unit:
+    latch (PC->PM), latch (PM->InstrDec), latch (PC->PC+1), latch (ID->DataPath) ->
+DataPath unit:
+    latch (Control Unit -> addr register), latch(ACC-> Buffer reg), latch (data memory -> ACC), latch (ALU -> ACC{+})
+
+--------------
+sub <label>
+--------------
+Control unit:
+    latch (PC->PM), latch (PM->InstrDec), latch (PC->PC+1), latch (ID->DataPath) ->
+DataPath unit:
+    latch (Control Unit -> addr register), latch(ACC-> Buffer reg), latch (data memory -> ACC), latch (ALU -> ACC{-})
+
+--------------
+mul <label>
+--------------
+Control unit:
+    latch (PC->PM), latch (PM->InstrDec), latch (PC->PC+1), latch (ID->DataPath) ->
+DataPath unit:
+    latch (Control Unit -> addr register), latch(ACC-> Buffer reg), latch (data memory -> ACC), latch (ALU -> ACC{*})
+
+
+--------------
+inc
+--------------
+Control unit:
+    latch (PC->PM), latch (PM->InstrDec), latch (PC->PC+1)
+DataPath unit:
+    latch(ACC-> ACC + 1)
+
+--------------
+dec
+--------------
+Control unit:
+    latch (PC->PM), latch (PM->InstrDec), latch (PC->PC+1)
+DataPath unit:
+    latch(ACC-> ACC - 1)
+
+
 
 
