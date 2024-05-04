@@ -4,7 +4,17 @@ ld <label>
 Control unit:
     latch (PC->PM), latch (PM->InstrDec), latch (PC->PC+1), latch (ID->DataPath) ->
 DataPath:
-    latch (Control Unit -> addr register), latch (data memory -> ACC)
+    latch (Control Unit -> addr register), ?Нужно ли защелкивать addr reg->data memory? latch (data memory -> ACC), latch (addr reg -> addr reg+1)
+
+
+st <label>
+---------------
+Control unit:
+    latch (PC->PM), latch (PM->InstrDec), latch (PC->PC+1), latch (ID->DataPath) ->
+DataPath:
+    latch (Control Unit -> addr register), latch (ACC -> data memory), latch (addr reg -> addr reg+1)
+
+
 
 -------------
 cmp 0
@@ -24,9 +34,50 @@ Control unit:
 
 
 --------------
+jge <label>
+--------------
+Control unit:
+    latch (PC->PM), latch (PM->InstrDec), latch(LT, Z, GT->InstrDec), latch (InstrDec->PC{+1 or <label addr>})
+
+
+--------------
 output <port_number>
 --------------
 Control unit:
     latch (PC->PM), latch (PM->InstrDec), latch (PC->PC+1), latch (ID->I/O port)
 DataPath:
     latch (ACC -> I/O port)
+
+--------------
+input <port_number>
+--------------
+Control unit:
+    latch (PC->PM), latch (PM->InstrDec), latch (PC->PC+1), latch (ID->I/O port)
+DataPath:
+    latch (I/O -> ACC)
+
+--------------
+read
+--------------
+Control unit:
+    latch (PC->PM), latch (PM->InstrDec), latch (PC->PC+1), latch (ID->DataPath) ->
+DataPath unit:
+    latch (Data memory -> ACC), latch (addr reg -> addr reg + 1)
+// отказался от идеи offset регистра, потому что его нужно будет обнулять и скорее всего в ld команде, что является лишним для нее действием
+
+---------------
+write
+---------------
+Control unit:
+    latch (PC->PM), latch (PM->InstrDec), latch (PC->PC+1), latch (ID->DataPath) ->
+DataPath unit:
+    latch (ACC -> Data Memory), latch (addr reg -> addr reg + 1)
+
+--------------
+jmp <label>
+--------------
+Control unit:
+    latch (PC->PM), latch (PM->InstrDec), latch (InstrDec->PC{<label addr>})
+
+
+
