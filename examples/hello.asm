@@ -1,16 +1,18 @@
 section .data
-message: "Hello, world", "\0"
-message_ptr: message
+message_size: 13
+message: "Hello, world!"
 
 section .text
-    ld [message_ptr]
+_start:
+    ld message_size
+    setcnt
+    lda message
+    setaddr
     loop:
-        ld [acc]
+        read
+        output 1
+        cntz
         jz exit
-        output 1 ; вывод значения из регистра rax на 1 порт
-        ld [message_ptr]
-        inc
-        st message_ptr
         jmp loop
     exit:
         hlt

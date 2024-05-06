@@ -4,19 +4,27 @@ from enum import Enum
 
 
 class Opcode(str, Enum):
+
     ADD = "add"
+    MUL = "mul"
     INC = "inc"
     DEC = "dec"
     INPUT = "input"
     OUTPUT = "output"
     ST = "st"
     LD = "ld"
+    LDA = "lda"
+    READ = "read"
+    WRITE = "write"
+    SETCNT = "setcnt"
+    SETADDR = "setaddr"
 
     CMP = "cmp"
+    CNTZ = "cntz"
     JMP = "jmp"
     JZ = "jz"
     JGE = "jge"
-
+    JE = "je"
     HLT = "hlt"
 
     def __str__(self):
@@ -25,19 +33,25 @@ class Opcode(str, Enum):
 
 COMMANDS = {
     "add": {"opcode": Opcode.ADD, "args_count": 1},
+    "mul": {"opcode": Opcode.MUL, "args_count": 1},
     "inc": {"opcode": Opcode.INC, "args_count": 0},
     "dec": {"opcode": Opcode.DEC, "args_count": 0},
     "input": {"opcode": Opcode.INPUT, "args_count": 1},
     "output": {"opcode": Opcode.OUTPUT, "args_count": 1},
-    "store": {"opcode": Opcode.ST, "args_count": 1},
-    "load": {"opcode": Opcode.LD, "args_count": 1},
+    "st": {"opcode": Opcode.ST, "args_count": 1},
+    "ld": {"opcode": Opcode.LD, "args_count": 1},
+    "lda": {"opcode": Opcode.LDA, "args_count": 1},
+    "read": {"opcode": Opcode.READ, "args_count": 0},
+    "write": {"opcode": Opcode.WRITE, "args_count": 0},
     "cmp": {"opcode": Opcode.CMP, "args_count": 1},
+    "cntz": {"opcode": Opcode.CMP, "args_count": 0},
     "jmp": {"opcode": Opcode.JMP, "args_count": 1},
     "jz": {"opcode": Opcode.JZ, "args_count": 1},
+    "je": {"opcode": Opcode.JE, "args_count": 1},
     "jge": {"opcode": Opcode.JGE, "args_count": 1},
-    "hlt": {"opcode": Opcode.HLT, "args_count": 0}
+    "hlt": {"opcode": Opcode.HLT, "args_count": 0},
+    "setcnt": {"opcode": Opcode.SETCNT, "args_count": 0}
 }
-
 
 class Term(namedtuple("Term", "line pos symbol")):
     """Описание выражения из исходного текста программы.

@@ -31,17 +31,11 @@ def translate_stage_1(text: str):
     for data in datasec.splitlines():
         data.strip()
         if data:
-            label_name, args = data.split(":")
+            label_name, arg = data.split(":")
             # labels[label_name] = data_ptr
-            list_args = []
-            if '"' in data:
-                for arg in args.split('"'):
-                    if arg and arg.strip() != ",":
-                        list_args.append(arg)
-            else:
-                for arg in args.split(','):
-                    list_args.append(arg.strip())
-            data_labels[label_name] = list_args
+            if '"' in arg:
+                arg = arg.split('"')[1]
+            data_labels[label_name] = arg.strip()
             # возможно сделать обработку массива данных (разделение по запятой и тд) / корректный адрес для данных
 
     text_labels = {}
@@ -65,24 +59,30 @@ def translate_stage_1(text: str):
     return data_labels, text_labels, code
 
 
-def translate_data_labels_to_addr(data_labels: dict):
+def translate_data_labels_to_addr(data_labels: dict[str], data: list):
     translated_data_labels = {}
     addr_ptr = DATA_ADDR
     for label in data_labels.keys():
         translated_data_labels[label] = addr_ptr
-        for element in data_labels[label]:
-            if re.search('[a-zA-Z]', element):
-                addr_ptr += len(element)
-            else:
+        element: str = data_labels[label]
+        data_labels[label] = addr_ptr
+        if re.search('res([1-9]+)', element):
+            addr_ptr += int(element.split('(')[1].split(')')[0])
+        elif not element.isdigit():
+            for i in range(len(element)):
+                data[addr_ptr] = element[i]
                 addr_ptr += 1
+        else:
+            data[addr_ptr] = int(element)
+            addr_ptr += 1
     return translated_data_labels
 
 
-def translate_stage_2(data_labels: dict, text_labels: dict, code: list[dict]):
+def translate_stage_2(data_labels: dict, text_labels: dict, code: list[dict], data: list):
     """Второй проход транслятора. В уже определённые инструкции подставляются
     адреса меток."""
 
-    translated_data_labels = translate_data_labels_to_addr(data_labels)
+    translated_data_labels = translate_data_labels_to_addr(data_labels, data)
 
     for instruction in code:
         if "args" in instruction and re.search('[a-z]', instruction["args"]):
@@ -99,7 +99,6 @@ def translate_stage_2(data_labels: dict, text_labels: dict, code: list[dict]):
                 instruction['args'] = left_addition + str(translated_data_labels[label]) + right_addition
             elif text_labels.get(label):
                 instruction["args"] = left_addition + str(text_labels[label]) + right_addition
-            print(instruction["args"])
     return code
 
 
