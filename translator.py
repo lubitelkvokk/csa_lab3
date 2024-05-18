@@ -5,7 +5,7 @@
 import sys
 import re
 
-from isa import Opcode, Term, write_code
+from isa import Opcode, COMMANDS, WORD_SIZE
 
 TEXT_ADDR = 0
 DATA_ADDR = 0
@@ -27,16 +27,13 @@ def translate_stage_1(text: str):
     data_labels = {}
     code = []
     data_ptr = DATA_ADDR
-    # data section in address space started with #00030000
     for data in datasec.splitlines():
         data.strip()
         if data:
             label_name, arg = data.split(":")
-            # labels[label_name] = data_ptr
             if '"' in arg:
                 arg = arg.split('"')[1]
             data_labels[label_name] = arg.strip()
-            # возможно сделать обработку массива данных (разделение по запятой и тд) / корректный адрес для данных
 
     text_labels = {}
     for line_num, raw_line in enumerate(textsec.splitlines(), 1):
@@ -54,52 +51,47 @@ def translate_stage_1(text: str):
             else:
                 cmd = token[0]
                 arg = token[1]
-            code.append({"addr": pc, "cmd": Opcode(cmd).value, "args": arg})
+                if "'" in arg:
+                    arg = arg.replace("'", "")
+                    arg = arg.replace("\\n", '\n')
+
+            code.append({"addr": pc, "cmd": COMMANDS[cmd], "args": arg})
 
     return data_labels, text_labels, code
 
 
-def translate_data_labels_to_addr(data_labels: dict[str], data: list):
+def translate_data_labels_to_addr(data_labels: dict[str]):
     translated_data_labels = {}
     addr_ptr = DATA_ADDR
     for label in data_labels.keys():
-        translated_data_labels[label] = addr_ptr
+        translated_data_labels[label] = {"arg": data_labels[label], "addr": addr_ptr}
         element: str = data_labels[label]
-        data_labels[label] = addr_ptr
-        if re.search('res([1-9]+)', element):
-            addr_ptr += int(element.split('(')[1].split(')')[0])
+        if re.search('res\([1-9]+\)', element):
+            addr_ptr += int(element.split('(')[1].split(')')[0]) * WORD_SIZE
         elif not element.isdigit():
+            # 1 символ - 1 машинное слово
             for i in range(len(element)):
-                data[addr_ptr] = element[i]
-                addr_ptr += 4
+                addr_ptr += WORD_SIZE
         else:
-            data[addr_ptr] = int(element)
-            addr_ptr += 1
+            # Число - смещение на 1 машинное слово
+            addr_ptr += WORD_SIZE
     return translated_data_labels
 
 
-def translate_stage_2(data_labels: dict, text_labels: dict, code: list[dict], data: list):
+def translate_stage_2(data_labels: dict, text_labels: dict, code: list[dict]):
     """Второй проход транслятора. В уже определённые инструкции подставляются
     адреса меток."""
 
-    translated_data_labels = translate_data_labels_to_addr(data_labels, data)
+    translated_data_labels = translate_data_labels_to_addr(data_labels)
 
     for instruction in code:
-        if "args" in instruction and re.search('[a-z]', instruction["args"]):
-            left_addition = ""
-            right_addition = ""
-            if "[" in instruction['args']:
-                label = instruction['args'].split('[')[1].split(']')[0]
-                left_addition = "["
-                right_addition = "]"
-            else:
-                label = instruction['args']
+        label = instruction['args']
 
-            if data_labels.get(label):
-                instruction['args'] = left_addition + str(translated_data_labels[label]) + right_addition
-            elif text_labels.get(label):
-                instruction["args"] = left_addition + str(text_labels[label]) + right_addition
-    return code
+        if data_labels.get(label):
+            instruction['args'] = translated_data_labels[label]["addr"]
+        elif text_labels.get(label):
+            instruction["args"] = text_labels[label]
+    return code, translated_data_labels
 
 
 def translate(text):
@@ -111,25 +103,24 @@ def translate(text):
 
     2. Подстановка адресов меток в операнды инструкции.
     """
-    labels, code = translate_stage_1(text)
-    code = translate_stage_2(labels, code)
+    data_labels, text_labels, code = translate_stage_1(text)
+    code, translated_data_labels = translate_stage_2(data_labels, text_labels, code)
 
-    # ruff: noqa: RET504
-    return code
+    return code, translated_data_labels
 
 
-def main(source, target):
+def main(input_file, target):
     """Функция запуска транслятора. Параметры -- исходный и целевой файлы."""
-    with open(source, encoding="utf-8") as f:
-        source = f.read()
+    with open(input_file, encoding="utf-8") as f:
+        input_file = f.read()
 
-    code = translate(source)
+    code = translate(input_file)
 
-    write_code(target, code)
-    print("source LoC:", len(source.split("\n")), "code instr:", len(code))
+    # write_code(target, code)
+    print("source LoC:", len(input_file.split("\n")), "code instr:", len(code))
 
 
 if __name__ == "__main__":
-    assert len(sys.argv) == 3, "Wrong arguments: translator_asm.py <input_file> <target_file>"
-    _, source, target = sys.argv
-    main(source, target)
+    assert len(sys.argv) == 4, "Wrong arguments: translator_asm.py <input_file> <program_file> <data_file> "
+    _, input_file, program_file, data_file = sys.argv
+    main(input_file, program_file, data_file)

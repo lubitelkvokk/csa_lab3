@@ -1,6 +1,7 @@
 section .data
 message_size: 19
 message: "What, is your name?"
+hello_size: 7
 hello: "Hello, "
 answer_size: 0
 answer: res(255)
@@ -8,7 +9,6 @@ answer_end: "!"
 
 section .text
 _start:
-
     lda message
     setaddr
     ld message_size

@@ -1,10 +1,8 @@
-from translator import translate_stage_1, translate_stage_2
+from isa import write_code, read_code
+from translator import translate
 
 file = open("examples/hello_io.asm")
-data_labels, text_labels, code = translate_stage_1(file.read())
-# print(data_labels)
-# print(text_labels)
-# print(code)
-data = [0] * 1024
-translate_stage_2(data_labels, text_labels, code, data)
-print(data)
+code, translated_data_labels = translate(file.read())
+write_code("aboba.txt", code)
+print(read_code("aboba.txt"))
+
