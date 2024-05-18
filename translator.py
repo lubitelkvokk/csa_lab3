@@ -71,7 +71,7 @@ def translate_data_labels_to_addr(data_labels: dict[str], data: list):
         elif not element.isdigit():
             for i in range(len(element)):
                 data[addr_ptr] = element[i]
-                addr_ptr += 1
+                addr_ptr += 4
         else:
             data[addr_ptr] = int(element)
             addr_ptr += 1
