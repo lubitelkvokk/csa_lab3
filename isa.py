@@ -82,7 +82,7 @@ def int_to_bytes(value: int) -> bytes:
     return value.to_bytes(WORD_SIZE, byteorder='little')
 
 
-def write_code(filename, code: list[ProgramData]):
+def write_code(filename: str, code: list[ProgramData]):
     with open(filename, "wb") as file:
         int_codes: list[int] = []
         for instr in code:
@@ -94,6 +94,17 @@ def write_code(filename, code: list[ProgramData]):
             int_codes.append(int_code)
         for x in int_codes:
             file.write(int_to_bytes(x))
+
+
+def write_data(filename: str, data_labels: DataMemory):
+    with open(filename, "wb") as file:
+        for label in data_labels.keys():
+            for chunk in data_labels[label]["arg"]:
+                if type(chunk) == int:
+                    arg = chunk
+                elif type(chunk) == str and chunk:
+                    arg = ord(chunk)
+                file.write(int_to_bytes(arg))
 
 
 def read_data(filename: str) -> list[int]:
@@ -127,7 +138,6 @@ def read_code(filename: str) -> list[ProgramData]:
         }
         code.append(program_data)
     return code
-
 
 # Пример использования:
 # code = [

@@ -5,7 +5,7 @@
 import sys
 import re
 
-from isa import Opcode, COMMANDS, WORD_SIZE
+from isa import Opcode, COMMANDS, WORD_SIZE, write_code, write_data
 
 TEXT_ADDR = 0
 DATA_ADDR = 0
@@ -109,14 +109,14 @@ def translate(text):
     return code, translated_data_labels
 
 
-def main(input_file, target):
+def main(input_file, program_file, data_file):
     """Функция запуска транслятора. Параметры -- исходный и целевой файлы."""
     with open(input_file, encoding="utf-8") as f:
         input_file = f.read()
 
-    code = translate(input_file)
-
-    # write_code(target, code)
+    code, translated_data_labels = translate(input_file)
+    write_code(program_file, code)
+    write_data(data_file, translated_data_labels)
     print("source LoC:", len(input_file.split("\n")), "code instr:", len(code))
 
 
