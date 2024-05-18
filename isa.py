@@ -4,7 +4,7 @@ from typing import TypedDict, Union
 WORD_SIZE = 4  # машинное слово 4 байта
 
 
-class Opcode(str, Enum):
+class Opcode(Enum):
     ADD = 0x01
     MUL = 0x02
     INC = 0x03
@@ -63,7 +63,7 @@ COMMANDS = {
     "read": {"opcode": Opcode.READ, "args_count": 0},
     "write": {"opcode": Opcode.WRITE, "args_count": 0},
     "cmp": {"opcode": Opcode.CMP, "args_count": 1},
-    "cntz": {"opcode": Opcode.CMP, "args_count": 0},
+    "cntz": {"opcode": Opcode.CNTZ, "args_count": 0},
     "jmp": {"opcode": Opcode.JMP, "args_count": 1},
     "jz": {"opcode": Opcode.JZ, "args_count": 1},
     "je": {"opcode": Opcode.JE, "args_count": 1},
@@ -75,29 +75,25 @@ COMMANDS = {
 
 
 def bytes_to_int(byte_arr: bytes) -> int:
-    return (byte_arr[3] << 24) + (byte_arr[2] << 16) + (byte_arr[1] << 8) + byte_arr[0]
+    return int.from_bytes(byte_arr, byteorder='little')
 
 
-def int_to_bytes(value: int) -> bytearray:
-    result = []
-    for _ in range(4):
-        result.append(value & 0xFF)
-        value = value >> 8
-
-    return bytearray(result)
+def int_to_bytes(value: int) -> bytes:
+    return value.to_bytes(WORD_SIZE, byteorder='little')
 
 
 def write_code(filename, code: list[ProgramData]):
-    with open(filename, "wb") as file:  # Открываем файл в бинарном режиме
+    with open(filename, "wb") as file:
         int_codes: list[int] = []
         for instr in code:
             if type(instr["args"]) == int:
-                int_codes.append(instr["args"] & 0x00FFFFFF)
-            elif instr["args"]:
-                int_codes.append(ord(instr["args"]) & 0x00FFFFFF)
-            int_codes[-1] += int(instr["cmd"]["opcode"]) << 24
+                args = instr["args"]
+            elif type(instr["args"]) == str and instr["args"]:
+                args = ord(instr["args"])
+            int_code = (int(instr["cmd"]["opcode"].value) << 24) | (args & 0x00FFFFFF)
+            int_codes.append(int_code)
         for x in int_codes:
-            file.write(int_to_bytes(x))  # Записываем байты в файл
+            file.write(int_to_bytes(x))
 
 
 def read_data(filename: str) -> list[int]:
@@ -115,9 +111,15 @@ def read_code(filename: str) -> list[ProgramData]:
     data = read_data(filename)
     code: list[ProgramData] = []
     for pc, i in enumerate(data):
-        opcode: Opcode = Opcode(int(i >> 24))
+        opcode_value = i >> 24
+        opcode = Opcode(opcode_value)
         args = i & 0x00FFFFFF
-        arg_count = 1 if args else 0  # Определяем количество аргументов
+        if opcode in {Opcode.INPUT, Opcode.OUTPUT, Opcode.ST, Opcode.LD, Opcode.LDA, Opcode.CMP, Opcode.JMP, Opcode.JZ,
+                      Opcode.JE, Opcode.JGE}:
+            args = chr(args)
+            arg_count = 1
+        else:
+            arg_count = 0
         program_data: ProgramData = {
             'addr': pc,
             'cmd': {'opcode': opcode, 'args_count': arg_count},
@@ -125,3 +127,17 @@ def read_code(filename: str) -> list[ProgramData]:
         }
         code.append(program_data)
     return code
+
+
+# Пример использования:
+# code = [
+#     {'addr': 0, 'cmd': {'opcode': Opcode.LDA, 'args_count': 1}, 'args': 4},
+#     {'addr': 1, 'cmd': {'opcode': Opcode.SETADDR, 'args_count': 0}, 'args': ''},
+#     {'addr': 2, 'cmd': {'opcode': Opcode.LD, 'args_count': 1}, 'args': 0},
+#     {'addr': 3, 'cmd': {'opcode': Opcode.SETCNT, 'args_count': 0}, 'args': ''},
+#     {'addr': 4, 'cmd': {'opcode': Opcode.OUTPUT, 'args_count': 1}, 'args': '1'},
+#     {'addr': 5, 'cmd': {'opcode': Opcode.READ, 'args_count': 0}, 'args': ''}
+# ]
+#
+# write_code("aboba.txt", code)
+# print(read_code("aboba.txt"))
