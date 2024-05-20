@@ -44,12 +44,20 @@ class Signal(Enum):
         return str(self.value)
 
 
+def assert_sel_error(sel: Signal):
+    return "internal error, incorrect selector: {}".format(sel)
+
+
 class DataPath:
     data_memory_size: int = None
     data_memory: list[int] = None
     data_address: int = None
-    buffer_register: int = None
+    buff: int = None
     ports: list[list[int]] = None
+    flag_zero: bool
+    flag_lt: bool
+    flag_gt: bool
+    dc: int = None
 
     def __init__(self, data_memory_size):
         assert data_memory_size > 0, "Data_memory size should be non-zero"
@@ -57,12 +65,16 @@ class DataPath:
         self.data_memory = [0] * data_memory_size
         self.data_address = 0
         self.acc = 0
-        self.buffer_register = 0
+        self.buff = 0
         self.ports = [[0] * 256, [0] * 256]
+        flag_zero = 0
+        flag_lt = 0
+        flag_gt = 0
+        self.dc = 0
 
     def sel_address_register(self, sel: Signal, addr: int):
         assert sel in {Signal.SEL_AR_NEXT, Signal.SEL_AR_ADDR}, \
-            "internal error, incorrect selector: {}".format(sel)
+            assert_sel_error(sel)
         if sel == Signal.SEL_AR_NEXT:
             self.data_address += 1
         elif sel == Signal.SEL_AR_ADDR:
@@ -73,13 +85,13 @@ class DataPath:
         self.data_memory[self.data_address] = self.acc
 
     def latch_buff(self):
-        self.buffer_register = self.acc
+        self.buff = self.acc
 
     def sel_acc(self, sel: Signal, arg: int):
         assert sel in {Signal.SEL_ACC_IO,
                        Signal.SEL_ACC_VAL,
                        Signal.SEL_ACC_DATA_MEM}, \
-            "internal error, incorrect selector: {}".format(sel)
+            assert_sel_error(sel)
         if sel == Signal.SEL_ACC_IO:
             self.acc = self.ports[arg].pop(0)
         elif sel == Signal.SEL_ACC_VAL:
@@ -87,4 +99,56 @@ class DataPath:
         elif sel == Signal.SEL_ACC_DATA_MEM:
             self.acc = self.data_memory[self.data_address]
 
-    def sel_alu
+    def sel_alu(self, sel: Signal):
+        assert sel in {Signal.SEL_ALU_ADD,
+                       Signal.SEL_ALU_DEC,
+                       Signal.SEL_ALU_DIV,
+                       Signal.SEL_ALU_MOD,
+                       Signal.SEL_ALU_SUB,
+                       Signal.SEL_ALU_INC,
+                       Signal.SEL_ALU_MUL}
+        assert_sel_error(sel)
+        if sel == Signal.SEL_ALU_INC:
+            self.acc += 1
+        elif sel == Signal.SEL_ALU_DEC:
+            self.acc -= 1
+        elif sel == Signal.SEL_ALU_SUB:
+            self.acc = self.buff - self.acc
+        elif sel == Signal.SEL_ALU_ADD:
+            self.acc = self.buff + self.acc
+        elif sel == Signal.SEL_ALU_MUL:
+            self.acc = self.buff * self.acc
+        elif sel == Signal.SEL_ALU_DIV:
+            self.acc = self.buff // self.acc
+        elif sel == Signal.SEL_ALU_MOD:
+            self.acc = self.buff % self.acc
+
+    def sel_dc(self, sel: Signal):
+        assert sel in {Signal.SEL_DC_ACC,
+                       Signal.SEL_DC_DEC}
+        assert_sel_error(sel)
+        if sel == Signal.SEL_DC_ACC:
+            self.dc = self.acc
+        elif sel == Signal.SEL_DC_DEC:
+            self.dc -= 1
+
+    def __compare(self, left: int, right: int):
+        self.flag_lt = False
+        self.flag_gt = False
+        self.flag_zero = False
+        if left > right:
+            self.flag_gt = True
+        elif left < right:
+            self.flag_lt = True
+        if left == 0:
+            self.flag_zero = True
+
+    def sel_cmp(self, sel: Signal, value: int):
+        # decoded value from CU
+        assert sel in {Signal.SEL_CMP_DC,
+                       Signal.SEL_CMP_ACC}
+        assert_sel_error(sel)
+        if sel == Signal.SEL_CMP_DC:
+            self.__compare(self.dc, value)
+        elif sel == Signal.SEL_CMP_ACC:
+            self.__compare(self.acc, value)
