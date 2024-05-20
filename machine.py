@@ -25,38 +25,31 @@ class Signal(Enum):
     LATCH_WRITE_IO = 1 << 13
     LATCH_BUFF = 1 << 14
 
-    LATCH_ALU_LE = 1 << 15
-    LATCH_ALU_RE = 1 << 16
-    # 16 bit: flag, 17-19 bits: operations
-    SEL_ALU_INC = 1 << 17
-    SEL_ALU_DEC = 1 << 17 | 1 << 20
-    SEL_ALU_ADD = 1 << 17 | 1 << 19
-    SEL_ALU_SUB = 1 << 17 | 1 << 19 | 1 << 20
-    SEL_ALU_MUL = 1 << 17 | 1 << 18
-    SEL_ALU_DIV = 1 << 17 | 1 << 18 | 1 << 20
-    SEL_ALU_MOD = 1 << 17 | 1 << 18 | 1 << 19
+    # 15 bit: flag, 16-18 bits: operations
+    SEL_ALU_INC = 1 << 15
+    SEL_ALU_DEC = 1 << 15 | 1 << 18
+    SEL_ALU_ADD = 1 << 15 | 1 << 17
+    SEL_ALU_SUB = 1 << 15 | 1 << 17 | 1 << 18
+    SEL_ALU_MUL = 1 << 15 | 1 << 16
+    SEL_ALU_DIV = 1 << 15 | 1 << 16 | 1 << 18
+    SEL_ALU_MOD = 1 << 15 | 1 << 16 | 1 << 17
 
-    SEL_DC_DEC = 1 << 21
-    SEL_DC_ACC = 1 << 21 | 1 << 22
+    SEL_DC_DEC = 1 << 19
+    SEL_DC_ACC = 1 << 19 | 1 << 20
 
-    SEL_CMP_ACC = 1 << 23
-    SEL_CMP_DC = 1 << 23 | 1 << 24
-
+    SEL_CMP_ACC = 1 << 21
+    SEL_CMP_DC = 1 << 21 | 1 << 22
 
     def __str__(self):
         return str(self.value)
 
 
-SIGNALS = {
-    LATCH_PM:
-}
-
-
 class DataPath:
     data_memory_size: int = None
     data_memory: list[int] = None
-    address_register: int = None
+    data_address: int = None
     buffer_register: int = None
+    ports: list[list[int]] = None
 
     def __init__(self, data_memory_size):
         assert data_memory_size > 0, "Data_memory size should be non-zero"
@@ -65,6 +58,33 @@ class DataPath:
         self.data_address = 0
         self.acc = 0
         self.buffer_register = 0
+        self.ports = [[0] * 256, [0] * 256]
 
-    def latch_address_register(self, sel_addr:):
-        self.address_register = addr
+    def sel_address_register(self, sel: Signal, addr: int):
+        assert sel in {Signal.SEL_AR_NEXT, Signal.SEL_AR_ADDR}, \
+            "internal error, incorrect selector: {}".format(sel)
+        if sel == Signal.SEL_AR_NEXT:
+            self.data_address += 1
+        elif sel == Signal.SEL_AR_ADDR:
+            assert addr > 0, "address register mustn't be negative"
+            self.data_address = addr
+
+    def latch_data_mem(self):
+        self.data_memory[self.data_address] = self.acc
+
+    def latch_buff(self):
+        self.buffer_register = self.acc
+
+    def sel_acc(self, sel: Signal, arg: int):
+        assert sel in {Signal.SEL_ACC_IO,
+                       Signal.SEL_ACC_VAL,
+                       Signal.SEL_ACC_DATA_MEM}, \
+            "internal error, incorrect selector: {}".format(sel)
+        if sel == Signal.SEL_ACC_IO:
+            self.acc = self.ports[arg].pop(0)
+        elif sel == Signal.SEL_ACC_VAL:
+            self.acc = arg
+        elif sel == Signal.SEL_ACC_DATA_MEM:
+            self.acc = self.data_memory[self.data_address]
+
+    def sel_alu
