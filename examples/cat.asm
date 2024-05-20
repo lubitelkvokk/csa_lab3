@@ -1,4 +1,5 @@
 section .data
+
 section .text
 _start:
     loop:

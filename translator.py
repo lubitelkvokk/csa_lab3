@@ -87,9 +87,10 @@ def translate_stage_2(data_labels: dict, text_labels: dict, code: list[dict]):
     for instruction in code:
         label = instruction['args']
 
-        if data_labels.get(label):
+        if label in data_labels:
             instruction['args'] = translated_data_labels[label]["addr"]
-        elif text_labels.get(label):
+        elif label in text_labels:
+
             instruction["args"] = text_labels[label]
     return code, translated_data_labels
 
@@ -115,6 +116,7 @@ def main(input_file, program_file, data_file):
         input_file = f.read()
 
     code, translated_data_labels = translate(input_file)
+
     write_code(program_file, code)
     write_data(data_file, translated_data_labels)
     print("source LoC:", len(input_file.split("\n")), "code instr:", len(code))
@@ -123,4 +125,5 @@ def main(input_file, program_file, data_file):
 if __name__ == "__main__":
     assert len(sys.argv) == 4, "Wrong arguments: translator_asm.py <input_file> <program_file> <data_file> "
     _, input_file, program_file, data_file = sys.argv
-    main(input_file, program_file, data_file)
+    # main(input_file, program_file, data_file)
+    main("examples/hello.asm", "program_file", "data_file")
