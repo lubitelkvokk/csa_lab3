@@ -3,7 +3,6 @@ from enum import Enum
 from isa import ProgramData
 
 
-
 class Signal(Enum):
     LATCH_PM = 1
     LATCH_OPCODE = 1 < 1
@@ -51,7 +50,9 @@ class Signal(Enum):
     def __str__(self):
         return str(self.value)
 
+
 mProgram = []
+
 
 def assert_sel_error(sel: Signal):
     return "internal error, incorrect selector: {}".format(sel)
@@ -177,4 +178,25 @@ class ControlUnit:
         self.mcProgram = mProgram
         self.pc = 0
 
-    def latch_pc(self, sel_pc):
+    def latch_pc(self, sel_pc: Signal):
+        assert sel_pc in {Signal.SEL_PC_NEXT,
+                          Signal.SEL_JMP,
+                          Signal.SEL_JGE,
+                          Signal.SEL_JZ}
+        assert_sel_error(sel_pc)
+        addr: int
+        if sel_pc == Signal.SEL_PC_NEXT:
+            addr = self.program_mem["args"] + 1
+        elif sel_pc == Signal.SEL_JMP:
+            addr = self.program_mem["args"]
+        elif sel_pc == Signal.SEL_JE:
+            if not (self.datapath.flag_lt or self.datapath.flag_gt):
+                addr = self.program_mem["args"]
+        elif sel_pc == Signal.SEL_JGE:
+            if self.datapath.flag_gt:
+                addr = self.program_mem["args"]
+        elif sel_pc == Signal.SEL_JZ:
+            if self.datapath.flag_zero:
+                addr = self.program_mem["args"]
+
+        self.pc = addr
