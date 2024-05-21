@@ -9,22 +9,25 @@ class Opcode(Enum):
     MUL = 0x02
     INC = 0x03
     DEC = 0x04
-    INPUT = 0x05
-    OUTPUT = 0x06
-    ST = 0x07
-    LD = 0x08
-    LDA = 0x09
-    READ = 0x0A
-    WRITE = 0x0B
-    SETCNT = 0x0C
-    SETADDR = 0x0D
-    CMP = 0x0E
-    CNTZ = 0x0F
-    JMP = 0x10
-    JZ = 0x11
-    JGE = 0x12
-    JE = 0x13
-    HLT = 0x14
+    DIV = 0x05
+    MOD = 0x06
+
+    INPUT = 0x07
+    OUTPUT = 0x08
+    ST = 0x09
+    LD = 0x0A
+    LDA = 0x0B
+    READ = 0x0C
+    WRITE = 0x0D
+    SETCNT = 0x0E
+    SETADDR = 0x0F
+    CMP = 0x10
+    CNTZ = 0x11
+    JMP = 0x12
+    JZ = 0x13
+    JGE = 0x14
+    JE = 0x15
+    HLT = 0x16
 
     def __str__(self):
         return str(self.value)
@@ -55,6 +58,8 @@ COMMANDS = {
     "mul": {"opcode": Opcode.MUL, "args_count": 1},
     "inc": {"opcode": Opcode.INC, "args_count": 0},
     "dec": {"opcode": Opcode.DEC, "args_count": 0},
+    "div": {"opcode": Opcode.DIV, "args_count": 1},
+    "mod": {"opcode": Opcode.MOD, "args_count": 1},
     "input": {"opcode": Opcode.INPUT, "args_count": 1},
     "output": {"opcode": Opcode.OUTPUT, "args_count": 1},
     "st": {"opcode": Opcode.ST, "args_count": 1},

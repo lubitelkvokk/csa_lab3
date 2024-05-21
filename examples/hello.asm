@@ -6,8 +6,7 @@ section .text
 _start:
     ld message_size
     setcnt
-    lda message
-    setaddr
+    ld message
     loop:
         read
         output 1

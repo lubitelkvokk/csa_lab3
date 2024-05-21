@@ -1,60 +1,78 @@
 section .data
-null: 0
-number1: 3
-number2: 5
-number_mul: 1
-result: 0
-count: 0
-bound: 1000
+    null: 0
+    number1: 3
+    number2: 5
+    number15: 15
+    result: 0
+    count: 0
+    bound: 1000
 
 section .text
+
 _start:
+    ; Инициализация
     ld null
-    loop1:
-        add number1
-        cmp bound
-        jge end_loop1
-        st result
-        ld count
-        inc
-        st count
-        ld result
-        jmp loop1
-
-    end_loop1:
+    st count
     ld null
+    st result
 
-    loop2:
-        add number2
-        cmp bound
-        jge end_loop2
-        st result
-        ld count
-        inc
-        st count
-        ld result
-        jmp loop2
+    ; Основной цикл
+main_loop:
+    ld result
+    inc
+    st result
 
-    end_loop2:
-    ld number1
-    mul number2
-    st number_mul
+    ; Проверка, что текущий результат <= 1000
+    ld result
+    cmp bound
+    jge end_loop
 
-    ld null
+    ; Проверка на делимость на 15
+    ld result
+    mod number15
+    cmp null
+    je div15_found
 
-    loop3:
-        add number_mul
-        cmp bound
-        jge end_loop3
-        st result
-        ld count
-        dec ; or sub 1
-        st count
-        ld result
-        jmp loop3
+    ; Проверка на делимость на 3
+    ld result
+    mod number1
+    cmp null
+    je div3_found
 
-    end_loop3:
+    ; Проверка на делимость на 5
+    ld result
+    mod number2
+    cmp null
+    je div5_found
+
+    ; Продолжаем основной цикл
+    jmp main_loop
+
+div15_found:
+    ; Уменьшить счетчик, так как число делится на 15
+    ld count
+    dec
+    st count
+    jmp main_loop
+
+div3_found:
+    ; Увеличить счетчик делителей для числа 3
+    ld count
+    inc
+    st count
+    jmp main_loop
+
+div5_found:
+    ; Увеличить счетчик делителей для числа 5
+    ld count
+    inc
+    st count
+    jmp main_loop
+
+end_loop:
+    ; Вывод результата
     ld count
     output 1
-    exit:
-        hlt
+
+exit:
+    hlt

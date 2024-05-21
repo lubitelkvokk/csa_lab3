@@ -31,9 +31,10 @@ def translate_stage_1(text: str):
         data.strip()
         if data:
             label_name, arg = data.split(":")
+
             if '"' in arg:
                 arg = arg.split('"')[1]
-            data_labels[label_name] = arg.strip()
+            data_labels[label_name.strip()] = arg.strip()
 
     text_labels = {}
     for line_num, raw_line in enumerate(textsec.splitlines(), 1):
@@ -87,7 +88,7 @@ def translate_stage_2(data_labels: dict, text_labels: dict, code: list[dict]):
     for instruction in code:
         label = instruction['args']
 
-        if label in data_labels:
+        if label.strip() in data_labels:
             instruction['args'] = translated_data_labels[label]["addr"]
         elif label in text_labels:
 
@@ -126,4 +127,4 @@ if __name__ == "__main__":
     assert len(sys.argv) == 4, "Wrong arguments: translator_asm.py <input_file> <program_file> <data_file> "
     _, input_file, program_file, data_file = sys.argv
     # main(input_file, program_file, data_file)
-    main("examples/hello.asm", "program_file", "data_file")
+    main("examples/prob1.asm", "program_file", "data_file")

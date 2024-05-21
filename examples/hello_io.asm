@@ -9,39 +9,40 @@ answer_end: "!"
 
 section .text
 _start:
-    lda message
-    setaddr
+
+
     ld message_size
     setcnt
+    ld message
     loop_print1:
         output 1
         read
         cntz
-        jz loop_read
+        jz end_loop_print1
         jmp loop_print1
 
-    lda answer
-    setaddr
+    end_loop_print1:
+      lda answer
+      setaddr
 
-    loop_read:
+    loop_write:
         input 0
         write
         cmp '\n'
-        je end_read
+        je end_write
         ld answer_size
         inc
         st answer_size
         lda answer
         add answer_size
         setaddr
-        jmp loop_read
+        jmp loop_write
 
-    end_read:
+    end_write:
 
-    lda hello
-    setaddr
     ld hello_size
     setcnt
+    ld hello
 
     loop_print2:
         read
@@ -51,10 +52,13 @@ _start:
         jmp loop_print2
 
     loop_print2_end:
-    lda answer_size
-    setaddr
-    ld answer
+
+
+
+
+    ld answer_size
     setcnt
+    ld answer
 
     loop_print3:
         read
