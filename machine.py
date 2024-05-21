@@ -1,5 +1,8 @@
 from enum import Enum
 
+from isa import ProgramData
+
+
 
 class Signal(Enum):
     LATCH_PM = 1
@@ -40,9 +43,15 @@ class Signal(Enum):
     SEL_CMP_ACC = 1 << 21
     SEL_CMP_DC = 1 << 21 | 1 << 22
 
+    SEL_JMP = 1 << 24
+    SEL_JZ = 1 << 24 | 1 << 26
+    SEL_JE = 1 << 24 | 1 << 25
+    SEL_JGE = 1 << 24 | 1 << 25 | 1 << 26
+
     def __str__(self):
         return str(self.value)
 
+mProgram = []
 
 def assert_sel_error(sel: Signal):
     return "internal error, incorrect selector: {}".format(sel)
@@ -67,9 +76,9 @@ class DataPath:
         self.acc = 0
         self.buff = 0
         self.ports = [[0] * 256, [0] * 256]
-        flag_zero = 0
-        flag_lt = 0
-        flag_gt = 0
+        flag_zero = False
+        flag_lt = False
+        flag_gt = False
         self.dc = 0
 
     def sel_address_register(self, sel: Signal, addr: int):
@@ -152,3 +161,20 @@ class DataPath:
             self.__compare(self.dc, value)
         elif sel == Signal.SEL_CMP_ACC:
             self.__compare(self.acc, value)
+
+
+class ControlUnit:
+    pc: int = None
+    program_mem = list[ProgramData]
+    mpc: int = None
+    mcProgram = None
+    datapath: DataPath = None
+
+    def __init__(self, program_mem: list[ProgramData], datapath: DataPath):
+        self.program_mem = program_mem
+        self.datapath = datapath
+        self.mpc = 0
+        self.mcProgram = mProgram
+        self.pc = 0
+
+    def latch_pc(self, sel_pc):
