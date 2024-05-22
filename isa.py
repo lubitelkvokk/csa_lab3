@@ -150,6 +150,14 @@ def read_code(filename: str) -> list[ProgramData]:
             arg_count = 0
 
         code.append(program_data)
+    code = [{
+        'addr': 0,
+        'cmd': {'opcode': Opcode.START, 'args_count': 1},
+        'args': 1
+    }] + code + [{
+        'addr': len(code),
+        'cmd': {'opcode': Opcode.HLT, 'args_count': 0}
+    }]
     return code
 
 # Пример использования:
