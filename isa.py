@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import TypedDict, Union
+from typing import TypedDict, Union, Optional
 
 WORD_SIZE = 4  # машинное слово 4 байта
 
@@ -29,6 +29,7 @@ class Opcode(Enum):
     CMP = 0x15
     CNTZ = 0x16
     HLT = 0x17
+
     def __str__(self):
         return str(self.value)
 
@@ -41,7 +42,7 @@ class Command(TypedDict):
 class ProgramData(TypedDict):
     addr: int
     cmd: Command
-    args: Union[int, str]
+    args: Optional[Union[int, str]]  # args может быть int, str или None
 
 
 class LabelUnit(TypedDict):
@@ -91,11 +92,13 @@ def write_code(filename: str, code: list[ProgramData]):
     with open(filename, "wb") as file:
         int_codes: list[int] = []
         for instr in code:
-            if type(instr["args"]) == int:
-                args = instr["args"]
-            elif type(instr["args"]) == str and instr["args"]:
-                args = ord(instr["args"])
-            int_code = (int(instr["cmd"]["opcode"].value) << 24) | (args & 0x00FFFFFF)
+            args = 0
+            if instr["cmd"]["args_count"]:
+                if type(instr["args"]) == int:
+                    args = instr["args"]
+                elif type(instr["args"]) == str and instr["args"]:
+                    args = ord(instr["args"])
+            int_code = (int(instr["cmd"]["opcode"].value) << 24) | args
             int_codes.append(int_code)
         for x in int_codes:
             file.write(int_to_bytes(x))
@@ -105,8 +108,8 @@ def write_data(filename: str, data_labels: DataMemory):
     with open(filename, "wb") as file:
         for label in data_labels.keys():
             for chunk in data_labels[label]["arg"]:
-                if type(chunk) == int:
-                    arg = chunk
+                if chunk.isdigit():
+                    arg = int(chunk)
                 elif type(chunk) == str and chunk:
                     arg = ord(chunk)
                 file.write(int_to_bytes(arg))
@@ -132,15 +135,20 @@ def read_code(filename: str) -> list[ProgramData]:
         args = i & 0x00FFFFFF
         if opcode in {Opcode.INPUT, Opcode.OUTPUT, Opcode.ST, Opcode.LD, Opcode.LDA, Opcode.CMP, Opcode.JMP, Opcode.JZ,
                       Opcode.JE, Opcode.JGE}:
-            args = chr(args)
+            # args = chr(args)
             arg_count = 1
+            program_data: ProgramData = {
+                'addr': pc,
+                'cmd': {'opcode': opcode, 'args_count': arg_count},
+                'args': args
+            }
         else:
+            program_data: ProgramData = {
+                'addr': pc,
+                'cmd': {'opcode': opcode, 'args_count': arg_count}
+            }
             arg_count = 0
-        program_data: ProgramData = {
-            'addr': pc,
-            'cmd': {'opcode': opcode, 'args_count': arg_count},
-            'args': args
-        }
+
         code.append(program_data)
     return code
 

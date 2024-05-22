@@ -5,7 +5,7 @@
 import sys
 import re
 
-from isa import Opcode, COMMANDS, WORD_SIZE, write_code, write_data
+from isa import Opcode, COMMANDS, WORD_SIZE, write_code, write_data, ProgramData
 
 TEXT_ADDR = 0
 DATA_ADDR = 0
@@ -49,6 +49,7 @@ def translate_stage_1(text: str):
             arg = ''
             if len(token) == 1:
                 cmd = token[0]
+                code.append({"addr": pc, "cmd": COMMANDS[cmd]})
             else:
                 cmd = token[0]
                 arg = token[1]
@@ -56,7 +57,8 @@ def translate_stage_1(text: str):
                     arg = arg.replace("'", "")
                     arg = arg.replace("\\n", '\n')
 
-            code.append({"addr": pc, "cmd": COMMANDS[cmd], "args": arg})
+                code.append({"addr": pc, "cmd": COMMANDS[cmd],
+                             "args": arg})
 
     return data_labels, text_labels, code
 
@@ -79,20 +81,22 @@ def translate_data_labels_to_addr(data_labels: dict[str]):
     return translated_data_labels
 
 
-def translate_stage_2(data_labels: dict, text_labels: dict, code: list[dict]):
+def translate_stage_2(data_labels: dict, text_labels: dict, code: list[ProgramData]):
     """Второй проход транслятора. В уже определённые инструкции подставляются
     адреса меток."""
 
     translated_data_labels = translate_data_labels_to_addr(data_labels)
 
     for instruction in code:
-        label = instruction['args']
+        if instruction['cmd']['args_count']:
+            label = instruction['args']
+            if label.isdigit():
+                instruction["args"] = int(label)
+            elif label.strip() in data_labels:
+                instruction['args'] = translated_data_labels[label]["addr"]
+            elif label in text_labels:
+                instruction["args"] = text_labels[label]
 
-        if label.strip() in data_labels:
-            instruction['args'] = translated_data_labels[label]["addr"]
-        elif label in text_labels:
-
-            instruction["args"] = text_labels[label]
     return code, translated_data_labels
 
 
@@ -117,7 +121,8 @@ def main(input_file, program_file, data_file):
         input_file = f.read()
 
     code, translated_data_labels = translate(input_file)
-
+    # for i in code:
+    #     print(i)
     write_code(program_file, code)
     write_data(data_file, translated_data_labels)
     print("source LoC:", len(input_file.split("\n")), "code instr:", len(code))
@@ -127,4 +132,4 @@ if __name__ == "__main__":
     assert len(sys.argv) == 4, "Wrong arguments: translator_asm.py <input_file> <program_file> <data_file> "
     _, input_file, program_file, data_file = sys.argv
     # main(input_file, program_file, data_file)
-    main("examples/prob1.asm", "program_file", "data_file")
+    main("examples/hello.asm", "program_file", "data_file")
