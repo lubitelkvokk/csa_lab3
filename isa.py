@@ -107,12 +107,14 @@ def write_code(filename: str, code: list[ProgramData]):
 def write_data(filename: str, data_labels: DataMemory):
     with open(filename, "wb") as file:
         for label in data_labels.keys():
-            for chunk in data_labels[label]["arg"]:
-                if chunk.isdigit():
-                    arg = int(chunk)
-                elif type(chunk) == str and chunk:
-                    arg = ord(chunk)
+            if data_labels[label]["arg"].isdigit():
+                arg = int(data_labels[label]["arg"])
                 file.write(int_to_bytes(arg))
+            else:
+                for chunk in data_labels[label]["arg"]:
+                    if chunk:
+                        arg = ord(chunk)
+                        file.write(int_to_bytes(arg))
 
 
 def read_data(filename: str) -> list[int]:
@@ -145,19 +147,11 @@ def read_code(filename: str) -> list[ProgramData]:
         else:
             program_data: ProgramData = {
                 'addr': pc,
-                'cmd': {'opcode': opcode, 'args_count': arg_count}
+                'cmd': {'opcode': opcode, 'args_count': 0}
             }
             arg_count = 0
 
         code.append(program_data)
-    code = [{
-        'addr': 0,
-        'cmd': {'opcode': Opcode.START, 'args_count': 1},
-        'args': 1
-    }] + code + [{
-        'addr': len(code),
-        'cmd': {'opcode': Opcode.HLT, 'args_count': 0}
-    }]
     return code
 
 # Пример использования:

@@ -38,13 +38,15 @@ class DataPath:
         self.dc = 0
 
     def sel_address_register(self, sel: Signal, addr: int = None):
-        assert sel in {Signal.SEL_AR_NEXT, Signal.SEL_AR_ADDR}, \
+        assert sel in {Signal.SEL_AR_NEXT, Signal.SEL_AR_ADDR, Signal.SEL_AR_ACC}, \
             assert_sel_error(sel)
         if sel == Signal.SEL_AR_NEXT:
             self.data_address += 1
         elif sel == Signal.SEL_AR_ADDR:
-            assert addr > 0, "address register mustn't be negative"
+            assert addr >= 0, "address register mustn't be negative"
             self.data_address = addr
+        elif sel == Signal.SEL_AR_ACC:
+            self.data_address = self.acc
 
     def latch_data_mem(self):
         self.data_memory[self.data_address] = self.acc
@@ -150,9 +152,9 @@ class ControlUnit:
                           Signal.SEL_JGE,
                           Signal.SEL_JZ}, \
             assert_sel_error(sel_pc)
-        addr: int = self.program_mem[self.pc]["args"] + 1
+        addr: int = self.pc + 1
         if sel_pc == Signal.SEL_PC_NEXT:
-            addr = self.program_mem[self.pc]["args"] + 1
+            addr = self.pc + 1
         elif sel_pc == Signal.SEL_JMP:
             addr = self.program_mem[self.pc]["args"]
         elif sel_pc == Signal.SEL_JE:
@@ -168,84 +170,93 @@ class ControlUnit:
 
     def sel_mpc(self, sel: Signal):
         assert sel in {Signal.SEL_MPC_OPC,
-                       Signal.SEL_MPC_ZERO}, assert_sel_error(sel)
+                       Signal.SEL_MPC_ZERO,
+                       Signal.SEL_MPC_INC}, assert_sel_error(sel)
         if sel == Signal.SEL_MPC_ZERO:
             self.mpc = 0
         elif sel == Signal.SEL_MPC_OPC:
             self.mpc = microprogram_addresses[
                 self.program_mem[self.pc]["cmd"]["opcode"]]
+        elif sel == Signal.SEL_MPC_INC:
+            self.mpc += 1
 
-def exec_mp(self):
-    arg = self.program_mem[self.pc].get("args", None)
-    microinstruction_count = microprogram_lengths[self.program_mem[self.pc]["cmd"]["opcode"]]
+    def exec_mp(self):
+        arg = self.program_mem[self.pc].get("args", None)
+        microinstruction_count = microprogram_lengths[self.program_mem[self.pc]["cmd"]["opcode"]]
+        opcode = self.program_mem[self.pc]["cmd"]["opcode"]
+        for _ in range(microinstruction_count):
+            microinstruction = microinstructions[self.mpc]
 
-    for _ in range(microinstruction_count):
-        microinstruction = microinstructions[self.mpc]
+            if (microinstruction & Signal.SEL_MPC_OPC.value) == Signal.SEL_MPC_OPC.value:
+                self.sel_mpc(Signal.SEL_MPC_OPC)
+            elif (microinstruction & Signal.SEL_MPC_ZERO.value) == Signal.SEL_MPC_ZERO.value:
+                self.sel_mpc(Signal.SEL_MPC_ZERO)
+            elif (microinstruction & Signal.SEL_MPC_INC.value) == Signal.SEL_MPC_INC.value:
+                self.sel_mpc(Signal.SEL_MPC_INC)
 
-        if (microinstruction & Signal.SEL_MPC_OPC.value) == Signal.SEL_MPC_OPC.value:
-            self.sel_mpc(Signal.SEL_MPC_OPC)
-        elif (microinstruction & Signal.SEL_MPC_ZERO.value) == Signal.SEL_MPC_ZERO.value:
-            self.sel_mpc(Signal.SEL_MPC_ZERO)
+            if (microinstruction & Signal.SEL_AR_ADDR.value) == Signal.SEL_AR_ADDR.value:
+                self.datapath.sel_address_register(Signal.SEL_AR_ADDR, arg)
+            elif (microinstruction & Signal.SEL_AR_ACC.value) == Signal.SEL_AR_ACC.value:
+                self.datapath.sel_address_register(Signal.SEL_AR_ACC)
+            elif (microinstruction & Signal.SEL_AR_NEXT.value) == Signal.SEL_AR_NEXT.value:
+                self.datapath.sel_address_register(Signal.SEL_AR_NEXT)
 
-        if (microinstruction & Signal.SEL_JE.value) == Signal.SEL_JE.value:
-            self.sel_pc(Signal.SEL_JE)
-        elif (microinstruction & Signal.SEL_JGE.value) == Signal.SEL_JGE.value:
-            self.sel_pc(Signal.SEL_JGE)
-        elif (microinstruction & Signal.SEL_JZ.value) == Signal.SEL_JZ.value:
-            self.sel_pc(Signal.SEL_JZ)
-        elif (microinstruction & Signal.SEL_JMP.value) == Signal.SEL_JMP.value:
-            self.sel_pc(Signal.SEL_JMP)
-        elif (microinstruction & Signal.SEL_PC_NEXT.value) == Signal.SEL_PC_NEXT.value:
-            self.sel_pc(Signal.SEL_PC_NEXT)
+            if (microinstruction & Signal.LATCH_DATA_MEM.value) == Signal.LATCH_DATA_MEM.value:
+                self.datapath.latch_data_mem()
 
-        if (microinstruction & Signal.SEL_AR_ADDR.value) == Signal.SEL_AR_ADDR.value:
-            self.datapath.sel_address_register(Signal.SEL_AR_ADDR, arg)
-        elif (microinstruction & Signal.SEL_AR_NEXT.value) == Signal.SEL_AR_NEXT.value:
-            self.datapath.sel_address_register(Signal.SEL_AR_NEXT)
+            if (microinstruction & Signal.SEL_ACC_VAL.value) == Signal.SEL_ACC_VAL.value:
+                self.datapath.sel_acc(Signal.SEL_ACC_VAL, arg)
+            elif (microinstruction & Signal.SEL_ACC_IO.value) == Signal.SEL_ACC_IO.value:
+                self.datapath.sel_acc(Signal.SEL_ACC_IO, arg)
+            elif (microinstruction & Signal.SEL_ACC_DATA_MEM.value) == Signal.SEL_ACC_DATA_MEM.value:
+                self.datapath.sel_acc(Signal.SEL_ACC_DATA_MEM)
 
-        if (microinstruction & Signal.LATCH_DATA_MEM.value) == Signal.LATCH_DATA_MEM.value:
-            self.datapath.latch_data_mem()
+            if (microinstruction & Signal.LATCH_WRITE_IO.value) == Signal.LATCH_WRITE_IO.value:
+                self.datapath.latch_write_io(self.program_mem[self.pc]["args"])
+            if (microinstruction & Signal.LATCH_BUFF.value) == Signal.LATCH_BUFF.value:
+                self.datapath.latch_buff()
 
-        if (microinstruction & Signal.SEL_ACC_VAL.value) == Signal.SEL_ACC_VAL.value:
-            self.datapath.sel_acc(Signal.SEL_ACC_VAL, arg)
-        elif (microinstruction & Signal.SEL_ACC_IO.value) == Signal.SEL_ACC_IO.value:
-            self.datapath.sel_acc(Signal.SEL_ACC_IO, arg)
-        elif (microinstruction & Signal.SEL_ACC_DATA_MEM.value) == Signal.SEL_ACC_DATA_MEM.value:
-            self.datapath.sel_acc(Signal.SEL_ACC_DATA_MEM)
+            if (microinstruction & Signal.SEL_ALU_MOD.value) == Signal.SEL_ALU_MOD.value:
+                self.datapath.sel_alu(Signal.SEL_ALU_MOD)
+            elif (microinstruction & Signal.SEL_ALU_DIV.value) == Signal.SEL_ALU_DIV.value:
+                self.datapath.sel_alu(Signal.SEL_ALU_DIV)
+            elif (microinstruction & Signal.SEL_ALU_MUL.value) == Signal.SEL_ALU_MUL.value:
+                self.datapath.sel_alu(Signal.SEL_ALU_MUL)
+            elif (microinstruction & Signal.SEL_ALU_SUB.value) == Signal.SEL_ALU_SUB.value:
+                self.datapath.sel_alu(Signal.SEL_ALU_SUB)
+            elif (microinstruction & Signal.SEL_ALU_ADD.value) == Signal.SEL_ALU_ADD.value:
+                self.datapath.sel_alu(Signal.SEL_ALU_ADD)
+            elif (microinstruction & Signal.SEL_ALU_DEC.value) == Signal.SEL_ALU_DEC.value:
+                self.datapath.sel_alu(Signal.SEL_ALU_DEC)
+            elif (microinstruction & Signal.SEL_ALU_INC.value) == Signal.SEL_ALU_INC.value:
+                self.datapath.sel_alu(Signal.SEL_ALU_INC)
 
-        if (microinstruction & Signal.LATCH_WRITE_IO.value) == Signal.LATCH_WRITE_IO.value:
-            self.datapath.latch_write_io(self.program_mem[self.pc]["args"])
-        if (microinstruction & Signal.LATCH_BUFF.value) == Signal.LATCH_BUFF.value:
-            self.datapath.latch_buff()
+            if (microinstruction & Signal.SEL_DC_ACC.value) == Signal.SEL_DC_ACC.value:
+                self.datapath.sel_dc(Signal.SEL_DC_ACC)
+            elif (microinstruction & Signal.SEL_DC_DEC.value) == Signal.SEL_DC_DEC.value:
+                self.datapath.sel_dc(Signal.SEL_DC_DEC)
 
-        if (microinstruction & Signal.SEL_ALU_MOD.value) == Signal.SEL_ALU_MOD.value:
-            self.datapath.sel_alu(Signal.SEL_ALU_MOD)
-        elif (microinstruction & Signal.SEL_ALU_DIV.value) == Signal.SEL_ALU_DIV.value:
-            self.datapath.sel_alu(Signal.SEL_ALU_DIV)
-        elif (microinstruction & Signal.SEL_ALU_MUL.value) == Signal.SEL_ALU_MUL.value:
-            self.datapath.sel_alu(Signal.SEL_ALU_MUL)
-        elif (microinstruction & Signal.SEL_ALU_SUB.value) == Signal.SEL_ALU_SUB.value:
-            self.datapath.sel_alu(Signal.SEL_ALU_SUB)
-        elif (microinstruction & Signal.SEL_ALU_ADD.value) == Signal.SEL_ALU_ADD.value:
-            self.datapath.sel_alu(Signal.SEL_ALU_ADD)
-        elif (microinstruction & Signal.SEL_ALU_DEC.value) == Signal.SEL_ALU_DEC.value:
-            self.datapath.sel_alu(Signal.SEL_ALU_DEC)
-        elif (microinstruction & Signal.SEL_ALU_INC.value) == Signal.SEL_ALU_INC.value:
-            self.datapath.sel_alu(Signal.SEL_ALU_INC)
+            if (microinstruction & Signal.SEL_CMP_DC.value) == Signal.SEL_CMP_DC.value:
+                self.datapath.sel_cmp(Signal.SEL_CMP_DC, arg)
+            elif (microinstruction & Signal.SEL_CMP_ACC.value) == Signal.SEL_CMP_ACC.value:
+                self.datapath.sel_cmp(Signal.SEL_CMP_ACC, arg)
 
-        if (microinstruction & Signal.SEL_DC_ACC.value) == Signal.SEL_DC_ACC.value:
-            self.datapath.sel_dc(Signal.SEL_DC_ACC)
-        elif (microinstruction & Signal.SEL_DC_DEC.value) == Signal.SEL_DC_DEC.value:
-            self.datapath.sel_dc(Signal.SEL_DC_DEC)
+            if (microinstruction & Signal.SEL_JE.value) == Signal.SEL_JE.value:
+                self.sel_pc(Signal.SEL_JE)
+            elif (microinstruction & Signal.SEL_JGE.value) == Signal.SEL_JGE.value:
+                self.sel_pc(Signal.SEL_JGE)
+            elif (microinstruction & Signal.SEL_JZ.value) == Signal.SEL_JZ.value:
+                self.sel_pc(Signal.SEL_JZ)
+            elif (microinstruction & Signal.SEL_JMP.value) == Signal.SEL_JMP.value:
+                self.sel_pc(Signal.SEL_JMP)
+            elif (microinstruction & Signal.SEL_PC_NEXT.value) == Signal.SEL_PC_NEXT.value:
+                self.sel_pc(Signal.SEL_PC_NEXT)
 
-        if (microinstruction & Signal.SEL_CMP_DC.value) == Signal.SEL_CMP_DC.value:
-            self.datapath.sel_cmp(Signal.SEL_CMP_DC, arg)
-        elif (microinstruction & Signal.SEL_CMP_ACC.value) == Signal.SEL_CMP_ACC.value:
-            self.datapath.sel_cmp(Signal.SEL_CMP_ACC, arg)
-
-        self.mpc += 1
-        if self.mpc >= microprogram_addresses[self.program_mem[self.pc]["cmd"]["opcode"]] + microprogram_lengths[self.program_mem[self.pc]["cmd"]["opcode"]]:
-            self.mpc = 0
+            self.sel_mpc(Signal.SEL_MPC_INC)
+            self.tick()
+            if self.mpc >= microprogram_addresses[self.program_mem[self.pc]["cmd"]["opcode"]] \
+                    + microprogram_lengths[self.program_mem[self.pc]["cmd"]["opcode"]]:
+                self.mpc = 0
 
     def __repr__(self):
         state_repr = "TICK: {:3} PC: {:3} ADDR: {:3} MEM_OUT: {} ACC: {}".format(

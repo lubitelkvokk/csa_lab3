@@ -111,7 +111,6 @@ def translate(text):
     """
     data_labels, text_labels, code = translate_stage_1(text)
     code, translated_data_labels = translate_stage_2(data_labels, text_labels, code)
-
     return code, translated_data_labels
 
 

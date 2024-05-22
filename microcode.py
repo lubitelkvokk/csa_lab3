@@ -8,41 +8,43 @@ class Signal(Enum):
 
     SEL_MPC_ZERO = 1 << 1
     SEL_MPC_OPC = 1 << 1 | 1 << 2
+    SEL_MPC_INC = 1 << 1 | 1 << 3
 
-    LATCH_MC = 1 << 3
+    LATCH_MC = 1 << 4
 
-    SEL_PC_NEXT = 1 << 4
-    SEL_JMP = 1 << 4 | 1 << 7
-    SEL_JZ = 1 << 4 | 1 << 6
-    SEL_JE = 1 << 4 | 1 << 6 | 1 << 7
-    SEL_JGE = 1 << 4 | 1 << 5
+    SEL_PC_NEXT = 1 << 5
+    SEL_JMP = 1 << 5 | 1 << 8
+    SEL_JZ = 1 << 5 | 1 << 7
+    SEL_JE = 1 << 5 | 1 << 7 | 1 << 8
+    SEL_JGE = 1 << 5 | 1 << 6
 
-    SEL_AR_NEXT = 1 << 8
-    SEL_AR_ADDR = 1 << 8 | 1 << 9
+    SEL_AR_NEXT = 1 << 9
+    SEL_AR_ADDR = 1 << 9 | 1 << 11
+    SEL_AR_ACC = 1 << 9 | 1 << 10
 
-    LATCH_DATA_MEM = 1 << 10
+    LATCH_DATA_MEM = 1 << 12
 
-    SEL_ACC_DATA_MEM = 1 << 11
-    SEL_ACC_IO = 1 << 11 | 1 << 13
-    SEL_ACC_VAL = 1 << 11 | 1 << 12
+    SEL_ACC_DATA_MEM = 1 << 13
+    SEL_ACC_IO = 1 << 13 | 1 << 15
+    SEL_ACC_VAL = 1 << 13 | 1 << 14
 
-    LATCH_WRITE_IO = 1 << 14
-    LATCH_BUFF = 1 << 15
+    LATCH_WRITE_IO = 1 << 16
+    LATCH_BUFF = 1 << 17
 
-    # 15 bit: flag, 16-18 bits: operations
-    SEL_ALU_INC = 1 << 16
-    SEL_ALU_DEC = 1 << 16 | 1 << 19
-    SEL_ALU_ADD = 1 << 16 | 1 << 18
-    SEL_ALU_SUB = 1 << 16 | 1 << 18 | 1 << 19
-    SEL_ALU_MUL = 1 << 16 | 1 << 17
-    SEL_ALU_DIV = 1 << 16 | 1 << 17 | 1 << 19
-    SEL_ALU_MOD = 1 << 16 | 1 << 17 | 1 << 18
+    # 17 bit: flag, 18-20 bits: operations
+    SEL_ALU_INC = 1 << 18
+    SEL_ALU_DEC = 1 << 18 | 1 << 21
+    SEL_ALU_ADD = 1 << 18 | 1 << 20
+    SEL_ALU_SUB = 1 << 18 | 1 << 20 | 1 << 21
+    SEL_ALU_MUL = 1 << 18 | 1 << 19
+    SEL_ALU_DIV = 1 << 18 | 1 << 19 | 1 << 21
+    SEL_ALU_MOD = 1 << 18 | 1 << 19 | 1 << 20
 
-    SEL_DC_DEC = 1 << 20
-    SEL_DC_ACC = 1 << 20 | 1 << 21
+    SEL_DC_DEC = 1 << 22
+    SEL_DC_ACC = 1 << 22 | 1 << 23
 
-    SEL_CMP_ACC = 1 << 22
-    SEL_CMP_DC = 1 << 22 | 1 << 23
+    SEL_CMP_ACC = 1 << 24
+    SEL_CMP_DC = 1 << 24 | 1 << 25
 
     def __str__(self):
         return str(self.value)
@@ -50,9 +52,6 @@ class Signal(Enum):
 
 # Объединенные микроинструкции
 microinstructions = [
-    # start
-    Signal.SEL_MPC_ZERO.value | Signal.LATCH_MC.value | Signal.SEL_PC_NEXT.value,  # latch_mpc_zero, latch_mc, sel_pc
-
     # ld
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.SEL_AR_ADDR.value | Signal.LATCH_PM.value,  # sel_ar_addr, latch_addr
@@ -83,7 +82,7 @@ microinstructions = [
 
     # setaddr
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
-    Signal.SEL_AR_ADDR.value | Signal.SEL_PC_NEXT.value,  # sel_ar_addr, sel_pc_next
+    Signal.SEL_AR_ACC.value | Signal.SEL_PC_NEXT.value,  # sel_ar_addr, sel_pc_next
 
     # jmp
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
@@ -157,34 +156,33 @@ microinstructions = [
 ]
 
 # Словарь сопоставления Opcode к адресу в массиве микроинструкций
+# Словарь сопоставления Opcode к адресу в массиве микроинструкций
 microprogram_addresses = {
-    Opcode.START: 0,
-    Opcode.LD: 1,
-    Opcode.ST: 4,
-    Opcode.LDA: 7,
-    Opcode.WRITE: 9,
-    Opcode.READ: 12,
-    Opcode.SETCNT: 15,
-    Opcode.SETADDR: 17,
-    Opcode.JMP: 19,
-    Opcode.JZ: 21,
-    Opcode.JGE: 23,
-    Opcode.JE: 25,
-    Opcode.INC: 27,
-    Opcode.DEC: 29,
-    Opcode.OUTPUT: 31,
-    Opcode.INPUT: 33,
-    Opcode.ADD: 35,
-    Opcode.SUB: 38,
-    Opcode.MUL: 41,
-    Opcode.DIV: 44,
-    Opcode.MOD: 47,
-    Opcode.CMP: 50,
-    Opcode.CNTZ: 52,
+    Opcode.LD: 0,
+    Opcode.ST: 3,
+    Opcode.LDA: 6,
+    Opcode.WRITE: 8,
+    Opcode.READ: 11,
+    Opcode.SETCNT: 14,
+    Opcode.SETADDR: 16,
+    Opcode.JMP: 18,
+    Opcode.JZ: 20,
+    Opcode.JGE: 22,
+    Opcode.JE: 24,
+    Opcode.INC: 26,
+    Opcode.DEC: 28,
+    Opcode.OUTPUT: 30,
+    Opcode.INPUT: 32,
+    Opcode.ADD: 34,
+    Opcode.SUB: 37,
+    Opcode.MUL: 40,
+    Opcode.DIV: 43,
+    Opcode.MOD: 46,
+    Opcode.CMP: 49,
+    Opcode.CNTZ: 51,
 }
 
 microprogram_lengths = {
-    Opcode.START: 1,
     Opcode.LD: 3,
     Opcode.ST: 3,
     Opcode.LDA: 2,
