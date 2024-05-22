@@ -13,7 +13,8 @@ _start:
 
     ld message_size
     setcnt
-    ld message
+    lda message
+    setaddr
     loop_print1:
         output 1
         read
@@ -42,8 +43,8 @@ _start:
 
     ld hello_size
     setcnt
-    ld hello
-
+    lda hello
+    setaddr
     loop_print2:
         read
         output 1
@@ -53,13 +54,10 @@ _start:
 
     loop_print2_end:
 
-
-
-
     ld answer_size
     setcnt
-    ld answer
-
+    lda answer
+    setaddr
     loop_print3:
         read
         output 1
