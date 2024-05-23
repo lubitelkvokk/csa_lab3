@@ -12,15 +12,18 @@ main_loop:
     cmp 1000
     jge end_loop
 
+    mod15:
     mod 15
     cmp 0
     je div15_found
 
+    mod3:
     ld result
     mod 3
     cmp 0
     je div3_found
 
+    mod5:
     ld result
     mod 5
     cmp 0
@@ -32,13 +35,13 @@ div15_found:
     ld count
     dec
     st count
-    jmp main_loop
+    jmp mod3
 
 div3_found:
     ld count
     inc
     st count
-    jmp main_loop
+    jmp mod5
 
 div5_found:
     ld count

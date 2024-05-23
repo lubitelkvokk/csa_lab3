@@ -8,8 +8,8 @@ from microcode import *
 import logging
 
 # Настройка базовой конфигурации для logging
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s - %(levelname)s - %(message)s')
+# logging.basicConfig(level=logging.DEBUG)
+
 
 def assert_sel_error(sel: Signal):
     return "internal error, incorrect selector: {}".format(sel)
@@ -223,7 +223,6 @@ class ControlUnit:
             if (microinstruction & Signal.LATCH_WRITE_IO.value) == Signal.LATCH_WRITE_IO.value:
                 self.datapath.latch_write_io(self.program_mem[self.pc]["args"])
 
-
             if (microinstruction & Signal.SEL_ALU_MOD.value) == Signal.SEL_ALU_MOD.value:
                 self.datapath.sel_alu(Signal.SEL_ALU_MOD)
             elif (microinstruction & Signal.SEL_ALU_DIV.value) == Signal.SEL_ALU_DIV.value:
@@ -287,8 +286,7 @@ class ControlUnit:
         opcode_name = Opcode(instr["cmd"]["opcode"]).name
         instr_repr = f"{opcode_name} {instr.get('args', '')}"
 
-        return f"{state_repr} \t{instr_repr}"
-
+        return f"\n{state_repr} \t{instr_repr}"
 
 
 def simulation(code: list[ProgramData], data: list[int],
@@ -297,7 +295,7 @@ def simulation(code: list[ProgramData], data: list[int],
     control_unit = ControlUnit(code, data_path)
     instr_counter = 0
 
-
+    logging.debug("%s", control_unit)
     try:
         while instr_counter < limit:
             control_unit.exec_mp()
@@ -311,7 +309,6 @@ def simulation(code: list[ProgramData], data: list[int],
 
     if instr_counter >= limit:
         logging.warning("Limit exceeded!")
-
 
     output_buffer_1 = "".join(data_path.ports[1])
     logging.info("output_buffer: %s", repr(output_buffer_1))
@@ -328,7 +325,7 @@ def main(code_file, data_file, input_file):
         for char in input_text:
             input_token.append(char)
 
-    output, instr_counter, ticks = simulation(code, data, input_token, 1000)
+    output, instr_counter, ticks = simulation(code, data, input_token, 100000)
 
     print("".join(output))
     print("ticks:", ticks)
