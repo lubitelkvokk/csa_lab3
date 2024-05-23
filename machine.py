@@ -3,7 +3,7 @@ import sys
 from enum import Enum
 from typing import Union
 
-from isa import ProgramData, read_code, read_data, DataMemory
+from isa import ProgramData, read_code, read_data, DataMemory, WORD_SIZE
 from microcode import *
 
 
@@ -44,9 +44,9 @@ class DataPath:
             self.data_address += 1
         elif sel == Signal.SEL_AR_ADDR:
             assert addr >= 0, "address register mustn't be negative"
-            self.data_address = addr
+            self.data_address = addr // WORD_SIZE
         elif sel == Signal.SEL_AR_ACC:
-            self.data_address = self.acc
+            self.data_address = self.acc // WORD_SIZE
 
     def latch_data_mem(self):
         self.data_memory[self.data_address] = self.acc
@@ -121,7 +121,7 @@ class DataPath:
             self.__compare(self.acc, value)
 
     def latch_write_io(self, arg: int):
-        self.ports[arg].append(self.acc)
+        self.ports[arg].append(chr(self.acc))
 
 
 class ControlUnit:
@@ -184,15 +184,16 @@ class ControlUnit:
         arg = self.program_mem[self.pc].get("args", None)
         microinstruction_count = microprogram_lengths[self.program_mem[self.pc]["cmd"]["opcode"]]
         opcode = self.program_mem[self.pc]["cmd"]["opcode"]
+        self.sel_mpc(Signal.SEL_MPC_OPC)
         for _ in range(microinstruction_count):
             microinstruction = microinstructions[self.mpc]
 
-            if (microinstruction & Signal.SEL_MPC_OPC.value) == Signal.SEL_MPC_OPC.value:
-                self.sel_mpc(Signal.SEL_MPC_OPC)
-            elif (microinstruction & Signal.SEL_MPC_ZERO.value) == Signal.SEL_MPC_ZERO.value:
-                self.sel_mpc(Signal.SEL_MPC_ZERO)
-            elif (microinstruction & Signal.SEL_MPC_INC.value) == Signal.SEL_MPC_INC.value:
-                self.sel_mpc(Signal.SEL_MPC_INC)
+            # if (microinstruction & Signal.SEL_MPC_OPC.value) == Signal.SEL_MPC_OPC.value:
+            #     self.sel_mpc(Signal.SEL_MPC_OPC)
+            # elif (microinstruction & Signal.SEL_MPC_ZERO.value) == Signal.SEL_MPC_ZERO.value:
+            #     self.sel_mpc(Signal.SEL_MPC_ZERO)
+            # elif (microinstruction & Signal.SEL_MPC_INC.value) == Signal.SEL_MPC_INC.value:
+            #     self.sel_mpc(Signal.SEL_MPC_INC)
 
             if (microinstruction & Signal.SEL_AR_ADDR.value) == Signal.SEL_AR_ADDR.value:
                 self.datapath.sel_address_register(Signal.SEL_AR_ADDR, arg)
@@ -237,7 +238,7 @@ class ControlUnit:
                 self.datapath.sel_dc(Signal.SEL_DC_DEC)
 
             if (microinstruction & Signal.SEL_CMP_DC.value) == Signal.SEL_CMP_DC.value:
-                self.datapath.sel_cmp(Signal.SEL_CMP_DC, arg)
+                self.datapath.sel_cmp(Signal.SEL_CMP_DC, 0)
             elif (microinstruction & Signal.SEL_CMP_ACC.value) == Signal.SEL_CMP_ACC.value:
                 self.datapath.sel_cmp(Signal.SEL_CMP_ACC, arg)
 
@@ -252,10 +253,13 @@ class ControlUnit:
             elif (microinstruction & Signal.SEL_PC_NEXT.value) == Signal.SEL_PC_NEXT.value:
                 self.sel_pc(Signal.SEL_PC_NEXT)
 
+            if (microinstruction & Signal.HLT.value) == Signal.HLT.value:
+                raise StopIteration()
+
             self.sel_mpc(Signal.SEL_MPC_INC)
             self.tick()
-            if self.mpc >= microprogram_addresses[self.program_mem[self.pc]["cmd"]["opcode"]] \
-                    + microprogram_lengths[self.program_mem[self.pc]["cmd"]["opcode"]]:
+            if self.mpc >= microprogram_addresses[opcode] \
+                    + microprogram_lengths[opcode]:
                 self.mpc = 0
 
     def __repr__(self):
@@ -296,8 +300,12 @@ def simulation(code: list[ProgramData], data: list[int],
 
     if instr_counter >= limit:
         logging.warning("Limit exceeded!")
-    logging.info("output_buffer: %s", repr("".join(*data_path.ports[0])))
-    return "".join(*data_path.ports[1]), instr_counter, control_unit.current_tick()
+
+
+    output_buffer_1 = "".join(data_path.ports[1])
+    logging.info("output_buffer: %s", repr(output_buffer_1))
+
+    return output_buffer_1, instr_counter, control_unit.current_tick()
 
 
 def main(code_file, data_file, input_file):
