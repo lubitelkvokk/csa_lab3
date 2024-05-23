@@ -1,4 +1,3 @@
-import logging
 import sys
 from enum import Enum
 from typing import Union
@@ -6,6 +5,11 @@ from typing import Union
 from isa import ProgramData, read_code, read_data, DataMemory, WORD_SIZE
 from microcode import *
 
+import logging
+
+# Настройка базовой конфигурации для logging
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 def assert_sel_error(sel: Signal):
     return "internal error, incorrect selector: {}".format(sel)
@@ -60,7 +64,7 @@ class DataPath:
                        Signal.SEL_ACC_DATA_MEM}, \
             assert_sel_error(sel)
         if sel == Signal.SEL_ACC_IO:
-            self.acc = self.ports[arg].pop(0)
+            self.acc = ord(self.ports[arg].pop(0))
         elif sel == Signal.SEL_ACC_VAL:
             self.acc = arg
         elif sel == Signal.SEL_ACC_DATA_MEM:
@@ -150,7 +154,8 @@ class ControlUnit:
         assert sel_pc in {Signal.SEL_PC_NEXT,
                           Signal.SEL_JMP,
                           Signal.SEL_JGE,
-                          Signal.SEL_JZ}, \
+                          Signal.SEL_JZ,
+                          Signal.SEL_JE}, \
             assert_sel_error(sel_pc)
         addr: int = self.pc + 1
         if sel_pc == Signal.SEL_PC_NEXT:
@@ -205,6 +210,9 @@ class ControlUnit:
             if (microinstruction & Signal.LATCH_DATA_MEM.value) == Signal.LATCH_DATA_MEM.value:
                 self.datapath.latch_data_mem()
 
+            if (microinstruction & Signal.LATCH_BUFF.value) == Signal.LATCH_BUFF.value:
+                self.datapath.latch_buff()
+
             if (microinstruction & Signal.SEL_ACC_VAL.value) == Signal.SEL_ACC_VAL.value:
                 self.datapath.sel_acc(Signal.SEL_ACC_VAL, arg)
             elif (microinstruction & Signal.SEL_ACC_IO.value) == Signal.SEL_ACC_IO.value:
@@ -214,8 +222,7 @@ class ControlUnit:
 
             if (microinstruction & Signal.LATCH_WRITE_IO.value) == Signal.LATCH_WRITE_IO.value:
                 self.datapath.latch_write_io(self.program_mem[self.pc]["args"])
-            if (microinstruction & Signal.LATCH_BUFF.value) == Signal.LATCH_BUFF.value:
-                self.datapath.latch_buff()
+
 
             if (microinstruction & Signal.SEL_ALU_MOD.value) == Signal.SEL_ALU_MOD.value:
                 self.datapath.sel_alu(Signal.SEL_ALU_MOD)
@@ -263,21 +270,25 @@ class ControlUnit:
                 self.mpc = 0
 
     def __repr__(self):
-        state_repr = "TICK: {:3} PC: {:3} ADDR: {:3} MEM_OUT: {} ACC: {}".format(
-            self._tick,
-            self.pc,
-            self.datapath.data_address,
-            self.datapath.data_memory[self.datapath.data_address],
-            self.datapath.acc,
+        state_repr = (
+            f"TICK: {self._tick:3} "
+            f"PC: {self.pc:3} "
+            f"ADDR: {self.datapath.data_address:3} "
+            f"MEM_OUT: {self.datapath.data_memory[self.datapath.data_address]} "
+            f"ACC: {self.datapath.acc} "
+            f"BUFF: {self.datapath.buff} "
+            f"DC: {self.datapath.dc} "
+            f"FLAG_ZERO: {self.datapath.flag_zero} "
+            f"FLAG_LT: {self.datapath.flag_lt} "
+            f"FLAG_GT: {self.datapath.flag_gt}"
         )
 
         instr = self.program_mem[self.pc]
-        opcode = instr["cmd"]["opcode"]
-        instr_repr = str(opcode)
+        opcode_name = Opcode(instr["cmd"]["opcode"]).name
+        instr_repr = f"{opcode_name} {instr.get('args', '')}"
 
-        instr_repr += " {}".format(instr["args"])
+        return f"{state_repr} \t{instr_repr}"
 
-        return "{} \t{}".format(state_repr, instr_repr)
 
 
 def simulation(code: list[ProgramData], data: list[int],
@@ -286,7 +297,7 @@ def simulation(code: list[ProgramData], data: list[int],
     control_unit = ControlUnit(code, data_path)
     instr_counter = 0
 
-    logging.debug("%s", control_unit)
+
     try:
         while instr_counter < limit:
             control_unit.exec_mp()
@@ -304,7 +315,7 @@ def simulation(code: list[ProgramData], data: list[int],
 
     output_buffer_1 = "".join(data_path.ports[1])
     logging.info("output_buffer: %s", repr(output_buffer_1))
-
+    print(data_path.data_memory)
     return output_buffer_1, instr_counter, control_unit.current_tick()
 
 

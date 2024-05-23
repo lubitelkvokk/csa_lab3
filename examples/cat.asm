@@ -4,8 +4,8 @@ section .text
 _start:
     loop:
         input 0
-        cmp 0
-        jz exit
+        cmp '\n'
+        je exit
         output 1
         jmp loop
     exit:

@@ -79,6 +79,14 @@ COMMANDS = {
     "setaddr": {"opcode": Opcode.SETADDR, "args_count": 0}
 }
 
+# Создание обратного словаря
+opcode_to_args_count = {value["opcode"]: value["args_count"] for value in COMMANDS.values()}
+
+
+# Функция для получения количества аргументов
+def get_args_count(opcode: Opcode) -> int:
+    return opcode_to_args_count.get(opcode, 0)
+
 
 def bytes_to_int(byte_arr: bytes) -> int:
     return int.from_bytes(byte_arr, byteorder='little')
@@ -135,8 +143,7 @@ def read_code(filename: str) -> list[ProgramData]:
         opcode_value = i >> 24
         opcode = Opcode(opcode_value)
         args = i & 0x00FFFFFF
-        if opcode in {Opcode.INPUT, Opcode.OUTPUT, Opcode.ST, Opcode.LD, Opcode.LDA, Opcode.CMP, Opcode.JMP, Opcode.JZ,
-                      Opcode.JE, Opcode.JGE}:
+        if get_args_count(opcode):
             # args = chr(args)
             arg_count = 1
             program_data: ProgramData = {
