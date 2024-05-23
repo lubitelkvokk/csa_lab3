@@ -69,10 +69,12 @@ def translate_data_labels_to_addr(data_labels: dict[str]):
     for label in data_labels.keys():
         translated_data_labels[label] = {"arg": data_labels[label], "addr": addr_ptr}
         element: str = data_labels[label]
-        if re.search('res\([1-9]+\)', element):
+        if re.search('res\([0-9]+\)', element):
             addr_ptr += int(element.split('(')[1].split(')')[0]) * WORD_SIZE
         elif not element.isdigit():
             # 1 символ - 1 машинное слово
+            if element in data_labels:
+                translated_data_labels[label]["arg"] = str(translated_data_labels[element]["addr"])
             for i in range(len(element)):
                 addr_ptr += WORD_SIZE
         else:
@@ -131,4 +133,4 @@ if __name__ == "__main__":
     assert len(sys.argv) == 4, "Wrong arguments: translator_asm.py <input_file> <program_file> <data_file> "
     _, input_file, program_file, data_file = sys.argv
     # main(input_file, program_file, data_file)
-    main("examples/prob1.asm", "program_file", "data_file")
+    main("examples/hello_io.asm", "program_file", "data_file")

@@ -1,11 +1,14 @@
 section .data
 message_size: 19
 message: "What, is your name?"
+endl: "\n"
 hello_size: 7
 hello: "Hello, "
 answer_size: 0
-answer: res(255)
+answer: res(15)
 answer_end: "!"
+answer_ptr: answer
+
 
 section .text
 _start:
@@ -16,13 +19,15 @@ _start:
     lda message
     setaddr
     loop_print1:
-        output 1
         read
+        output 1
         cntz
         jz end_loop_print1
         jmp loop_print1
 
     end_loop_print1:
+      ld endl
+      output 1
       lda answer
       setaddr
 
@@ -34,8 +39,9 @@ _start:
         ld answer_size
         inc
         st answer_size
-        lda answer
-        add answer_size
+        ld answer_ptr
+        add 4
+        st answer_ptr
         setaddr
         jmp loop_write
 
@@ -49,7 +55,7 @@ _start:
         read
         output 1
         cntz
-        je loop_print2_end
+        jz loop_print2_end
         jmp loop_print2
 
     loop_print2_end:
@@ -62,7 +68,7 @@ _start:
         read
         output 1
         cntz
-        je print_answer_end
+        jz print_answer_end
         jmp loop_print3
 
     print_answer_end:

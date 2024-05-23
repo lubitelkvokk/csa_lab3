@@ -1,3 +1,4 @@
+import re
 from enum import Enum
 from typing import TypedDict, Union, Optional
 
@@ -119,10 +120,15 @@ def write_data(filename: str, data_labels: DataMemory):
                 arg = int(data_labels[label]["arg"])
                 file.write(int_to_bytes(arg))
             else:
-                for chunk in data_labels[label]["arg"]:
-                    if chunk:
-                        arg = ord(chunk)
-                        file.write(int_to_bytes(arg))
+                if re.search('res\([0-9]+\)', data_labels[label]["arg"]):
+                    for i in range(int(
+                            data_labels[label]["arg"].split('(')[1].split(')')[0])):
+                        file.write(int_to_bytes(0))
+                else:
+                    for chunk in data_labels[label]["arg"]:
+                        if chunk:
+                            arg = ord(chunk)
+                            file.write(int_to_bytes(arg))
 
 
 def read_data(filename: str) -> list[int]:

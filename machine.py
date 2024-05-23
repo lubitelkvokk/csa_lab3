@@ -1,14 +1,13 @@
 import sys
 from enum import Enum
 from typing import Union
-
 from isa import ProgramData, read_code, read_data, DataMemory, WORD_SIZE
 from microcode import *
 
 import logging
 
 # Настройка базовой конфигурации для logging
-# logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG)
 
 
 def assert_sel_error(sel: Signal):
@@ -16,7 +15,6 @@ def assert_sel_error(sel: Signal):
 
 
 class DataPath:
-    # data_memory_size: int = None
     data_memory: list[int] = None
     data_address: int = None
     buff: int = None
@@ -27,8 +25,6 @@ class DataPath:
     dc: int = None
 
     def __init__(self, data: list[int], input_data: list[Union[str, int]]):
-        # assert data_memory_size > 0, "Data_memory size should be non-zero"
-        # self.data_memory_size = data_memory_size
         self.data_memory = data
         self.data_address = 0
         self.acc = 0
@@ -53,7 +49,10 @@ class DataPath:
             self.data_address = self.acc // WORD_SIZE
 
     def latch_data_mem(self):
-        self.data_memory[self.data_address] = self.acc
+        if self.data_address < len(self.data_memory):
+            self.data_memory[self.data_address] = self.acc
+        else:
+            raise IndexError("Memory address out of range")
 
     def latch_buff(self):
         self.buff = self.acc
@@ -68,7 +67,10 @@ class DataPath:
         elif sel == Signal.SEL_ACC_VAL:
             self.acc = arg
         elif sel == Signal.SEL_ACC_DATA_MEM:
-            self.acc = self.data_memory[self.data_address]
+            if self.data_address < len(self.data_memory):
+                self.acc = self.data_memory[self.data_address]
+            else:
+                raise IndexError("Memory address out of range")
 
     def sel_alu(self, sel: Signal):
         assert sel in {Signal.SEL_ALU_ADD,
@@ -115,7 +117,6 @@ class DataPath:
             self.flag_zero = True
 
     def sel_cmp(self, sel: Signal, value: int):
-        # decoded value from CU
         assert sel in {Signal.SEL_CMP_DC,
                        Signal.SEL_CMP_ACC}, \
             assert_sel_error(sel)
@@ -193,13 +194,6 @@ class ControlUnit:
         for _ in range(microinstruction_count):
             microinstruction = microinstructions[self.mpc]
 
-            # if (microinstruction & Signal.SEL_MPC_OPC.value) == Signal.SEL_MPC_OPC.value:
-            #     self.sel_mpc(Signal.SEL_MPC_OPC)
-            # elif (microinstruction & Signal.SEL_MPC_ZERO.value) == Signal.SEL_MPC_ZERO.value:
-            #     self.sel_mpc(Signal.SEL_MPC_ZERO)
-            # elif (microinstruction & Signal.SEL_MPC_INC.value) == Signal.SEL_MPC_INC.value:
-            #     self.sel_mpc(Signal.SEL_MPC_INC)
-
             if (microinstruction & Signal.SEL_AR_ADDR.value) == Signal.SEL_AR_ADDR.value:
                 self.datapath.sel_address_register(Signal.SEL_AR_ADDR, arg)
             elif (microinstruction & Signal.SEL_AR_ACC.value) == Signal.SEL_AR_ACC.value:
@@ -260,7 +254,9 @@ class ControlUnit:
                 self.sel_pc(Signal.SEL_PC_NEXT)
 
             if (microinstruction & Signal.HLT.value) == Signal.HLT.value:
-                raise StopIteration()
+                self.sel_mpc(Signal.SEL_MPC_ZERO)
+                self.tick()
+                return
 
             self.sel_mpc(Signal.SEL_MPC_INC)
             self.tick()
@@ -273,13 +269,14 @@ class ControlUnit:
             f"TICK: {self._tick:3} "
             f"PC: {self.pc:3} "
             f"ADDR: {self.datapath.data_address:3} "
-            f"MEM_OUT: {self.datapath.data_memory[self.datapath.data_address]} "
+            f"MEM_OUT: {self.get_mem_out()} "
             f"ACC: {self.datapath.acc} "
             f"BUFF: {self.datapath.buff} "
             f"DC: {self.datapath.dc} "
             f"FLAG_ZERO: {self.datapath.flag_zero} "
             f"FLAG_LT: {self.datapath.flag_lt} "
-            f"FLAG_GT: {self.datapath.flag_gt}"
+            f"FLAG_GT: {self.datapath.flag_gt} "
+            f"OUT_BUF:  {self.datapath.ports[1]}"
         )
 
         instr = self.program_mem[self.pc]
@@ -287,6 +284,12 @@ class ControlUnit:
         instr_repr = f"{opcode_name} {instr.get('args', '')}"
 
         return f"\n{state_repr} \t{instr_repr}"
+
+    def get_mem_out(self):
+        try:
+            return self.datapath.data_memory[self.datapath.data_address]
+        except IndexError:
+            return "Out of range"
 
 
 def simulation(code: list[ProgramData], data: list[int],
@@ -298,14 +301,15 @@ def simulation(code: list[ProgramData], data: list[int],
     logging.debug("%s", control_unit)
     try:
         while instr_counter < limit:
-            control_unit.exec_mp()
+            try:
+                control_unit.exec_mp()
+            except StopIteration:
+                break
             instr_counter += 1
             control_unit.tick()
             logging.debug("%s", control_unit)
     except EOFError:
         logging.warning("Input buffer is empty!")
-    except StopIteration:
-        pass
 
     if instr_counter >= limit:
         logging.warning("Limit exceeded!")
@@ -325,7 +329,7 @@ def main(code_file, data_file, input_file):
         for char in input_text:
             input_token.append(char)
 
-    output, instr_counter, ticks = simulation(code, data, input_token, 100000)
+    output, instr_counter, ticks = simulation(code, data, input_token, 500)
 
     print("".join(output))
     print("ticks:", ticks)
