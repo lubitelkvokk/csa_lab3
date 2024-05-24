@@ -256,7 +256,7 @@ class ControlUnit:
             if (microinstruction & Signal.HLT.value) == Signal.HLT.value:
                 self.sel_mpc(Signal.SEL_MPC_ZERO)
                 self.tick()
-                return
+                raise StopIteration
 
             self.sel_mpc(Signal.SEL_MPC_INC)
             self.tick()
@@ -265,7 +265,11 @@ class ControlUnit:
                 self.mpc = 0
 
     def __repr__(self):
+        instr = self.program_mem[self.pc]
+        opcode_name = Opcode(instr["cmd"]["opcode"]).name
+        # instr_repr = f"{opcode_name} {instr.get('args', '')}"
         state_repr = (
+            f"{opcode_name} {instr.get('args', '')} \n"
             f"TICK: {self._tick:3} "
             f"PC: {self.pc:3} "
             f"ADDR: {self.datapath.data_address:3} "
@@ -274,16 +278,16 @@ class ControlUnit:
             f"BUFF: {self.datapath.buff} "
             f"DC: {self.datapath.dc} "
             f"FLAG_ZERO: {self.datapath.flag_zero} "
-            f"FLAG_LT: {self.datapath.flag_lt} "
-            f"FLAG_GT: {self.datapath.flag_gt} "
-            f"OUT_BUF:  {self.datapath.ports[1]}"
+            f"FLAG_LT: {int(self.datapath.flag_lt)} "
+            f"FLAG_GT: {int(self.datapath.flag_gt)} "
+            f"FLAG_GT: {int(self.datapath.flag_gt)} \n"
+            f"INPUT_PORT:  {self.datapath.ports[0]} \n"
+            f"OUT_PORT:  {self.datapath.ports[1]} \n"
+            f"DATA_MEM:  {self.datapath.data_memory} \n"
+            f"---------------------------------------\n"
         )
 
-        instr = self.program_mem[self.pc]
-        opcode_name = Opcode(instr["cmd"]["opcode"]).name
-        instr_repr = f"{opcode_name} {instr.get('args', '')}"
-
-        return f"\n{state_repr} \t{instr_repr}"
+        return state_repr
 
     def get_mem_out(self):
         try:
@@ -316,7 +320,7 @@ def simulation(code: list[ProgramData], data: list[int],
 
     output_buffer_1 = "".join(data_path.ports[1])
     logging.info("output_buffer: %s", repr(output_buffer_1))
-    print(data_path.data_memory)
+    # print(data_path.data_memory)
     return output_buffer_1, instr_counter, control_unit.current_tick()
 
 
@@ -332,7 +336,7 @@ def main(code_file, data_file, input_file):
     output, instr_counter, ticks = simulation(code, data, input_token, 500)
 
     print("".join(output))
-    print("ticks:", ticks)
+    print(f"instr_counter: {instr_counter}, ticks: {ticks}")
 
 
 if __name__ == "__main__":

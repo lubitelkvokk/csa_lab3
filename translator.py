@@ -116,21 +116,21 @@ def translate(text):
     return code, translated_data_labels
 
 
-def main(input_file, program_file, data_file):
+def main(source, program_file, data_file):
     """Функция запуска транслятора. Параметры -- исходный и целевой файлы."""
-    with open(input_file, encoding="utf-8") as f:
-        input_file = f.read()
+    with open(source, encoding="utf-8") as f:
+        source = f.read()
 
-    code, translated_data_labels = translate(input_file)
+    code, translated_data_labels = translate(source)
     # for i in code:
     #     print(i)
     write_code(program_file, code)
     write_data(data_file, translated_data_labels)
-    print("source LoC:", len(input_file.split("\n")), "code instr:", len(code))
+    print("source LoC:", len(source.split("\n")), "code instr:", len(code))
 
 
 if __name__ == "__main__":
     assert len(sys.argv) == 4, "Wrong arguments: translator_asm.py <input_file> <program_file> <data_file> "
     _, input_file, program_file, data_file = sys.argv
     # main(input_file, program_file, data_file)
-    main("examples/hello_io.asm", "program_file", "data_file")
+    main("examples/cat.asm", "program_file", "data_file")

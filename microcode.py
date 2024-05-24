@@ -157,8 +157,7 @@ microinstructions = [
     Signal.SEL_CMP_DC.value | Signal.SEL_PC_NEXT.value,  # sel_cmp_dc, sel_pc_next
 
     # halt 53
-    Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,
-    Signal.HLT
+    Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value | Signal.HLT.value
 ]
 
 # Словарь сопоставления Opcode к адресу в массиве микроинструкций

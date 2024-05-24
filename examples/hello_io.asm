@@ -12,8 +12,6 @@ answer_ptr: answer
 
 section .text
 _start:
-
-
     ld message_size
     setcnt
     lda message

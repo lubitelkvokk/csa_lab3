@@ -106,6 +106,7 @@ def write_code(filename: str, code: list[ProgramData]):
                 if type(instr["args"]) == int:
                     args = instr["args"]
                 elif type(instr["args"]) == str and instr["args"]:
+                    # print(instr["args"])
                     args = ord(instr["args"])
             int_code = (int(instr["cmd"]["opcode"].value) << 24) | args
             int_codes.append(int_code)
@@ -177,5 +178,5 @@ def read_code(filename: str) -> list[ProgramData]:
 #     {'addr': 5, 'cmd': {'opcode': Opcode.READ, 'args_count': 0}, 'args': ''}
 # ]
 #
-# write_code("aboba.txt", code)
-# print(read_code("aboba.txt"))
+# write_code("input.txt", code)
+# print(read_code("input.txt"))

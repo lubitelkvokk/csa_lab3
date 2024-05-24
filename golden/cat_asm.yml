@@ -1,0 +1,343 @@
+in_source: |-
+  section .data
+  
+  section .text
+  _start:
+  loop:
+    input 0
+    cmp '\n'
+    je exit
+    output 1
+    jmp loop
+  exit:
+    hlt
+
+in_stdin: |-
+  ABOBA123
+out_code: |-
+  [{'addr': 0, 'cmd': {'opcode': <Opcode.INPUT: 15>, 'args_count': 1}, 'args': 0},
+  {'addr': 1, 'cmd': {'opcode': <Opcode.CMP: 21>, 'args_count': 1}, 'args': 10},
+  {'addr': 2, 'cmd': {'opcode': <Opcode.JE: 11>, 'args_count': 1}, 'args': 5}, 
+  {'addr': 3, 'cmd': {'opcode': <Opcode.OUTPUT: 14>, 'args_count': 1}, 'args': 1},
+  {'addr': 4, 'cmd': {'opcode': <Opcode.JMP: 8>, 'args_count': 1}, 'args': 0},
+  {'addr': 5, 'cmd': {'opcode': <Opcode.HLT: 23>, 'args_count': 0}}]
+out_stdout: |
+  source LoC: 12 code instr: 6
+  ============================================================
+  ABOBA123
+  instr_counter: 43, ticks: 130
+out_log: |
+
+    DEBUG:root:INPUT 0 
+    TICK:   0 PC:   0 ADDR:   0 MEM_OUT: Out of range ACC: 0 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 0 FLAG_GT: 0 
+    INPUT_PORT:  ['A', 'B', 'O', 'B', 'A', '1', '2', '3', '\n'] 
+    OUT_PORT:  [] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:CMP 10 
+    TICK:   3 PC:   1 ADDR:   0 MEM_OUT: Out of range ACC: 65 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 0 FLAG_GT: 0 
+    INPUT_PORT:  ['B', 'O', 'B', 'A', '1', '2', '3', '\n'] 
+    OUT_PORT:  [] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:JE 5 
+    TICK:   6 PC:   2 ADDR:   0 MEM_OUT: Out of range ACC: 65 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['B', 'O', 'B', 'A', '1', '2', '3', '\n'] 
+    OUT_PORT:  [] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:OUTPUT 1 
+    TICK:   9 PC:   3 ADDR:   0 MEM_OUT: Out of range ACC: 65 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['B', 'O', 'B', 'A', '1', '2', '3', '\n'] 
+    OUT_PORT:  [] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:JMP 0 
+    TICK:  12 PC:   4 ADDR:   0 MEM_OUT: Out of range ACC: 65 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['B', 'O', 'B', 'A', '1', '2', '3', '\n'] 
+    OUT_PORT:  ['A'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:INPUT 0 
+    TICK:  15 PC:   0 ADDR:   0 MEM_OUT: Out of range ACC: 65 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['B', 'O', 'B', 'A', '1', '2', '3', '\n'] 
+    OUT_PORT:  ['A'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:CMP 10 
+    TICK:  18 PC:   1 ADDR:   0 MEM_OUT: Out of range ACC: 66 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['O', 'B', 'A', '1', '2', '3', '\n'] 
+    OUT_PORT:  ['A'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:JE 5 
+    TICK:  21 PC:   2 ADDR:   0 MEM_OUT: Out of range ACC: 66 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['O', 'B', 'A', '1', '2', '3', '\n'] 
+    OUT_PORT:  ['A'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:OUTPUT 1 
+    TICK:  24 PC:   3 ADDR:   0 MEM_OUT: Out of range ACC: 66 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['O', 'B', 'A', '1', '2', '3', '\n'] 
+    OUT_PORT:  ['A'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:JMP 0 
+    TICK:  27 PC:   4 ADDR:   0 MEM_OUT: Out of range ACC: 66 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['O', 'B', 'A', '1', '2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:INPUT 0 
+    TICK:  30 PC:   0 ADDR:   0 MEM_OUT: Out of range ACC: 66 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['O', 'B', 'A', '1', '2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:CMP 10 
+    TICK:  33 PC:   1 ADDR:   0 MEM_OUT: Out of range ACC: 79 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['B', 'A', '1', '2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:JE 5 
+    TICK:  36 PC:   2 ADDR:   0 MEM_OUT: Out of range ACC: 79 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['B', 'A', '1', '2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:OUTPUT 1 
+    TICK:  39 PC:   3 ADDR:   0 MEM_OUT: Out of range ACC: 79 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['B', 'A', '1', '2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:JMP 0 
+    TICK:  42 PC:   4 ADDR:   0 MEM_OUT: Out of range ACC: 79 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['B', 'A', '1', '2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:INPUT 0 
+    TICK:  45 PC:   0 ADDR:   0 MEM_OUT: Out of range ACC: 79 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['B', 'A', '1', '2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:CMP 10 
+    TICK:  48 PC:   1 ADDR:   0 MEM_OUT: Out of range ACC: 66 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['A', '1', '2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:JE 5 
+    TICK:  51 PC:   2 ADDR:   0 MEM_OUT: Out of range ACC: 66 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['A', '1', '2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:OUTPUT 1 
+    TICK:  54 PC:   3 ADDR:   0 MEM_OUT: Out of range ACC: 66 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['A', '1', '2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:JMP 0 
+    TICK:  57 PC:   4 ADDR:   0 MEM_OUT: Out of range ACC: 66 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['A', '1', '2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:INPUT 0 
+    TICK:  60 PC:   0 ADDR:   0 MEM_OUT: Out of range ACC: 66 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['A', '1', '2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:CMP 10 
+    TICK:  63 PC:   1 ADDR:   0 MEM_OUT: Out of range ACC: 65 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['1', '2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:JE 5 
+    TICK:  66 PC:   2 ADDR:   0 MEM_OUT: Out of range ACC: 65 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['1', '2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:OUTPUT 1 
+    TICK:  69 PC:   3 ADDR:   0 MEM_OUT: Out of range ACC: 65 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['1', '2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:JMP 0 
+    TICK:  72 PC:   4 ADDR:   0 MEM_OUT: Out of range ACC: 65 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['1', '2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:INPUT 0 
+    TICK:  75 PC:   0 ADDR:   0 MEM_OUT: Out of range ACC: 65 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['1', '2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:CMP 10 
+    TICK:  78 PC:   1 ADDR:   0 MEM_OUT: Out of range ACC: 49 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:JE 5 
+    TICK:  81 PC:   2 ADDR:   0 MEM_OUT: Out of range ACC: 49 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:OUTPUT 1 
+    TICK:  84 PC:   3 ADDR:   0 MEM_OUT: Out of range ACC: 49 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:JMP 0 
+    TICK:  87 PC:   4 ADDR:   0 MEM_OUT: Out of range ACC: 49 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A', '1'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:INPUT 0 
+    TICK:  90 PC:   0 ADDR:   0 MEM_OUT: Out of range ACC: 49 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['2', '3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A', '1'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:CMP 10 
+    TICK:  93 PC:   1 ADDR:   0 MEM_OUT: Out of range ACC: 50 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A', '1'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:JE 5 
+    TICK:  96 PC:   2 ADDR:   0 MEM_OUT: Out of range ACC: 50 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A', '1'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:OUTPUT 1 
+    TICK:  99 PC:   3 ADDR:   0 MEM_OUT: Out of range ACC: 50 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A', '1'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:JMP 0 
+    TICK: 102 PC:   4 ADDR:   0 MEM_OUT: Out of range ACC: 50 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A', '1', '2'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:INPUT 0 
+    TICK: 105 PC:   0 ADDR:   0 MEM_OUT: Out of range ACC: 50 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['3', '\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A', '1', '2'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:CMP 10 
+    TICK: 108 PC:   1 ADDR:   0 MEM_OUT: Out of range ACC: 51 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A', '1', '2'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:JE 5 
+    TICK: 111 PC:   2 ADDR:   0 MEM_OUT: Out of range ACC: 51 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A', '1', '2'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:OUTPUT 1 
+    TICK: 114 PC:   3 ADDR:   0 MEM_OUT: Out of range ACC: 51 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A', '1', '2'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:JMP 0 
+    TICK: 117 PC:   4 ADDR:   0 MEM_OUT: Out of range ACC: 51 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A', '1', '2', '3'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:INPUT 0 
+    TICK: 120 PC:   0 ADDR:   0 MEM_OUT: Out of range ACC: 51 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  ['\n'] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A', '1', '2', '3'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:CMP 10 
+    TICK: 123 PC:   1 ADDR:   0 MEM_OUT: Out of range ACC: 10 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1 FLAG_GT: 1 
+    INPUT_PORT:  [] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A', '1', '2', '3'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:JE 5 
+    TICK: 126 PC:   2 ADDR:   0 MEM_OUT: Out of range ACC: 10 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 0 FLAG_GT: 0 
+    INPUT_PORT:  [] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A', '1', '2', '3'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    DEBUG:root:HLT  
+    TICK: 129 PC:   5 ADDR:   0 MEM_OUT: Out of range ACC: 10 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 0 FLAG_GT: 0 
+    INPUT_PORT:  [] 
+    OUT_PORT:  ['A', 'B', 'O', 'B', 'A', '1', '2', '3'] 
+    DATA_MEM:  [] 
+    ---------------------------------------
+
+    INFO:root:output_buffer: 'ABOBA123'
+
+  
+
+
