@@ -341,5 +341,5 @@ def main(code_file, data_file, input_file):
 
 if __name__ == "__main__":
     assert len(sys.argv) == 4, "Wrong arguments: machine.py <data_file> <code_file> <input_file>"
-    _, data_file, code_file, input_file = sys.argv
+    _, code_file, data_file, input_file = sys.argv
     main(code_file, data_file, input_file)

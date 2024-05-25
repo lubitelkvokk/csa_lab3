@@ -14,6 +14,7 @@ in_source: |-
 
 in_stdin: |-
   ABOBA123
+
 out_code: |-
   [{'addr': 0, 'cmd': {'opcode': <Opcode.INPUT: 15>, 'args_count': 1}, 'args': 0},
   {'addr': 1, 'cmd': {'opcode': <Opcode.CMP: 21>, 'args_count': 1}, 'args': 10},
@@ -21,6 +22,9 @@ out_code: |-
   {'addr': 3, 'cmd': {'opcode': <Opcode.OUTPUT: 14>, 'args_count': 1}, 'args': 1},
   {'addr': 4, 'cmd': {'opcode': <Opcode.JMP: 8>, 'args_count': 1}, 'args': 0},
   {'addr': 5, 'cmd': {'opcode': <Opcode.HLT: 23>, 'args_count': 0}}]
+
+out_data: |-
+  []
 out_stdout: |
   source LoC: 12 code instr: 6
   ============================================================

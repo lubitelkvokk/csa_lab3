@@ -17,15 +17,14 @@ import translator
 
 @pytest.mark.golden_test("golden/*_asm.yml")
 def test_translator_asm_and_machine(golden, caplog):
-    """Почти полная копия test_translator_and_machine из golden_bf_test. Детали
-    см. там."""
     caplog.set_level(logging.DEBUG)
 
     with tempfile.TemporaryDirectory() as tmpdirname:
         source = os.path.join(tmpdirname, "source.asm")
-        input_stream = os.path.join(tmpdirname, "input.txt")
-        target_code = os.path.join(tmpdirname, "target_code.o")
-        target_data = os.path.join(tmpdirname, "target_data.o")
+        input_stream = os.path.join(tmpdirname, "input_file")
+
+        target_code = os.path.join(tmpdirname, "program_file")
+        target_data = os.path.join(tmpdirname, "data_file")
         with open(source, "w", encoding="utf-8") as file:
             file.write(golden["in_source"])
         with open(input_stream, "w", encoding="utf-8") as file:
