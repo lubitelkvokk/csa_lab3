@@ -6,9 +6,6 @@ from microcode import *
 
 import logging
 
-# Настройка базовой конфигурации для logging
-logging.basicConfig(level=logging.DEBUG)
-
 
 def assert_sel_error(sel: Signal):
     return "internal error, incorrect selector: {}".format(sel)
@@ -267,9 +264,8 @@ class ControlUnit:
     def __repr__(self):
         instr = self.program_mem[self.pc]
         opcode_name = Opcode(instr["cmd"]["opcode"]).name
-        # instr_repr = f"{opcode_name} {instr.get('args', '')}"
         state_repr = (
-            f"{opcode_name} {instr.get('args', '')} \n"
+            f"{opcode_name} {instr.get('args', '')}\n"
             f"TICK: {self._tick:3} "
             f"PC: {self.pc:3} "
             f"ADDR: {self.datapath.data_address:3} "
@@ -279,15 +275,14 @@ class ControlUnit:
             f"DC: {self.datapath.dc} "
             f"FLAG_ZERO: {self.datapath.flag_zero} "
             f"FLAG_LT: {int(self.datapath.flag_lt)} "
-            f"FLAG_GT: {int(self.datapath.flag_gt)} "
-            f"FLAG_GT: {int(self.datapath.flag_gt)} \n"
-            f"INPUT_PORT:  {self.datapath.ports[0]} \n"
-            f"OUT_PORT:  {self.datapath.ports[1]} \n"
-            f"DATA_MEM:  {self.datapath.data_memory} \n"
+            f"FLAG_GT: {int(self.datapath.flag_gt)}\n"
+            f"INPUT_PORT:  {self.datapath.ports[0]}\n"
+            f"OUT_PORT:  {self.datapath.ports[1]}\n"
+            f"DATA_MEM:  {self.datapath.data_memory}\n"
             f"---------------------------------------\n"
         )
 
-        return state_repr
+        return state_repr.strip()  # Удаляем лишние пробелы в конце строки
 
     def get_mem_out(self):
         try:
@@ -340,6 +335,7 @@ def main(code_file, data_file, input_file):
 
 
 if __name__ == "__main__":
+    logging.getLogger().setLevel(logging.DEBUG)
     assert len(sys.argv) == 4, "Wrong arguments: machine.py <data_file> <code_file> <input_file>"
     _, code_file, data_file, input_file = sys.argv
     main(code_file, data_file, input_file)

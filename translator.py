@@ -133,4 +133,4 @@ if __name__ == "__main__":
     assert len(sys.argv) == 4, "Wrong arguments: translator_asm.py <input_file> <program_file> <data_file> "
     _, input_file, program_file, data_file = sys.argv
     # main(input_file, program_file, data_file)
-    main("examples/cat.asm", "program_file", "data_file")
+    main("examples/hello_io.asm", "program_file", "data_file")
