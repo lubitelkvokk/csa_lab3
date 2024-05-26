@@ -1,7 +1,7 @@
 section .data
 message_size: 19
 message: "What, is your name?"
-endl: "\n"
+endl: 10
 hello_size: 7
 hello: "Hello, "
 answer_size: 0

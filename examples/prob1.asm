@@ -10,12 +10,7 @@ main_loop:
     inc
     st result
     cmp 1000
-    jge end_loop
-
-    mod15:
-    mod 15
-    cmp 0
-    je div15_found
+    jge exit
 
     mod3:
     ld result
@@ -28,30 +23,19 @@ main_loop:
     mod 5
     cmp 0
     je div5_found
-
     jmp main_loop
-
-div15_found:
-    ld count
-    dec
-    st count
-    jmp mod3
 
 div3_found:
     ld count
     inc
     st count
-    jmp mod5
+    jmp main_loop
 
 div5_found:
     ld count
     inc
     st count
     jmp main_loop
-
-end_loop:
-    ld count
-    output 1
 
 exit:
     hlt

@@ -18,7 +18,6 @@ def binary_to_hex(binary_data):
     return binascii.hexlify(binary_data).decode('utf-8')
 
 
-with open("data_file", "rb") as file1:
+with open("program_file", "rb") as file1:
     print(binary_to_hex(file1.read()))
 
-# machine

@@ -34,7 +34,9 @@ def translate_stage_1(text: str):
 
             if '"' in arg:
                 arg = arg.split('"')[1]
-            data_labels[label_name.strip()] = arg.strip()
+                data_labels[label_name.strip()] = arg
+            else:
+                data_labels[label_name.strip()] = arg.strip()
 
     text_labels = {}
     for line_num, raw_line in enumerate(textsec.splitlines(), 1):
@@ -133,4 +135,4 @@ if __name__ == "__main__":
     assert len(sys.argv) == 4, "Wrong arguments: translator_asm.py <input_file> <program_file> <data_file> "
     _, input_file, program_file, data_file = sys.argv
     # main(input_file, program_file, data_file)
-    main("examples/hello_io.asm", "program_file", "data_file")
+    main("examples/prob1.asm", "program_file", "data_file")

@@ -64,7 +64,7 @@ def test_translator_asm_and_machine(golden, caplog):
             data = file.read()
 
         # Сравнение бинарных данных в шестнадцатеричном формате
-        assert binary_to_hex(code) == golden.out["out_code"]
-        assert binary_to_hex(data) == golden.out["out_data"]
+        assert binary_to_hex(code).strip() == golden.out["out_code"].strip()
+        assert binary_to_hex(data).strip() == golden.out["out_data"].strip()
         assert stdout.getvalue().strip() == golden.out["out_stdout"].strip()
         assert caplog.text.strip() == golden.out["out_log"].strip()

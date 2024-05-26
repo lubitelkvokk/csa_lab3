@@ -328,7 +328,7 @@ def main(code_file, data_file, input_file):
         for char in input_text:
             input_token.append(char)
 
-    output, instr_counter, ticks = simulation(code, data, input_token, 500)
+    output, instr_counter, ticks = simulation(code, data, input_token, 300)
 
     print("".join(output))
     print(f"instr_counter: {instr_counter}, ticks: {ticks}")
