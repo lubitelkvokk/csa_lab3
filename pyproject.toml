@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "csa-lab3"
+version = "0.1.0"
+description = ""
+authors = ["lubitelkvokk <pasha110.mikhailov@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-golden = "^0.2.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+enable_assertion_pass_hook = true
+addopts = "--doctest-modules"
+log_format = "%(levelname)-7s %(module)s:%(funcName)-13s %(message)s"
