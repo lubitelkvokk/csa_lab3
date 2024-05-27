@@ -77,7 +77,7 @@ COMMANDS = {
     "jge": {"opcode": Opcode.JGE, "args_count": 1},
     "hlt": {"opcode": Opcode.HLT, "args_count": 0},
     "setcnt": {"opcode": Opcode.SETCNT, "args_count": 0},
-    "setaddr": {"opcode": Opcode.SETADDR, "args_count": 0}
+    "setaddr": {"opcode": Opcode.SETADDR, "args_count": 0},
 }
 
 # Создание обратного словаря
@@ -90,11 +90,11 @@ def get_args_count(opcode: Opcode) -> int:
 
 
 def bytes_to_int(byte_arr: bytes) -> int:
-    return int.from_bytes(byte_arr, byteorder='little')
+    return int.from_bytes(byte_arr, byteorder="little")
 
 
 def int_to_bytes(value: int) -> bytes:
-    return value.to_bytes(WORD_SIZE, byteorder='little')
+    return value.to_bytes(WORD_SIZE, byteorder="little")
 
 
 def write_code(filename: str, code: list[ProgramData]):
@@ -121,9 +121,8 @@ def write_data(filename: str, data_labels: DataMemory):
                 arg = int(data_labels[label]["arg"])
                 file.write(int_to_bytes(arg))
             else:
-                if re.search('res\([0-9]+\)', data_labels[label]["arg"]):
-                    for i in range(int(
-                            data_labels[label]["arg"].split('(')[1].split(')')[0])):
+                if re.search("res\([0-9]+\)", data_labels[label]["arg"]):
+                    for i in range(int(data_labels[label]["arg"].split("(")[1].split(")")[0])):
                         file.write(int_to_bytes(0))
                 else:
                     for chunk in data_labels[label]["arg"]:
@@ -153,20 +152,14 @@ def read_code(filename: str) -> list[ProgramData]:
         if get_args_count(opcode):
             # args = chr(args)
             arg_count = 1
-            program_data: ProgramData = {
-                'addr': pc,
-                'cmd': {'opcode': opcode, 'args_count': arg_count},
-                'args': args
-            }
+            program_data: ProgramData = {"addr": pc, "cmd": {"opcode": opcode, "args_count": arg_count}, "args": args}
         else:
-            program_data: ProgramData = {
-                'addr': pc,
-                'cmd': {'opcode': opcode, 'args_count': 0}
-            }
+            program_data: ProgramData = {"addr": pc, "cmd": {"opcode": opcode, "args_count": 0}}
             arg_count = 0
 
         code.append(program_data)
     return code
+
 
 # Пример использования:
 # code = [

@@ -13,11 +13,11 @@ import translator
 
 
 def binary_to_hex(binary_data):
-    return binascii.hexlify(binary_data).decode('utf-8')
+    return binascii.hexlify(binary_data).decode("utf-8")
 
 
 def hex_to_binary(hex_data):
-    return binascii.unhexlify(hex_data.encode('utf-8'))
+    return binascii.unhexlify(hex_data.encode("utf-8"))
 
 
 @pytest.mark.golden_test("golden/*_asm.yml")
@@ -42,9 +42,9 @@ def test_translator_asm_and_machine(golden, caplog):
 
         # Настройка логгера на запись в файл
         logger = logging.getLogger()
-        file_handler = logging.FileHandler(log_file_path, mode='w', encoding='utf-8')
+        file_handler = logging.FileHandler(log_file_path, mode="w", encoding="utf-8")
         file_handler.setLevel(logging.DEBUG)
-        formatter = logging.Formatter('%(levelname)-7s %(module)s:%(funcName)-13s %(message)s')
+        formatter = logging.Formatter("%(levelname)-7s %(module)s:%(funcName)-13s %(message)s")
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
 

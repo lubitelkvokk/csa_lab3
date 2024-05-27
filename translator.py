@@ -48,7 +48,7 @@ def translate_stage_1(text: str):
             text_labels[token.split(":")[0]] = pc
         else:
             token = token.split()
-            arg = ''
+            arg = ""
             if len(token) == 1:
                 cmd = token[0]
                 code.append({"addr": pc, "cmd": COMMANDS[cmd]})
@@ -57,10 +57,9 @@ def translate_stage_1(text: str):
                 arg = token[1]
                 if "'" in arg:
                     arg = arg.replace("'", "")
-                    arg = arg.replace("\\n", '\n')
+                    arg = arg.replace("\\n", "\n")
 
-                code.append({"addr": pc, "cmd": COMMANDS[cmd],
-                             "args": arg})
+                code.append({"addr": pc, "cmd": COMMANDS[cmd], "args": arg})
 
     return data_labels, text_labels, code
 
@@ -71,8 +70,8 @@ def translate_data_labels_to_addr(data_labels: dict[str]):
     for label in data_labels.keys():
         translated_data_labels[label] = {"arg": data_labels[label], "addr": addr_ptr}
         element: str = data_labels[label]
-        if re.search('res\([0-9]+\)', element):
-            addr_ptr += int(element.split('(')[1].split(')')[0]) * WORD_SIZE
+        if re.search("res\([0-9]+\)", element):
+            addr_ptr += int(element.split("(")[1].split(")")[0]) * WORD_SIZE
         elif not element.isdigit():
             # 1 символ - 1 машинное слово
             if element in data_labels:
@@ -92,12 +91,12 @@ def translate_stage_2(data_labels: dict, text_labels: dict, code: list[ProgramDa
     translated_data_labels = translate_data_labels_to_addr(data_labels)
 
     for instruction in code:
-        if instruction['cmd']['args_count']:
-            label = instruction['args']
+        if instruction["cmd"]["args_count"]:
+            label = instruction["args"]
             if label.isdigit():
                 instruction["args"] = int(label)
             elif label.strip() in data_labels:
-                instruction['args'] = translated_data_labels[label]["addr"]
+                instruction["args"] = translated_data_labels[label]["addr"]
             elif label in text_labels:
                 instruction["args"] = text_labels[label]
 

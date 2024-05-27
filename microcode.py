@@ -58,106 +58,84 @@ microinstructions = [
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.SEL_AR_ADDR.value,  # sel_ar_addr
     Signal.SEL_ACC_DATA_MEM.value | Signal.SEL_PC_NEXT.value,  # sel_acc_data_mem, sel_pc_next
-
     # st 3
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.SEL_AR_ADDR.value,  # sel_ar_addr
     Signal.LATCH_DATA_MEM.value | Signal.SEL_PC_NEXT.value,  # latch_data_mem, sel_pc_next
-
     # lda 6
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.SEL_ACC_VAL.value | Signal.SEL_PC_NEXT.value,  # sel_acc_val, sel_pc_next
-
     # write 8
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.LATCH_DATA_MEM.value | Signal.SEL_DC_DEC.value,  # latch_data_mem, sel_dc_dec
     Signal.SEL_AR_NEXT.value | Signal.SEL_PC_NEXT.value,  # sel_ar_next, sel_pc_next
-
     # read 11
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.SEL_ACC_DATA_MEM.value | Signal.SEL_DC_DEC.value,  # latch_data_mem, sel_dc_dec
     Signal.SEL_AR_NEXT.value | Signal.SEL_PC_NEXT.value,  # sel_ar_next, sel_pc_next
-
     # setcnt 14
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.SEL_DC_ACC.value | Signal.SEL_PC_NEXT.value,  # sel_dc_acc, sel_pc_next
-
     # setaddr 16
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.SEL_AR_ACC.value | Signal.SEL_PC_NEXT.value,  # sel_ar_addr, sel_pc_next
-
     # jmp 18
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.SEL_JMP.value,  # sel_jmp
-
     # jz 20
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.SEL_JZ.value,  # sel_jz
-
     # jge 22
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.SEL_JGE.value,  # sel_jge
-
     # je 24
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.SEL_JE.value,  # sel_je
-
     # inc 26
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.SEL_ALU_INC.value | Signal.SEL_PC_NEXT.value,  # sel_alu_inc, sel_pc_next
-
     # dec 28
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.SEL_ALU_DEC.value | Signal.SEL_PC_NEXT.value,  # sel_alu_dec, sel_pc_next
-
     # output 30
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.LATCH_WRITE_IO.value | Signal.SEL_PC_NEXT.value,  # latch_write_io, sel_pc_next
-
     # input 32
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.SEL_ACC_IO.value | Signal.SEL_PC_NEXT.value,  # sel_acc_io, sel_pc_next
-
     # add 34
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.LATCH_BUFF.value | Signal.SEL_ACC_VAL.value | Signal.SEL_ALU_ADD.value,
     # latch_buff, sel_acc_data_mem, sel_alu_add
     Signal.SEL_PC_NEXT.value,  # sel_pc_next
-
     # sub 37
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.LATCH_BUFF.value | Signal.SEL_ACC_VAL.value | Signal.SEL_ALU_SUB.value,
     # latch_buff, sel_acc_data_mem, sel_alu_sub
     Signal.SEL_PC_NEXT.value,  # sel_pc_next
-
     # mul 40
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.LATCH_BUFF.value | Signal.SEL_ACC_VAL.value | Signal.SEL_ALU_MUL.value,
     # latch_buff, sel_acc_data_mem, sel_alu_mul
     Signal.SEL_PC_NEXT.value,  # sel_pc_next
-
     # div 43
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.LATCH_BUFF.value | Signal.SEL_ACC_VAL.value | Signal.SEL_ALU_DIV.value,
     # latch_buff, sel_acc_data_mem, sel_alu_div
     Signal.SEL_PC_NEXT.value,  # sel_pc_next
-
     # mod 46
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.LATCH_BUFF.value | Signal.SEL_ACC_VAL.value | Signal.SEL_ALU_MOD.value,
     # latch_buff, sel_acc_data_mem, sel_alu_mod
     Signal.SEL_PC_NEXT.value,  # sel_pc_next
-
     # cmp 49
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.SEL_CMP_ACC.value | Signal.SEL_PC_NEXT.value,  # sel_cmp_acc, sel_pc_next
-
     # cntz 51
     Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value,  # latch_pm, sel_mpc_opc, latch_mc
     Signal.SEL_CMP_DC.value | Signal.SEL_PC_NEXT.value,  # sel_cmp_dc, sel_pc_next
-
     # halt 53
-    Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value | Signal.HLT.value
+    Signal.LATCH_PM.value | Signal.SEL_MPC_OPC.value | Signal.LATCH_MC.value | Signal.HLT.value,
 ]
 
 # Словарь сопоставления Opcode к адресу в массиве микроинструкций
@@ -184,7 +162,7 @@ microprogram_addresses = {
     Opcode.MOD: 46,
     Opcode.CMP: 49,
     Opcode.CNTZ: 51,
-    Opcode.HLT: 53
+    Opcode.HLT: 53,
 }
 
 microprogram_lengths = {
@@ -210,5 +188,5 @@ microprogram_lengths = {
     Opcode.MOD: 3,
     Opcode.CMP: 2,
     Opcode.CNTZ: 2,
-    Opcode.HLT: 1
+    Opcode.HLT: 1,
 }

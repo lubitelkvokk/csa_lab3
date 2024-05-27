@@ -35,8 +35,7 @@ class DataPath:
         self.dc = 0
 
     def sel_address_register(self, sel: Signal, addr: int = None):
-        assert sel in {Signal.SEL_AR_NEXT, Signal.SEL_AR_ADDR, Signal.SEL_AR_ACC}, \
-            assert_sel_error(sel)
+        assert sel in {Signal.SEL_AR_NEXT, Signal.SEL_AR_ADDR, Signal.SEL_AR_ACC}, assert_sel_error(sel)
         if sel == Signal.SEL_AR_NEXT:
             self.data_address += 1
         elif sel == Signal.SEL_AR_ADDR:
@@ -55,10 +54,7 @@ class DataPath:
         self.buff = self.acc
 
     def sel_acc(self, sel: Signal, arg: int = None):
-        assert sel in {Signal.SEL_ACC_IO,
-                       Signal.SEL_ACC_VAL,
-                       Signal.SEL_ACC_DATA_MEM}, \
-            assert_sel_error(sel)
+        assert sel in {Signal.SEL_ACC_IO, Signal.SEL_ACC_VAL, Signal.SEL_ACC_DATA_MEM}, assert_sel_error(sel)
         if sel == Signal.SEL_ACC_IO:
             self.acc = ord(self.ports[arg].pop(0))
         elif sel == Signal.SEL_ACC_VAL:
@@ -70,14 +66,15 @@ class DataPath:
                 raise IndexError("Memory address out of range")
 
     def sel_alu(self, sel: Signal):
-        assert sel in {Signal.SEL_ALU_ADD,
-                       Signal.SEL_ALU_DEC,
-                       Signal.SEL_ALU_DIV,
-                       Signal.SEL_ALU_MOD,
-                       Signal.SEL_ALU_SUB,
-                       Signal.SEL_ALU_INC,
-                       Signal.SEL_ALU_MUL}, \
-            assert_sel_error(sel)
+        assert sel in {
+            Signal.SEL_ALU_ADD,
+            Signal.SEL_ALU_DEC,
+            Signal.SEL_ALU_DIV,
+            Signal.SEL_ALU_MOD,
+            Signal.SEL_ALU_SUB,
+            Signal.SEL_ALU_INC,
+            Signal.SEL_ALU_MUL,
+        }, assert_sel_error(sel)
         if sel == Signal.SEL_ALU_INC:
             self.acc += 1
         elif sel == Signal.SEL_ALU_DEC:
@@ -94,9 +91,7 @@ class DataPath:
             self.acc = self.buff % self.acc
 
     def sel_dc(self, sel: Signal):
-        assert sel in {Signal.SEL_DC_ACC,
-                       Signal.SEL_DC_DEC}, \
-            assert_sel_error(sel)
+        assert sel in {Signal.SEL_DC_ACC, Signal.SEL_DC_DEC}, assert_sel_error(sel)
         if sel == Signal.SEL_DC_ACC:
             self.dc = self.acc
         elif sel == Signal.SEL_DC_DEC:
@@ -114,9 +109,7 @@ class DataPath:
             self.flag_zero = True
 
     def sel_cmp(self, sel: Signal, value: int):
-        assert sel in {Signal.SEL_CMP_DC,
-                       Signal.SEL_CMP_ACC}, \
-            assert_sel_error(sel)
+        assert sel in {Signal.SEL_CMP_DC, Signal.SEL_CMP_ACC}, assert_sel_error(sel)
         if sel == Signal.SEL_CMP_DC:
             self.__compare(self.dc, value)
         elif sel == Signal.SEL_CMP_ACC:
@@ -149,12 +142,13 @@ class ControlUnit:
         return self._tick
 
     def sel_pc(self, sel_pc: Signal):
-        assert sel_pc in {Signal.SEL_PC_NEXT,
-                          Signal.SEL_JMP,
-                          Signal.SEL_JGE,
-                          Signal.SEL_JZ,
-                          Signal.SEL_JE}, \
-            assert_sel_error(sel_pc)
+        assert sel_pc in {
+            Signal.SEL_PC_NEXT,
+            Signal.SEL_JMP,
+            Signal.SEL_JGE,
+            Signal.SEL_JZ,
+            Signal.SEL_JE,
+        }, assert_sel_error(sel_pc)
         addr: int = self.pc + 1
         if sel_pc == Signal.SEL_PC_NEXT:
             addr = self.pc + 1
@@ -172,14 +166,11 @@ class ControlUnit:
         self.pc = addr
 
     def sel_mpc(self, sel: Signal):
-        assert sel in {Signal.SEL_MPC_OPC,
-                       Signal.SEL_MPC_ZERO,
-                       Signal.SEL_MPC_INC}, assert_sel_error(sel)
+        assert sel in {Signal.SEL_MPC_OPC, Signal.SEL_MPC_ZERO, Signal.SEL_MPC_INC}, assert_sel_error(sel)
         if sel == Signal.SEL_MPC_ZERO:
             self.mpc = 0
         elif sel == Signal.SEL_MPC_OPC:
-            self.mpc = microprogram_addresses[
-                self.program_mem[self.pc]["cmd"]["opcode"]]
+            self.mpc = microprogram_addresses[self.program_mem[self.pc]["cmd"]["opcode"]]
         elif sel == Signal.SEL_MPC_INC:
             self.mpc += 1
 
@@ -257,8 +248,7 @@ class ControlUnit:
 
             self.sel_mpc(Signal.SEL_MPC_INC)
             self.tick()
-            if self.mpc >= microprogram_addresses[opcode] \
-                    + microprogram_lengths[opcode]:
+            if self.mpc >= microprogram_addresses[opcode] + microprogram_lengths[opcode]:
                 self.mpc = 0
 
     def __repr__(self):
@@ -291,8 +281,7 @@ class ControlUnit:
             return "Out of range"
 
 
-def simulation(code: list[ProgramData], data: list[int],
-               input_tokens: Union[str, int], limit: int):
+def simulation(code: list[ProgramData], data: list[int], input_tokens: Union[str, int], limit: int):
     data_path = DataPath(data, input_tokens)
     control_unit = ControlUnit(code, data_path)
     instr_counter = 0
