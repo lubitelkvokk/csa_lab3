@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import re
 from enum import Enum
-from typing import TypedDict, Union, Optional
+from typing import TypedDict
 
 WORD_SIZE = 4  # машинное слово 4 байта
 
@@ -43,7 +45,7 @@ class Command(TypedDict):
 class ProgramData(TypedDict):
     addr: int
     cmd: Command
-    args: Optional[Union[int, str]]  # args может быть int, str или None
+    args: int | str | None
 
 
 class LabelUnit(TypedDict):
@@ -103,11 +105,11 @@ def write_code(filename: str, code: list[ProgramData]):
         for instr in code:
             args = 0
             if instr["cmd"]["args_count"]:
-                if type(instr["args"]) == int:
+                if isinstance(instr["args"], int):
                     args = instr["args"]
-                elif type(instr["args"]) == str and instr["args"]:
-                    # print(instr["args"])
+                elif isinstance(instr["args"], str) and instr["args"]:
                     args = ord(instr["args"])
+
             int_code = (int(instr["cmd"]["opcode"].value) << 24) | args
             int_codes.append(int_code)
         for x in int_codes:
@@ -121,7 +123,7 @@ def write_data(filename: str, data_labels: DataMemory):
                 arg = int(data_labels[label]["arg"])
                 file.write(int_to_bytes(arg))
             else:
-                if re.search("res\([0-9]+\)", data_labels[label]["arg"]):
+                if re.search(r"res\([0-9]+\)", data_labels[label]["arg"]):
                     for i in range(int(data_labels[label]["arg"].split("(")[1].split(")")[0])):
                         file.write(int_to_bytes(0))
                 else:
@@ -150,26 +152,10 @@ def read_code(filename: str) -> list[ProgramData]:
         opcode = Opcode(opcode_value)
         args = i & 0x00FFFFFF
         if get_args_count(opcode):
-            # args = chr(args)
             arg_count = 1
             program_data: ProgramData = {"addr": pc, "cmd": {"opcode": opcode, "args_count": arg_count}, "args": args}
         else:
             program_data: ProgramData = {"addr": pc, "cmd": {"opcode": opcode, "args_count": 0}}
-            arg_count = 0
 
         code.append(program_data)
     return code
-
-
-# Пример использования:
-# code = [
-#     {'addr': 0, 'cmd': {'opcode': Opcode.LDA, 'args_count': 1}, 'args': 4},
-#     {'addr': 1, 'cmd': {'opcode': Opcode.SETADDR, 'args_count': 0}, 'args': ''},
-#     {'addr': 2, 'cmd': {'opcode': Opcode.LD, 'args_count': 1}, 'args': 0},
-#     {'addr': 3, 'cmd': {'opcode': Opcode.SETCNT, 'args_count': 0}, 'args': ''},
-#     {'addr': 4, 'cmd': {'opcode': Opcode.OUTPUT, 'args_count': 1}, 'args': '1'},
-#     {'addr': 5, 'cmd': {'opcode': Opcode.READ, 'args_count': 0}, 'args': ''}
-# ]
-#
-# write_code("input.txt", code)
-# print(read_code("input.txt"))

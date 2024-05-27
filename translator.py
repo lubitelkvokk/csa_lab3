@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 """Транслятор Asm в машинный код.
 """
+from __future__ import annotations
 
-import sys
 import re
+import sys
 
-from isa import Opcode, COMMANDS, WORD_SIZE, write_code, write_data, ProgramData
+from isa import COMMANDS, WORD_SIZE, ProgramData, write_code, write_data
 
 TEXT_ADDR = 0
 DATA_ADDR = 0
@@ -26,18 +27,15 @@ def translate_stage_1(text: str):
     textsec = text.split("section .text")[1]
     data_labels = {}
     code = []
-    data_ptr = DATA_ADDR
     for data in datasec.splitlines():
         data.strip()
         if data:
             label_name, arg = data.split(":")
-
             if '"' in arg:
                 arg = arg.split('"')[1]
                 data_labels[label_name.strip()] = arg
             else:
                 data_labels[label_name.strip()] = arg.strip()
-
     text_labels = {}
     for line_num, raw_line in enumerate(textsec.splitlines(), 1):
         token = get_meaningful_token(raw_line)
@@ -60,7 +58,6 @@ def translate_stage_1(text: str):
                     arg = arg.replace("\\n", "\n")
 
                 code.append({"addr": pc, "cmd": COMMANDS[cmd], "args": arg})
-
     return data_labels, text_labels, code
 
 
@@ -70,7 +67,7 @@ def translate_data_labels_to_addr(data_labels: dict[str]):
     for label in data_labels.keys():
         translated_data_labels[label] = {"arg": data_labels[label], "addr": addr_ptr}
         element: str = data_labels[label]
-        if re.search("res\([0-9]+\)", element):
+        if re.search(r"res\([0-9]+\)", element):
             addr_ptr += int(element.split("(")[1].split(")")[0]) * WORD_SIZE
         elif not element.isdigit():
             # 1 символ - 1 машинное слово
@@ -123,8 +120,6 @@ def main(source, program_file, data_file):
         source = f.read()
 
     code, translated_data_labels = translate(source)
-    # for i in code:
-    #     print(i)
     write_code(program_file, code)
     write_data(data_file, translated_data_labels)
     print("source LoC:", len(source.split("\n")), "code instr:", len(code))
@@ -133,5 +128,4 @@ def main(source, program_file, data_file):
 if __name__ == "__main__":
     assert len(sys.argv) == 4, "Wrong arguments: translator_asm.py <input_file> <program_file> <data_file> "
     _, input_file, program_file, data_file = sys.argv
-    # main(input_file, program_file, data_file)
     main("examples/prob1.asm", "program_file", "data_file")

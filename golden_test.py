@@ -1,14 +1,12 @@
 import binascii
-import sys
-
-import pytest
 import contextlib
 import io
 import logging
 import os
 import tempfile
-import isa
+
 import machine
+import pytest
 import translator
 
 
