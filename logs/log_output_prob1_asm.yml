@@ -1,0 +1,1808 @@
+DEBUG   machine:simulation    LD 0
+TICK:   0 PC:   0 ADDR:   0 MEM_OUT: 0 ACC: 0 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [0, 0]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK:   4 PC:   1 ADDR:   0 MEM_OUT: 0 ACC: 0 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [0, 0]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK:   7 PC:   2 ADDR:   0 MEM_OUT: 0 ACC: 1 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [0, 0]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK:  11 PC:   3 ADDR:   0 MEM_OUT: 1 ACC: 1 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [1, 0]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK:  14 PC:   4 ADDR:   0 MEM_OUT: 1 ACC: 1 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [1, 0]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK:  17 PC:   5 ADDR:   0 MEM_OUT: 1 ACC: 1 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [1, 0]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK:  21 PC:   6 ADDR:   0 MEM_OUT: 1 ACC: 1 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [1, 0]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK:  25 PC:   7 ADDR:   0 MEM_OUT: 1 ACC: 1 BUFF: 1 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [1, 0]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK:  28 PC:   8 ADDR:   0 MEM_OUT: 1 ACC: 1 BUFF: 1 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [1, 0]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK:  31 PC:   9 ADDR:   0 MEM_OUT: 1 ACC: 1 BUFF: 1 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [1, 0]
+---------------------------------------
+DEBUG   machine:simulation    MOD 5
+TICK:  35 PC:  10 ADDR:   0 MEM_OUT: 1 ACC: 1 BUFF: 1 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [1, 0]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK:  39 PC:  11 ADDR:   0 MEM_OUT: 1 ACC: 1 BUFF: 1 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [1, 0]
+---------------------------------------
+DEBUG   machine:simulation    JE 18
+TICK:  42 PC:  12 ADDR:   0 MEM_OUT: 1 ACC: 1 BUFF: 1 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [1, 0]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK:  45 PC:  13 ADDR:   0 MEM_OUT: 1 ACC: 1 BUFF: 1 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [1, 0]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK:  48 PC:   0 ADDR:   0 MEM_OUT: 1 ACC: 1 BUFF: 1 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [1, 0]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK:  52 PC:   1 ADDR:   0 MEM_OUT: 1 ACC: 1 BUFF: 1 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [1, 0]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK:  55 PC:   2 ADDR:   0 MEM_OUT: 1 ACC: 2 BUFF: 1 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [1, 0]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK:  59 PC:   3 ADDR:   0 MEM_OUT: 2 ACC: 2 BUFF: 1 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [2, 0]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK:  62 PC:   4 ADDR:   0 MEM_OUT: 2 ACC: 2 BUFF: 1 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [2, 0]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK:  65 PC:   5 ADDR:   0 MEM_OUT: 2 ACC: 2 BUFF: 1 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [2, 0]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK:  69 PC:   6 ADDR:   0 MEM_OUT: 2 ACC: 2 BUFF: 1 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [2, 0]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK:  73 PC:   7 ADDR:   0 MEM_OUT: 2 ACC: 2 BUFF: 2 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [2, 0]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK:  76 PC:   8 ADDR:   0 MEM_OUT: 2 ACC: 2 BUFF: 2 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [2, 0]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK:  79 PC:   9 ADDR:   0 MEM_OUT: 2 ACC: 2 BUFF: 2 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [2, 0]
+---------------------------------------
+DEBUG   machine:simulation    MOD 5
+TICK:  83 PC:  10 ADDR:   0 MEM_OUT: 2 ACC: 2 BUFF: 2 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [2, 0]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK:  87 PC:  11 ADDR:   0 MEM_OUT: 2 ACC: 2 BUFF: 2 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [2, 0]
+---------------------------------------
+DEBUG   machine:simulation    JE 18
+TICK:  90 PC:  12 ADDR:   0 MEM_OUT: 2 ACC: 2 BUFF: 2 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [2, 0]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK:  93 PC:  13 ADDR:   0 MEM_OUT: 2 ACC: 2 BUFF: 2 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [2, 0]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK:  96 PC:   0 ADDR:   0 MEM_OUT: 2 ACC: 2 BUFF: 2 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [2, 0]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 100 PC:   1 ADDR:   0 MEM_OUT: 2 ACC: 2 BUFF: 2 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [2, 0]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 103 PC:   2 ADDR:   0 MEM_OUT: 2 ACC: 3 BUFF: 2 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [2, 0]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 107 PC:   3 ADDR:   0 MEM_OUT: 3 ACC: 3 BUFF: 2 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [3, 0]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 110 PC:   4 ADDR:   0 MEM_OUT: 3 ACC: 3 BUFF: 2 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [3, 0]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 113 PC:   5 ADDR:   0 MEM_OUT: 3 ACC: 3 BUFF: 2 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [3, 0]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 117 PC:   6 ADDR:   0 MEM_OUT: 3 ACC: 3 BUFF: 2 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [3, 0]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 121 PC:   7 ADDR:   0 MEM_OUT: 3 ACC: 0 BUFF: 3 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [3, 0]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 124 PC:   8 ADDR:   0 MEM_OUT: 3 ACC: 0 BUFF: 3 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [3, 0]
+---------------------------------------
+DEBUG   machine:simulation    LD 4
+TICK: 127 PC:  14 ADDR:   0 MEM_OUT: 3 ACC: 0 BUFF: 3 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [3, 0]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 131 PC:  15 ADDR:   1 MEM_OUT: 0 ACC: 0 BUFF: 3 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [3, 0]
+---------------------------------------
+DEBUG   machine:simulation    ST 4
+TICK: 134 PC:  16 ADDR:   1 MEM_OUT: 0 ACC: 1 BUFF: 3 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [3, 0]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 138 PC:  17 ADDR:   1 MEM_OUT: 1 ACC: 1 BUFF: 3 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [3, 1]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 141 PC:   0 ADDR:   1 MEM_OUT: 1 ACC: 1 BUFF: 3 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [3, 1]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 145 PC:   1 ADDR:   0 MEM_OUT: 3 ACC: 3 BUFF: 3 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [3, 1]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 148 PC:   2 ADDR:   0 MEM_OUT: 3 ACC: 4 BUFF: 3 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [3, 1]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 152 PC:   3 ADDR:   0 MEM_OUT: 4 ACC: 4 BUFF: 3 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [4, 1]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 155 PC:   4 ADDR:   0 MEM_OUT: 4 ACC: 4 BUFF: 3 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [4, 1]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 158 PC:   5 ADDR:   0 MEM_OUT: 4 ACC: 4 BUFF: 3 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [4, 1]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 162 PC:   6 ADDR:   0 MEM_OUT: 4 ACC: 4 BUFF: 3 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [4, 1]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 166 PC:   7 ADDR:   0 MEM_OUT: 4 ACC: 1 BUFF: 4 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [4, 1]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 169 PC:   8 ADDR:   0 MEM_OUT: 4 ACC: 1 BUFF: 4 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [4, 1]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 172 PC:   9 ADDR:   0 MEM_OUT: 4 ACC: 1 BUFF: 4 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [4, 1]
+---------------------------------------
+DEBUG   machine:simulation    MOD 5
+TICK: 176 PC:  10 ADDR:   0 MEM_OUT: 4 ACC: 4 BUFF: 4 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [4, 1]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 180 PC:  11 ADDR:   0 MEM_OUT: 4 ACC: 4 BUFF: 4 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [4, 1]
+---------------------------------------
+DEBUG   machine:simulation    JE 18
+TICK: 183 PC:  12 ADDR:   0 MEM_OUT: 4 ACC: 4 BUFF: 4 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [4, 1]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 186 PC:  13 ADDR:   0 MEM_OUT: 4 ACC: 4 BUFF: 4 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [4, 1]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 189 PC:   0 ADDR:   0 MEM_OUT: 4 ACC: 4 BUFF: 4 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [4, 1]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 193 PC:   1 ADDR:   0 MEM_OUT: 4 ACC: 4 BUFF: 4 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [4, 1]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 196 PC:   2 ADDR:   0 MEM_OUT: 4 ACC: 5 BUFF: 4 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [4, 1]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 200 PC:   3 ADDR:   0 MEM_OUT: 5 ACC: 5 BUFF: 4 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [5, 1]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 203 PC:   4 ADDR:   0 MEM_OUT: 5 ACC: 5 BUFF: 4 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [5, 1]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 206 PC:   5 ADDR:   0 MEM_OUT: 5 ACC: 5 BUFF: 4 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [5, 1]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 210 PC:   6 ADDR:   0 MEM_OUT: 5 ACC: 5 BUFF: 4 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [5, 1]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 214 PC:   7 ADDR:   0 MEM_OUT: 5 ACC: 2 BUFF: 5 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [5, 1]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 217 PC:   8 ADDR:   0 MEM_OUT: 5 ACC: 2 BUFF: 5 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [5, 1]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 220 PC:   9 ADDR:   0 MEM_OUT: 5 ACC: 2 BUFF: 5 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [5, 1]
+---------------------------------------
+DEBUG   machine:simulation    MOD 5
+TICK: 224 PC:  10 ADDR:   0 MEM_OUT: 5 ACC: 5 BUFF: 5 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [5, 1]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 228 PC:  11 ADDR:   0 MEM_OUT: 5 ACC: 0 BUFF: 5 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [5, 1]
+---------------------------------------
+DEBUG   machine:simulation    JE 18
+TICK: 231 PC:  12 ADDR:   0 MEM_OUT: 5 ACC: 0 BUFF: 5 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [5, 1]
+---------------------------------------
+DEBUG   machine:simulation    LD 4
+TICK: 234 PC:  18 ADDR:   0 MEM_OUT: 5 ACC: 0 BUFF: 5 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [5, 1]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 238 PC:  19 ADDR:   1 MEM_OUT: 1 ACC: 1 BUFF: 5 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [5, 1]
+---------------------------------------
+DEBUG   machine:simulation    ST 4
+TICK: 241 PC:  20 ADDR:   1 MEM_OUT: 1 ACC: 2 BUFF: 5 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [5, 1]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 245 PC:  21 ADDR:   1 MEM_OUT: 2 ACC: 2 BUFF: 5 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [5, 2]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 248 PC:   0 ADDR:   1 MEM_OUT: 2 ACC: 2 BUFF: 5 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [5, 2]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 252 PC:   1 ADDR:   0 MEM_OUT: 5 ACC: 5 BUFF: 5 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [5, 2]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 255 PC:   2 ADDR:   0 MEM_OUT: 5 ACC: 6 BUFF: 5 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [5, 2]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 259 PC:   3 ADDR:   0 MEM_OUT: 6 ACC: 6 BUFF: 5 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [6, 2]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 262 PC:   4 ADDR:   0 MEM_OUT: 6 ACC: 6 BUFF: 5 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [6, 2]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 265 PC:   5 ADDR:   0 MEM_OUT: 6 ACC: 6 BUFF: 5 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [6, 2]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 269 PC:   6 ADDR:   0 MEM_OUT: 6 ACC: 6 BUFF: 5 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [6, 2]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 273 PC:   7 ADDR:   0 MEM_OUT: 6 ACC: 0 BUFF: 6 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [6, 2]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 276 PC:   8 ADDR:   0 MEM_OUT: 6 ACC: 0 BUFF: 6 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [6, 2]
+---------------------------------------
+DEBUG   machine:simulation    LD 4
+TICK: 279 PC:  14 ADDR:   0 MEM_OUT: 6 ACC: 0 BUFF: 6 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [6, 2]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 283 PC:  15 ADDR:   1 MEM_OUT: 2 ACC: 2 BUFF: 6 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [6, 2]
+---------------------------------------
+DEBUG   machine:simulation    ST 4
+TICK: 286 PC:  16 ADDR:   1 MEM_OUT: 2 ACC: 3 BUFF: 6 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [6, 2]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 290 PC:  17 ADDR:   1 MEM_OUT: 3 ACC: 3 BUFF: 6 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [6, 3]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 293 PC:   0 ADDR:   1 MEM_OUT: 3 ACC: 3 BUFF: 6 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [6, 3]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 297 PC:   1 ADDR:   0 MEM_OUT: 6 ACC: 6 BUFF: 6 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [6, 3]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 300 PC:   2 ADDR:   0 MEM_OUT: 6 ACC: 7 BUFF: 6 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [6, 3]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 304 PC:   3 ADDR:   0 MEM_OUT: 7 ACC: 7 BUFF: 6 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [7, 3]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 307 PC:   4 ADDR:   0 MEM_OUT: 7 ACC: 7 BUFF: 6 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [7, 3]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 310 PC:   5 ADDR:   0 MEM_OUT: 7 ACC: 7 BUFF: 6 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [7, 3]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 314 PC:   6 ADDR:   0 MEM_OUT: 7 ACC: 7 BUFF: 6 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [7, 3]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 318 PC:   7 ADDR:   0 MEM_OUT: 7 ACC: 1 BUFF: 7 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [7, 3]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 321 PC:   8 ADDR:   0 MEM_OUT: 7 ACC: 1 BUFF: 7 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [7, 3]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 324 PC:   9 ADDR:   0 MEM_OUT: 7 ACC: 1 BUFF: 7 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [7, 3]
+---------------------------------------
+DEBUG   machine:simulation    MOD 5
+TICK: 328 PC:  10 ADDR:   0 MEM_OUT: 7 ACC: 7 BUFF: 7 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [7, 3]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 332 PC:  11 ADDR:   0 MEM_OUT: 7 ACC: 2 BUFF: 7 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [7, 3]
+---------------------------------------
+DEBUG   machine:simulation    JE 18
+TICK: 335 PC:  12 ADDR:   0 MEM_OUT: 7 ACC: 2 BUFF: 7 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [7, 3]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 338 PC:  13 ADDR:   0 MEM_OUT: 7 ACC: 2 BUFF: 7 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [7, 3]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 341 PC:   0 ADDR:   0 MEM_OUT: 7 ACC: 2 BUFF: 7 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [7, 3]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 345 PC:   1 ADDR:   0 MEM_OUT: 7 ACC: 7 BUFF: 7 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [7, 3]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 348 PC:   2 ADDR:   0 MEM_OUT: 7 ACC: 8 BUFF: 7 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [7, 3]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 352 PC:   3 ADDR:   0 MEM_OUT: 8 ACC: 8 BUFF: 7 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [8, 3]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 355 PC:   4 ADDR:   0 MEM_OUT: 8 ACC: 8 BUFF: 7 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [8, 3]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 358 PC:   5 ADDR:   0 MEM_OUT: 8 ACC: 8 BUFF: 7 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [8, 3]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 362 PC:   6 ADDR:   0 MEM_OUT: 8 ACC: 8 BUFF: 7 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [8, 3]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 366 PC:   7 ADDR:   0 MEM_OUT: 8 ACC: 2 BUFF: 8 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [8, 3]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 369 PC:   8 ADDR:   0 MEM_OUT: 8 ACC: 2 BUFF: 8 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [8, 3]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 372 PC:   9 ADDR:   0 MEM_OUT: 8 ACC: 2 BUFF: 8 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [8, 3]
+---------------------------------------
+DEBUG   machine:simulation    MOD 5
+TICK: 376 PC:  10 ADDR:   0 MEM_OUT: 8 ACC: 8 BUFF: 8 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [8, 3]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 380 PC:  11 ADDR:   0 MEM_OUT: 8 ACC: 3 BUFF: 8 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [8, 3]
+---------------------------------------
+DEBUG   machine:simulation    JE 18
+TICK: 383 PC:  12 ADDR:   0 MEM_OUT: 8 ACC: 3 BUFF: 8 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [8, 3]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 386 PC:  13 ADDR:   0 MEM_OUT: 8 ACC: 3 BUFF: 8 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [8, 3]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 389 PC:   0 ADDR:   0 MEM_OUT: 8 ACC: 3 BUFF: 8 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [8, 3]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 393 PC:   1 ADDR:   0 MEM_OUT: 8 ACC: 8 BUFF: 8 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [8, 3]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 396 PC:   2 ADDR:   0 MEM_OUT: 8 ACC: 9 BUFF: 8 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [8, 3]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 400 PC:   3 ADDR:   0 MEM_OUT: 9 ACC: 9 BUFF: 8 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [9, 3]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 403 PC:   4 ADDR:   0 MEM_OUT: 9 ACC: 9 BUFF: 8 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [9, 3]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 406 PC:   5 ADDR:   0 MEM_OUT: 9 ACC: 9 BUFF: 8 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [9, 3]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 410 PC:   6 ADDR:   0 MEM_OUT: 9 ACC: 9 BUFF: 8 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [9, 3]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 414 PC:   7 ADDR:   0 MEM_OUT: 9 ACC: 0 BUFF: 9 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [9, 3]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 417 PC:   8 ADDR:   0 MEM_OUT: 9 ACC: 0 BUFF: 9 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [9, 3]
+---------------------------------------
+DEBUG   machine:simulation    LD 4
+TICK: 420 PC:  14 ADDR:   0 MEM_OUT: 9 ACC: 0 BUFF: 9 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [9, 3]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 424 PC:  15 ADDR:   1 MEM_OUT: 3 ACC: 3 BUFF: 9 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [9, 3]
+---------------------------------------
+DEBUG   machine:simulation    ST 4
+TICK: 427 PC:  16 ADDR:   1 MEM_OUT: 3 ACC: 4 BUFF: 9 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [9, 3]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 431 PC:  17 ADDR:   1 MEM_OUT: 4 ACC: 4 BUFF: 9 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [9, 4]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 434 PC:   0 ADDR:   1 MEM_OUT: 4 ACC: 4 BUFF: 9 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [9, 4]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 438 PC:   1 ADDR:   0 MEM_OUT: 9 ACC: 9 BUFF: 9 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [9, 4]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 441 PC:   2 ADDR:   0 MEM_OUT: 9 ACC: 10 BUFF: 9 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [9, 4]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 445 PC:   3 ADDR:   0 MEM_OUT: 10 ACC: 10 BUFF: 9 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [10, 4]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 448 PC:   4 ADDR:   0 MEM_OUT: 10 ACC: 10 BUFF: 9 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [10, 4]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 451 PC:   5 ADDR:   0 MEM_OUT: 10 ACC: 10 BUFF: 9 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [10, 4]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 455 PC:   6 ADDR:   0 MEM_OUT: 10 ACC: 10 BUFF: 9 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [10, 4]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 459 PC:   7 ADDR:   0 MEM_OUT: 10 ACC: 1 BUFF: 10 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [10, 4]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 462 PC:   8 ADDR:   0 MEM_OUT: 10 ACC: 1 BUFF: 10 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [10, 4]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 465 PC:   9 ADDR:   0 MEM_OUT: 10 ACC: 1 BUFF: 10 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [10, 4]
+---------------------------------------
+DEBUG   machine:simulation    MOD 5
+TICK: 469 PC:  10 ADDR:   0 MEM_OUT: 10 ACC: 10 BUFF: 10 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [10, 4]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 473 PC:  11 ADDR:   0 MEM_OUT: 10 ACC: 0 BUFF: 10 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [10, 4]
+---------------------------------------
+DEBUG   machine:simulation    JE 18
+TICK: 476 PC:  12 ADDR:   0 MEM_OUT: 10 ACC: 0 BUFF: 10 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [10, 4]
+---------------------------------------
+DEBUG   machine:simulation    LD 4
+TICK: 479 PC:  18 ADDR:   0 MEM_OUT: 10 ACC: 0 BUFF: 10 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [10, 4]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 483 PC:  19 ADDR:   1 MEM_OUT: 4 ACC: 4 BUFF: 10 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [10, 4]
+---------------------------------------
+DEBUG   machine:simulation    ST 4
+TICK: 486 PC:  20 ADDR:   1 MEM_OUT: 4 ACC: 5 BUFF: 10 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [10, 4]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 490 PC:  21 ADDR:   1 MEM_OUT: 5 ACC: 5 BUFF: 10 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [10, 5]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 493 PC:   0 ADDR:   1 MEM_OUT: 5 ACC: 5 BUFF: 10 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [10, 5]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 497 PC:   1 ADDR:   0 MEM_OUT: 10 ACC: 10 BUFF: 10 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [10, 5]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 500 PC:   2 ADDR:   0 MEM_OUT: 10 ACC: 11 BUFF: 10 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [10, 5]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 504 PC:   3 ADDR:   0 MEM_OUT: 11 ACC: 11 BUFF: 10 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [11, 5]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 507 PC:   4 ADDR:   0 MEM_OUT: 11 ACC: 11 BUFF: 10 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [11, 5]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 510 PC:   5 ADDR:   0 MEM_OUT: 11 ACC: 11 BUFF: 10 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [11, 5]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 514 PC:   6 ADDR:   0 MEM_OUT: 11 ACC: 11 BUFF: 10 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [11, 5]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 518 PC:   7 ADDR:   0 MEM_OUT: 11 ACC: 2 BUFF: 11 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [11, 5]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 521 PC:   8 ADDR:   0 MEM_OUT: 11 ACC: 2 BUFF: 11 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [11, 5]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 524 PC:   9 ADDR:   0 MEM_OUT: 11 ACC: 2 BUFF: 11 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [11, 5]
+---------------------------------------
+DEBUG   machine:simulation    MOD 5
+TICK: 528 PC:  10 ADDR:   0 MEM_OUT: 11 ACC: 11 BUFF: 11 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [11, 5]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 532 PC:  11 ADDR:   0 MEM_OUT: 11 ACC: 1 BUFF: 11 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [11, 5]
+---------------------------------------
+DEBUG   machine:simulation    JE 18
+TICK: 535 PC:  12 ADDR:   0 MEM_OUT: 11 ACC: 1 BUFF: 11 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [11, 5]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 538 PC:  13 ADDR:   0 MEM_OUT: 11 ACC: 1 BUFF: 11 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [11, 5]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 541 PC:   0 ADDR:   0 MEM_OUT: 11 ACC: 1 BUFF: 11 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [11, 5]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 545 PC:   1 ADDR:   0 MEM_OUT: 11 ACC: 11 BUFF: 11 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [11, 5]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 548 PC:   2 ADDR:   0 MEM_OUT: 11 ACC: 12 BUFF: 11 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [11, 5]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 552 PC:   3 ADDR:   0 MEM_OUT: 12 ACC: 12 BUFF: 11 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [12, 5]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 555 PC:   4 ADDR:   0 MEM_OUT: 12 ACC: 12 BUFF: 11 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [12, 5]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 558 PC:   5 ADDR:   0 MEM_OUT: 12 ACC: 12 BUFF: 11 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [12, 5]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 562 PC:   6 ADDR:   0 MEM_OUT: 12 ACC: 12 BUFF: 11 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [12, 5]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 566 PC:   7 ADDR:   0 MEM_OUT: 12 ACC: 0 BUFF: 12 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [12, 5]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 569 PC:   8 ADDR:   0 MEM_OUT: 12 ACC: 0 BUFF: 12 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [12, 5]
+---------------------------------------
+DEBUG   machine:simulation    LD 4
+TICK: 572 PC:  14 ADDR:   0 MEM_OUT: 12 ACC: 0 BUFF: 12 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [12, 5]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 576 PC:  15 ADDR:   1 MEM_OUT: 5 ACC: 5 BUFF: 12 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [12, 5]
+---------------------------------------
+DEBUG   machine:simulation    ST 4
+TICK: 579 PC:  16 ADDR:   1 MEM_OUT: 5 ACC: 6 BUFF: 12 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [12, 5]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 583 PC:  17 ADDR:   1 MEM_OUT: 6 ACC: 6 BUFF: 12 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [12, 6]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 586 PC:   0 ADDR:   1 MEM_OUT: 6 ACC: 6 BUFF: 12 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [12, 6]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 590 PC:   1 ADDR:   0 MEM_OUT: 12 ACC: 12 BUFF: 12 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [12, 6]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 593 PC:   2 ADDR:   0 MEM_OUT: 12 ACC: 13 BUFF: 12 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [12, 6]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 597 PC:   3 ADDR:   0 MEM_OUT: 13 ACC: 13 BUFF: 12 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [13, 6]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 600 PC:   4 ADDR:   0 MEM_OUT: 13 ACC: 13 BUFF: 12 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [13, 6]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 603 PC:   5 ADDR:   0 MEM_OUT: 13 ACC: 13 BUFF: 12 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [13, 6]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 607 PC:   6 ADDR:   0 MEM_OUT: 13 ACC: 13 BUFF: 12 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [13, 6]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 611 PC:   7 ADDR:   0 MEM_OUT: 13 ACC: 1 BUFF: 13 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [13, 6]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 614 PC:   8 ADDR:   0 MEM_OUT: 13 ACC: 1 BUFF: 13 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [13, 6]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 617 PC:   9 ADDR:   0 MEM_OUT: 13 ACC: 1 BUFF: 13 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [13, 6]
+---------------------------------------
+DEBUG   machine:simulation    MOD 5
+TICK: 621 PC:  10 ADDR:   0 MEM_OUT: 13 ACC: 13 BUFF: 13 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [13, 6]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 625 PC:  11 ADDR:   0 MEM_OUT: 13 ACC: 3 BUFF: 13 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [13, 6]
+---------------------------------------
+DEBUG   machine:simulation    JE 18
+TICK: 628 PC:  12 ADDR:   0 MEM_OUT: 13 ACC: 3 BUFF: 13 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [13, 6]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 631 PC:  13 ADDR:   0 MEM_OUT: 13 ACC: 3 BUFF: 13 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [13, 6]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 634 PC:   0 ADDR:   0 MEM_OUT: 13 ACC: 3 BUFF: 13 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [13, 6]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 638 PC:   1 ADDR:   0 MEM_OUT: 13 ACC: 13 BUFF: 13 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [13, 6]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 641 PC:   2 ADDR:   0 MEM_OUT: 13 ACC: 14 BUFF: 13 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [13, 6]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 645 PC:   3 ADDR:   0 MEM_OUT: 14 ACC: 14 BUFF: 13 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [14, 6]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 648 PC:   4 ADDR:   0 MEM_OUT: 14 ACC: 14 BUFF: 13 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [14, 6]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 651 PC:   5 ADDR:   0 MEM_OUT: 14 ACC: 14 BUFF: 13 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [14, 6]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 655 PC:   6 ADDR:   0 MEM_OUT: 14 ACC: 14 BUFF: 13 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [14, 6]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 659 PC:   7 ADDR:   0 MEM_OUT: 14 ACC: 2 BUFF: 14 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [14, 6]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 662 PC:   8 ADDR:   0 MEM_OUT: 14 ACC: 2 BUFF: 14 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [14, 6]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 665 PC:   9 ADDR:   0 MEM_OUT: 14 ACC: 2 BUFF: 14 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [14, 6]
+---------------------------------------
+DEBUG   machine:simulation    MOD 5
+TICK: 669 PC:  10 ADDR:   0 MEM_OUT: 14 ACC: 14 BUFF: 14 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [14, 6]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 673 PC:  11 ADDR:   0 MEM_OUT: 14 ACC: 4 BUFF: 14 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [14, 6]
+---------------------------------------
+DEBUG   machine:simulation    JE 18
+TICK: 676 PC:  12 ADDR:   0 MEM_OUT: 14 ACC: 4 BUFF: 14 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [14, 6]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 679 PC:  13 ADDR:   0 MEM_OUT: 14 ACC: 4 BUFF: 14 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [14, 6]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 682 PC:   0 ADDR:   0 MEM_OUT: 14 ACC: 4 BUFF: 14 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [14, 6]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 686 PC:   1 ADDR:   0 MEM_OUT: 14 ACC: 14 BUFF: 14 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [14, 6]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 689 PC:   2 ADDR:   0 MEM_OUT: 14 ACC: 15 BUFF: 14 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [14, 6]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 693 PC:   3 ADDR:   0 MEM_OUT: 15 ACC: 15 BUFF: 14 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [15, 6]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 696 PC:   4 ADDR:   0 MEM_OUT: 15 ACC: 15 BUFF: 14 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [15, 6]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 699 PC:   5 ADDR:   0 MEM_OUT: 15 ACC: 15 BUFF: 14 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [15, 6]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 703 PC:   6 ADDR:   0 MEM_OUT: 15 ACC: 15 BUFF: 14 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [15, 6]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 707 PC:   7 ADDR:   0 MEM_OUT: 15 ACC: 0 BUFF: 15 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [15, 6]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 710 PC:   8 ADDR:   0 MEM_OUT: 15 ACC: 0 BUFF: 15 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [15, 6]
+---------------------------------------
+DEBUG   machine:simulation    LD 4
+TICK: 713 PC:  14 ADDR:   0 MEM_OUT: 15 ACC: 0 BUFF: 15 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [15, 6]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 717 PC:  15 ADDR:   1 MEM_OUT: 6 ACC: 6 BUFF: 15 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [15, 6]
+---------------------------------------
+DEBUG   machine:simulation    ST 4
+TICK: 720 PC:  16 ADDR:   1 MEM_OUT: 6 ACC: 7 BUFF: 15 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [15, 6]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 724 PC:  17 ADDR:   1 MEM_OUT: 7 ACC: 7 BUFF: 15 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [15, 7]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 727 PC:   0 ADDR:   1 MEM_OUT: 7 ACC: 7 BUFF: 15 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [15, 7]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 731 PC:   1 ADDR:   0 MEM_OUT: 15 ACC: 15 BUFF: 15 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [15, 7]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 734 PC:   2 ADDR:   0 MEM_OUT: 15 ACC: 16 BUFF: 15 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [15, 7]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 738 PC:   3 ADDR:   0 MEM_OUT: 16 ACC: 16 BUFF: 15 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [16, 7]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 741 PC:   4 ADDR:   0 MEM_OUT: 16 ACC: 16 BUFF: 15 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [16, 7]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 744 PC:   5 ADDR:   0 MEM_OUT: 16 ACC: 16 BUFF: 15 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [16, 7]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 748 PC:   6 ADDR:   0 MEM_OUT: 16 ACC: 16 BUFF: 15 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [16, 7]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 752 PC:   7 ADDR:   0 MEM_OUT: 16 ACC: 1 BUFF: 16 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [16, 7]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 755 PC:   8 ADDR:   0 MEM_OUT: 16 ACC: 1 BUFF: 16 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [16, 7]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 758 PC:   9 ADDR:   0 MEM_OUT: 16 ACC: 1 BUFF: 16 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [16, 7]
+---------------------------------------
+DEBUG   machine:simulation    MOD 5
+TICK: 762 PC:  10 ADDR:   0 MEM_OUT: 16 ACC: 16 BUFF: 16 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [16, 7]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 766 PC:  11 ADDR:   0 MEM_OUT: 16 ACC: 1 BUFF: 16 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [16, 7]
+---------------------------------------
+DEBUG   machine:simulation    JE 18
+TICK: 769 PC:  12 ADDR:   0 MEM_OUT: 16 ACC: 1 BUFF: 16 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [16, 7]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 772 PC:  13 ADDR:   0 MEM_OUT: 16 ACC: 1 BUFF: 16 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [16, 7]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 775 PC:   0 ADDR:   0 MEM_OUT: 16 ACC: 1 BUFF: 16 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [16, 7]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 779 PC:   1 ADDR:   0 MEM_OUT: 16 ACC: 16 BUFF: 16 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [16, 7]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 782 PC:   2 ADDR:   0 MEM_OUT: 16 ACC: 17 BUFF: 16 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [16, 7]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 786 PC:   3 ADDR:   0 MEM_OUT: 17 ACC: 17 BUFF: 16 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [17, 7]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 789 PC:   4 ADDR:   0 MEM_OUT: 17 ACC: 17 BUFF: 16 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [17, 7]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 792 PC:   5 ADDR:   0 MEM_OUT: 17 ACC: 17 BUFF: 16 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [17, 7]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 796 PC:   6 ADDR:   0 MEM_OUT: 17 ACC: 17 BUFF: 16 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [17, 7]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 800 PC:   7 ADDR:   0 MEM_OUT: 17 ACC: 2 BUFF: 17 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [17, 7]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 803 PC:   8 ADDR:   0 MEM_OUT: 17 ACC: 2 BUFF: 17 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [17, 7]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 806 PC:   9 ADDR:   0 MEM_OUT: 17 ACC: 2 BUFF: 17 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [17, 7]
+---------------------------------------
+DEBUG   machine:simulation    MOD 5
+TICK: 810 PC:  10 ADDR:   0 MEM_OUT: 17 ACC: 17 BUFF: 17 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [17, 7]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 814 PC:  11 ADDR:   0 MEM_OUT: 17 ACC: 2 BUFF: 17 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [17, 7]
+---------------------------------------
+DEBUG   machine:simulation    JE 18
+TICK: 817 PC:  12 ADDR:   0 MEM_OUT: 17 ACC: 2 BUFF: 17 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [17, 7]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 820 PC:  13 ADDR:   0 MEM_OUT: 17 ACC: 2 BUFF: 17 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [17, 7]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 823 PC:   0 ADDR:   0 MEM_OUT: 17 ACC: 2 BUFF: 17 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [17, 7]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 827 PC:   1 ADDR:   0 MEM_OUT: 17 ACC: 17 BUFF: 17 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [17, 7]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 830 PC:   2 ADDR:   0 MEM_OUT: 17 ACC: 18 BUFF: 17 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [17, 7]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 834 PC:   3 ADDR:   0 MEM_OUT: 18 ACC: 18 BUFF: 17 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [18, 7]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 837 PC:   4 ADDR:   0 MEM_OUT: 18 ACC: 18 BUFF: 17 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [18, 7]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 840 PC:   5 ADDR:   0 MEM_OUT: 18 ACC: 18 BUFF: 17 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [18, 7]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 844 PC:   6 ADDR:   0 MEM_OUT: 18 ACC: 18 BUFF: 17 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [18, 7]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 848 PC:   7 ADDR:   0 MEM_OUT: 18 ACC: 0 BUFF: 18 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [18, 7]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 851 PC:   8 ADDR:   0 MEM_OUT: 18 ACC: 0 BUFF: 18 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [18, 7]
+---------------------------------------
+DEBUG   machine:simulation    LD 4
+TICK: 854 PC:  14 ADDR:   0 MEM_OUT: 18 ACC: 0 BUFF: 18 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [18, 7]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 858 PC:  15 ADDR:   1 MEM_OUT: 7 ACC: 7 BUFF: 18 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [18, 7]
+---------------------------------------
+DEBUG   machine:simulation    ST 4
+TICK: 861 PC:  16 ADDR:   1 MEM_OUT: 7 ACC: 8 BUFF: 18 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [18, 7]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 865 PC:  17 ADDR:   1 MEM_OUT: 8 ACC: 8 BUFF: 18 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [18, 8]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 868 PC:   0 ADDR:   1 MEM_OUT: 8 ACC: 8 BUFF: 18 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [18, 8]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 872 PC:   1 ADDR:   0 MEM_OUT: 18 ACC: 18 BUFF: 18 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [18, 8]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 875 PC:   2 ADDR:   0 MEM_OUT: 18 ACC: 19 BUFF: 18 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [18, 8]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 879 PC:   3 ADDR:   0 MEM_OUT: 19 ACC: 19 BUFF: 18 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [19, 8]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 882 PC:   4 ADDR:   0 MEM_OUT: 19 ACC: 19 BUFF: 18 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [19, 8]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 885 PC:   5 ADDR:   0 MEM_OUT: 19 ACC: 19 BUFF: 18 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [19, 8]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 889 PC:   6 ADDR:   0 MEM_OUT: 19 ACC: 19 BUFF: 18 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [19, 8]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 893 PC:   7 ADDR:   0 MEM_OUT: 19 ACC: 1 BUFF: 19 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [19, 8]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 896 PC:   8 ADDR:   0 MEM_OUT: 19 ACC: 1 BUFF: 19 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [19, 8]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 899 PC:   9 ADDR:   0 MEM_OUT: 19 ACC: 1 BUFF: 19 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [19, 8]
+---------------------------------------
+DEBUG   machine:simulation    MOD 5
+TICK: 903 PC:  10 ADDR:   0 MEM_OUT: 19 ACC: 19 BUFF: 19 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [19, 8]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 907 PC:  11 ADDR:   0 MEM_OUT: 19 ACC: 4 BUFF: 19 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [19, 8]
+---------------------------------------
+DEBUG   machine:simulation    JE 18
+TICK: 910 PC:  12 ADDR:   0 MEM_OUT: 19 ACC: 4 BUFF: 19 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [19, 8]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 913 PC:  13 ADDR:   0 MEM_OUT: 19 ACC: 4 BUFF: 19 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [19, 8]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 916 PC:   0 ADDR:   0 MEM_OUT: 19 ACC: 4 BUFF: 19 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [19, 8]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 920 PC:   1 ADDR:   0 MEM_OUT: 19 ACC: 19 BUFF: 19 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [19, 8]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 923 PC:   2 ADDR:   0 MEM_OUT: 19 ACC: 20 BUFF: 19 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [19, 8]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 927 PC:   3 ADDR:   0 MEM_OUT: 20 ACC: 20 BUFF: 19 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [20, 8]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 930 PC:   4 ADDR:   0 MEM_OUT: 20 ACC: 20 BUFF: 19 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [20, 8]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 933 PC:   5 ADDR:   0 MEM_OUT: 20 ACC: 20 BUFF: 19 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [20, 8]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 937 PC:   6 ADDR:   0 MEM_OUT: 20 ACC: 20 BUFF: 19 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [20, 8]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 941 PC:   7 ADDR:   0 MEM_OUT: 20 ACC: 2 BUFF: 20 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [20, 8]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 944 PC:   8 ADDR:   0 MEM_OUT: 20 ACC: 2 BUFF: 20 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [20, 8]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 947 PC:   9 ADDR:   0 MEM_OUT: 20 ACC: 2 BUFF: 20 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [20, 8]
+---------------------------------------
+DEBUG   machine:simulation    MOD 5
+TICK: 951 PC:  10 ADDR:   0 MEM_OUT: 20 ACC: 20 BUFF: 20 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [20, 8]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 955 PC:  11 ADDR:   0 MEM_OUT: 20 ACC: 0 BUFF: 20 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [20, 8]
+---------------------------------------
+DEBUG   machine:simulation    JE 18
+TICK: 958 PC:  12 ADDR:   0 MEM_OUT: 20 ACC: 0 BUFF: 20 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [20, 8]
+---------------------------------------
+DEBUG   machine:simulation    LD 4
+TICK: 961 PC:  18 ADDR:   0 MEM_OUT: 20 ACC: 0 BUFF: 20 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [20, 8]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 965 PC:  19 ADDR:   1 MEM_OUT: 8 ACC: 8 BUFF: 20 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [20, 8]
+---------------------------------------
+DEBUG   machine:simulation    ST 4
+TICK: 968 PC:  20 ADDR:   1 MEM_OUT: 8 ACC: 9 BUFF: 20 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [20, 8]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 972 PC:  21 ADDR:   1 MEM_OUT: 9 ACC: 9 BUFF: 20 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [20, 9]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 975 PC:   0 ADDR:   1 MEM_OUT: 9 ACC: 9 BUFF: 20 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [20, 9]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 979 PC:   1 ADDR:   0 MEM_OUT: 20 ACC: 20 BUFF: 20 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [20, 9]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 982 PC:   2 ADDR:   0 MEM_OUT: 20 ACC: 21 BUFF: 20 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [20, 9]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 986 PC:   3 ADDR:   0 MEM_OUT: 21 ACC: 21 BUFF: 20 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [21, 9]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 989 PC:   4 ADDR:   0 MEM_OUT: 21 ACC: 21 BUFF: 20 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [21, 9]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 992 PC:   5 ADDR:   0 MEM_OUT: 21 ACC: 21 BUFF: 20 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [21, 9]
+---------------------------------------
+DEBUG   machine:simulation    MOD 3
+TICK: 996 PC:   6 ADDR:   0 MEM_OUT: 21 ACC: 21 BUFF: 20 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [21, 9]
+---------------------------------------
+DEBUG   machine:simulation    CMP 0
+TICK: 1000 PC:   7 ADDR:   0 MEM_OUT: 21 ACC: 0 BUFF: 21 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [21, 9]
+---------------------------------------
+DEBUG   machine:simulation    JE 14
+TICK: 1003 PC:   8 ADDR:   0 MEM_OUT: 21 ACC: 0 BUFF: 21 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [21, 9]
+---------------------------------------
+DEBUG   machine:simulation    LD 4
+TICK: 1006 PC:  14 ADDR:   0 MEM_OUT: 21 ACC: 0 BUFF: 21 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [21, 9]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 1010 PC:  15 ADDR:   1 MEM_OUT: 9 ACC: 9 BUFF: 21 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [21, 9]
+---------------------------------------
+DEBUG   machine:simulation    ST 4
+TICK: 1013 PC:  16 ADDR:   1 MEM_OUT: 9 ACC: 10 BUFF: 21 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [21, 9]
+---------------------------------------
+DEBUG   machine:simulation    JMP 0
+TICK: 1017 PC:  17 ADDR:   1 MEM_OUT: 10 ACC: 10 BUFF: 21 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [21, 10]
+---------------------------------------
+DEBUG   machine:simulation    LD 0
+TICK: 1020 PC:   0 ADDR:   1 MEM_OUT: 10 ACC: 10 BUFF: 21 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [21, 10]
+---------------------------------------
+DEBUG   machine:simulation    INC 
+TICK: 1024 PC:   1 ADDR:   0 MEM_OUT: 21 ACC: 21 BUFF: 21 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [21, 10]
+---------------------------------------
+DEBUG   machine:simulation    ST 0
+TICK: 1027 PC:   2 ADDR:   0 MEM_OUT: 21 ACC: 22 BUFF: 21 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [21, 10]
+---------------------------------------
+DEBUG   machine:simulation    CMP 1000
+TICK: 1031 PC:   3 ADDR:   0 MEM_OUT: 22 ACC: 22 BUFF: 21 DC: 0 FLAG_ZERO: True FLAG_LT: 0 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [22, 10]
+---------------------------------------
+DEBUG   machine:simulation    JGE 22
+TICK: 1034 PC:   4 ADDR:   0 MEM_OUT: 22 ACC: 22 BUFF: 21 DC: 0 FLAG_ZERO: False FLAG_LT: 1 FLAG_GT: 0
+INPUT_PORT:  []
+OUT_PORT:  []
+DATA_MEM:  [22, 10]
+---------------------------------------
+WARNING machine:simulation    Limit exceeded!
+INFO    machine:simulation    output_buffer: ''
