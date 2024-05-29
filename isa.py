@@ -4,7 +4,7 @@ import re
 from enum import Enum
 from typing import TypedDict
 
-WORD_SIZE = 4  # машинное слово 4 байта
+WORD_SIZE = 4
 
 
 class Opcode(Enum):
@@ -82,11 +82,9 @@ COMMANDS = {
     "setaddr": {"opcode": Opcode.SETADDR, "args_count": 0},
 }
 
-# Создание обратного словаря
 opcode_to_args_count = {value["opcode"]: value["args_count"] for value in COMMANDS.values()}
 
 
-# Функция для получения количества аргументов
 def get_args_count(opcode: Opcode) -> int:
     return opcode_to_args_count.get(opcode, 0)
 

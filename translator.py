@@ -1,6 +1,4 @@
 #!/usr/bin/python3
-"""Транслятор Asm в машинный код.
-"""
 from __future__ import annotations
 
 import re
@@ -12,13 +10,7 @@ TEXT_ADDR = 0
 DATA_ADDR = 0
 
 
-# Проблема в том, чтоб непонятно на каком этапе нужно записывать данные в память
-
-
 def get_meaningful_token(line: str):
-    """Извлекаем из строки содержательный токен (метка или инструкция), удаляем
-    комментарии и пробелы в начале/конце строки.
-    """
     return line.split(";", 1)[0].strip()
 
 
@@ -70,21 +62,16 @@ def translate_data_labels_to_addr(data_labels: dict[str]):
         if re.search(r"res\([0-9]+\)", element):
             addr_ptr += int(element.split("(")[1].split(")")[0]) * WORD_SIZE
         elif not element.isdigit():
-            # 1 символ - 1 машинное слово
             if element in data_labels:
                 translated_data_labels[label]["arg"] = str(translated_data_labels[element]["addr"])
             for i in range(len(element)):
                 addr_ptr += WORD_SIZE
         else:
-            # Число - смещение на 1 машинное слово
             addr_ptr += WORD_SIZE
     return translated_data_labels
 
 
 def translate_stage_2(data_labels: dict, text_labels: dict, code: list[ProgramData]):
-    """Второй проход транслятора. В уже определённые инструкции подставляются
-    адреса меток."""
-
     translated_data_labels = translate_data_labels_to_addr(data_labels)
 
     for instruction in code:
@@ -101,21 +88,12 @@ def translate_stage_2(data_labels: dict, text_labels: dict, code: list[ProgramDa
 
 
 def translate(text):
-    """Трансляция текста программы на Asm в машинный код.
-
-    Выполняется в два прохода:
-
-    1. Разбор текста на метки и инструкции.
-
-    2. Подстановка адресов меток в операнды инструкции.
-    """
     data_labels, text_labels, code = translate_stage_1(text)
     code, translated_data_labels = translate_stage_2(data_labels, text_labels, code)
     return code, translated_data_labels
 
 
 def main(source, program_file, data_file):
-    """Функция запуска транслятора. Параметры -- исходный и целевой файлы."""
     with open(source, encoding="utf-8") as f:
         source = f.read()
 
@@ -128,4 +106,4 @@ def main(source, program_file, data_file):
 if __name__ == "__main__":
     assert len(sys.argv) == 4, "Wrong arguments: translator_asm.py <input_file> <program_file> <data_file> "
     _, input_file, program_file, data_file = sys.argv
-    main("examples/prob1.asm", "program_file", "data_file")
+    main("examples/hello.asm", "program_file", "data_file")

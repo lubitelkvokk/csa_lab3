@@ -1,32 +1,8 @@
 # csa_lab3
 
-ВОПРОС
-Было принято решение использовать для взаимодействия с памятью команду загрузки адреса в dc и write, read на замену
-привычной
-загрузки данных из указанного адреса, т.к. не имеется возможности не используя косвенную адресацию осуществлять
-последовательный ввод
-и вывод в память.
-Оставить ли реализацию такой, вернуть косвенную адресацию, или сделать привычной ld по адресу с учетом того, что мы
-сделаем отдельные
-команды для инкремента, декремента data counter и загрузки без указания адреса?
-Введение команды инкремента dc, загрузки без адреса, записи без адреса
+## Михайлов Павел P3217
 
-сделал служебный регистр Offset data pointer,
-Который позволяет увеличивать его на 1 при выполнении команды write и read,
-которые не принимают аргументов и читают/записывают значение с учетом адреса в data address + offset и увеличивают
-Offset на 1
-для следующих данных. Также отдельно есть команда ld <addr>, которая загружает данные в аккумулятор,
-запписывает адрес в address register и устанавливает offset в ноль для дальнейшего чтения с помощью read,
-write (чтобы выполнять последовательное чтение, т.к. я не могу из программы напрямую увеличить offset register)
-
-Вопросы на защиту:
-
-1) MUX(INC) - является сочетанием шины и комбинационной схемы инкрементирует значение
-2) Как происходит выбор jmp, cmp, порта на вывод (на основании чего делается выбор)
-3) Шины на вход в мультиплексор имеют одинаковую размерность
-4) Контроль тактов (пытаться избежать излишних, например доступ к адресу памяти за 2 такта - излишне)
-
-## Вариант без усложнения
+## Базовый вариант
 
 ```
 asm | acc | harv | mc -> hw | instr | binary -> struct | stream | port | pstr | prob1 | cache
@@ -36,47 +12,67 @@ asm | acc | harv | mc -> hw | instr | binary -> struct | stream | port | pstr | 
 
 ``` ebnf
 <program> ::= <program> <line> | <line>
-<line> ::=  <opcode_without_arg> | <opcode_transfer> " ."<term> 
-    | <opcode_arg> " (" <term> ")" | <opcode_arg> " #"<number> 
-    | <opcode_arg> <term>
-    | <label> | <comment> | <line> <comment>
-    |  <label> " number " <number> | <label> ' string ' '"' <term> '"'
-    | "section ."<term> | "\n" 
 
-<label> ::= (<name>":" (" ")*) | (<name>":" (" ")* "\n")
-<address> ::= #<number>
+<line> ::=  <opcode_without_arg>
+          | <opcode_transfer> " " <term>
+          | <opcode_arg> " (" <term> ")"
+          | <opcode_arg> " #" <number>
+          | <opcode_arg> " " <term>
+          | <label>
+          | <label> " number " <number>
+          | <label> ' string ' '"' <term> '"'
+          | "section ." <term>
+          | "\n"
 
-<opcode_without_arg> ::= "hlt"  | "inc" | "read" | "write" | "cntz" | "setcnt"
-<opcode_arg> ::= ("add" | "cmp" | "sub" | "input" | "output") (" ")+ <number>
-<opcode_transfer> ::= ("jmp" | "jge" | "jz") (" ")+ <label>
-<opcode_addr> ::= ("add" | "cmp"| "ld" | "lda" | st" | "sub" | "input" | "output") (" ")+ (<label> | <address>)
+<label> ::= <name> ":" (" ")* | <name> ":" (" ")* "\n"
 
-<term> ::= <term> <term> | <number> | <letter>
+<opcode_without_arg> ::= "hlt"
+                       | "inc"
+                       | "dec"
+                       | "read"
+                       | "write"
+                       | "cntz"
+                       | "setcnt"
+                       | "setaddr"
+
+<opcode_arg> ::= ("add" | "mul" | "div" | "mod" | "cmp" | "input" | "output" | "ld" | "lda" | "st")
+               " " <term>
+
+<opcode_transfer> ::= ("jmp" | "jge" | "jz" | "je")
+                    " " <label>
+
+<term> ::= <number> | <letter> | '"' <string> '"'
 <letter> ::= [a-z] | [A-Z]
-<number> ::= [1-9] | <number> <number>
-<comment> ::=  ";"<term>
+<number> ::= [0-9] <number>*
+<string> ::= <letter>*
+
+
+<name> ::= <letter> (<letter> | <number>)*
+
 ```
 
-- ld: загружает данные в acc из ячейки памяти
-- lda: загрузить в acc непосредственно значение
-- write: [data_addr] <- acc, data_counter <- data_counter - 1
-- read:  [data_addr] -> acc, data_counter <- data_counter - 1
-- jmp: безусловный переход по указанному адресу (для упрощения только по метке). pc <- addr
+- ld: загружает данные в acc из ячейки памяти (по метке)
+- lda: загружает в acc указанное значение
+- st: загружает данные из acc в указанный адрес (по метке)
+- write: [data_addr] <- [acc], [data_counter] <- [data_counter] - 1, ar <- ar + 1
+- read:  [data_addr] -> [acc], [data_counter] <- [data_counter] - 1, ar <- ar + 1
+- jmp: безусловный переход по указанному адресу
 - je - условный переход по указанному адресу, если после сравнения флаги GT и LT были заполнены нулями
 - jz: условный переход по указанному адресу, если после сравнения флаг Z был заполнен единицей
 - jge: условный переход по указанному адресу, если после сравнения флаг GT был заполнен единицей
-- jle: условный переход по указанному адресу, если после сравнения флаг LT был заполнен единицей
-- inc: инкремент аккумулятора. acc <- acc + 1
-- dec: декремент аккумулятора. acc <- acc - 1
-- input: получение ввода с определенного порта (рядом указывается номер порта, например input 0). Запись осуществляется
-  в регистр rax
-- output: указание порта на вывод. Вывод осуществляется из регистра rax
-- add: прибавление числа к регистру и сохранение результата в этот же регистр (вместо числа может быть представлен
-  другой регистр, данные из памяти)
-- mul: умножение числа на регистр и сохранение результата в этот же регистр (-||-)
+- inc: инкремент аккумулятора. [acc] <- [acc] + 1
+- dec: декремент аккумулятора. [acc] <- [acc] - 1
+- input: получение ввода с определенного порта (указывается номер порта)
+- output: указание порта на вывод (выводится значение из acc)
+- add: сумма указанного числа с [acc]
+- mul: умножение указанного числа с [acc]
+- div: деление значения в acc на указанное число
+- mod: остаток от деления значения в acc на указанное число
 - hlt: остановка процессора
-- cntz - count data zero, проверка, является ли регистр data count равен нулю, установка соответствущего флага
-- setcnt - загрузить значение из аккумулятора в регистр счетчика данных
+- cntz: проверка, является ли регистр data_count равен нулю, установка соответствущего флага
+- setcnt: загрузить значение из аккумулятора в регистр [data_count]
+- сmp: сравнение значения из аккумулятора с указанным значением
+- setaddr: устанавливает значение из [acc] в [ar]
 
 ### Hello, world
 
@@ -111,7 +107,7 @@ _start:
     loop:
         input 0
         cmp '\n'
-        jz exit
+        je exit
         output 1
         jmp loop
     exit:
@@ -124,28 +120,31 @@ _start:
 section .data
 message_size: 19
 message: "What, is your name?"
+endl: 10
 hello_size: 7
 hello: "Hello, "
 answer_size: 0
-answer: res(255)
+answer: res(15)
 answer_end: "!"
+answer_ptr: answer
+
 
 section .text
 _start:
-
-
     ld message_size
     setcnt
     lda message
     setaddr
     loop_print1:
-        output 1
         read
+        output 1
         cntz
         jz end_loop_print1
         jmp loop_print1
 
     end_loop_print1:
+      ld endl
+      output 1
       lda answer
       setaddr
 
@@ -157,8 +156,9 @@ _start:
         ld answer_size
         inc
         st answer_size
-        lda answer
-        add answer_size
+        ld answer_ptr
+        add 4
+        st answer_ptr
         setaddr
         jmp loop_write
 
@@ -172,7 +172,7 @@ _start:
         read
         output 1
         cntz
-        je loop_print2_end
+        jz loop_print2_end
         jmp loop_print2
 
     loop_print2_end:
@@ -185,7 +185,7 @@ _start:
         read
         output 1
         cntz
-        je print_answer_end
+        jz print_answer_end
         jmp loop_print3
 
     print_answer_end:
@@ -203,53 +203,30 @@ multiples is 23.
 
 ``` asm
 section .data
-
-null: 0
-number1: 3
-number2: 5
-number15: 15
-result: 0
-count: 0
-bound: 1000
+    result: 0
+    count: 0
 
 section .text
-
 _start:
-    ld null
-    st count
-    ld null
-    st result
 
 main_loop:
     ld result
     inc
     st result
-    
-    ld result
-    cmp bound
-    jge end_loop
+    cmp 1000
+    jge exit
 
+    mod3:
     ld result
-    mod number15
-    cmp null
-    je div15_found
-
-    ld result
-    mod number1
-    cmp null
+    mod 3
+    cmp 0
     je div3_found
 
+    mod5:
     ld result
-    mod number2
-    cmp null
+    mod 5
+    cmp 0
     je div5_found
-
-    jmp main_loop
-
-div15_found:
-    ld count
-    dec
-    st count
     jmp main_loop
 
 div3_found:
@@ -264,87 +241,531 @@ div5_found:
     st count
     jmp main_loop
 
-end_loop:
-    ld count
-    output 1
-    
 exit:
     hlt
 ```
 
+## Организация памяти
+
+----
+
+- Гарвардская архитектура
+- Размер машинного слова
+    - Память данных - 32 бит
+    - Память команд - 32 бит. Один символ - 1 машинное слово.
+- Адресация
+    - Прямая (ld <label>)
+    - Косвенная. Аналог только для команд write/read, где мы заранее помещаем значение адреса в ar и производим
+      последовательное чтение.
+    -
+
 ## Система команд
 
-| Номер | Команда | Последовательность сигналов                               |
-|-------|---------|-----------------------------------------------------------|
-| 0     | start   | latch_mpc_zero, latch_mc, sel_pc                          |
-| 1     | ld      | latch_pm, sel_mpc_opc, latch_mc, sel_ar_addr, latch_addr  |
-|       |         | sel_acc_data_mem, sel_pc_next                             |
-| 2     | st      | latch_pm, sel_mpc_opc, latch_mc, sel_ar_addr, latch_addr  |
-|       |         | latch_data_mem, sel_pc_next                               |
-| 3     | lda     | latch_pm, sel_mpc_opc, latch_mc, sel_acc_val              |
-|       |         | sel_pc_next                                               |
-| 4     | write   | latch_pm, sel_mpc_opc, latch_mc                           |
-|       |         | latch_data_mem, sel_dc_dec, sel_pc_next                   |
-| 5     | read    | latch_pm, sel_mpc_opc, latch_mc                           |
-|       |         | latch_data_mem, sel_dc_dec, sel_pc_next                   |
-| 6     | setcnt  | latch_pm, sel_mpc_opc, latch_mc                           |
-|       |         | sel_dc_acc, sel_pc_next                                   |
-| 7     | setaddr | latch_pm, sel_mpc_opc, latch_mc                           |
-|       |         | sel_ar_addr, sel_pc_next                                  |
-| 7     | jmp     | latch_pm, sel_mpc_opc, latch_mc, sel_jmp                  |
-| 8     | jz      | latch_pm, sel_mpc_opc, latch_mc, sel_jz                   |
-| 9     | jge     | latch_pm, sel_mpc_opc, latch_mc, sel_jge                  |
-| 10    | je      | latch_pm, sel_mpc_opc, latch_mc, sel_je                   |
-| 10    | inc     | latch_pm, sel_mpc_opc, latch_mc                           |
-|       |         | sel_alu_inc, sel_pc_next                                  |
-| 11    | dec     | latch_pm, sel_mpc_opc, latch_mc                           |
-|       |         | sel_alu_dec, sel_pc_next                                  |
-| 12    | output  | latch_pm, sel_mpc_opc, latch_mc                           |
-|       |         | latch_write_io, sel_pc_next                               |
-| 13    | input   | latch_pm, sel_mpc_opc, latch_mc                           |
-|       |         | sel_acc_io, sel_pc_next                                   |
-| 14    | add     | latch_pm, sel_mpc_opc, latch_mc, latch_ar_addr            |
-|       |         | latch_buff, sel_acc_data_mem, sel_alu_add, sel_pc_next    |
-| 15    | sub     | latch_pm, sel_mpc_opc, latch_mc, latch_ar_addr            |
-|       |         | latch_buff, sel_acc_data_mem, sel_alu_sub, sel_pc_next    |
-| 16    | mul     | latch_pm, sel_mpc_opc, latch_mc,  latch_ar_addr           |
-|       |         | latch_buff, sel_acc_data_mem, sel_alu_mul, sel_pc_next    |
-| 17    | div     | latch_pm, sel_mpc_opc, latch_mc, latch_ar_addr            |
-|       |         | latch_buff, sel_acc_data_mem, sel_alu_div, sel_pc_next    |
-| 18    | mod     | latch_pm, sel_mpc_opc, latch_mc, latch_ar_addr            |
-|       |         | latch_buff, sel_acc_data_mem, sel_alu_mod, sel_pc_next    |
-| 18    | cmp     | latch_pm, sel_mpc_opc, latch_mc, sel_cmp_acc, sel_pc_next |
-| 19    | cntz    | latch_pm, sel_mpc_opc, latch_mc, sel_cmp_dc, sel_pc_next  |
+----
 
+- Особенности процессора
+    - Машинное слово - беззнаковое 32 битное;
+    - Доступ к памяти осуществляется через address register;
+    - Устройство ввода/вывода: port-mapped;
+    - Поток управления:
+        - Инкрементирование PC,
+        - Условный/безусловный переход,
+        - Адрес из аккумулятора при выполнении команды setaddr
+
+| Номер | Команда | Последовательность сигналов               |
+|-------|---------|-------------------------------------------|
+| 0     | start   | latch_mpc_zero, latch_mc, sel_pc          |
+| 1     | ld      | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | sel_ar_addr                               |
+|       |         | sel_acc_data_mem, sel_pc_next             |
+| 2     | st      | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | sel_ar_addr                               |
+|       |         | latch_data_mem, sel_pc_next               |
+| 3     | lda     | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | sel_acc_val, sel_pc_next                  |
+| 4     | write   | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | latch_data_mem, sel_dc_dec                |
+|       |         | sel_ar_next, sel_pc_next                  |
+| 5     | read    | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | sel_acc_data_mem, sel_dc_dec              |
+|       |         | sel_ar_next, sel_pc_next                  |
+| 6     | setcnt  | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | sel_dc_acc, sel_pc_next                   |
+| 7     | setaddr | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | sel_ar_addr, sel_pc_next                  |
+| 8     | jmp     | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | sel_jmp                                   |
+| 9     | jz      | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | sel_jz                                    |
+| 10    | jge     | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | sel_jge                                   |
+| 11    | je      | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | sel_je                                    |
+| 12    | inc     | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | sel_alu_inc, sel_pc_next                  |
+| 13    | dec     | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | sel_alu_dec, sel_pc_next                  |
+| 14    | output  | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | latch_write_io, sel_pc_next               |
+| 15    | input   | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | sel_acc_io, sel_pc_next                   |
+| 16    | add     | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | latch_buff, sel_acc_data_mem, sel_alu_add |
+|       |         | sel_pc_next                               |
+| 17    | sub     | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | latch_buff, sel_acc_data_mem, sel_alu_sub |
+|       |         | sel_pc_next                               |
+| 18    | mul     | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | latch_buff, sel_acc_data_mem, sel_alu_mul |
+|       |         | sel_pc_next                               |
+| 19    | div     | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | latch_buff, sel_acc_data_mem, sel_alu_div |
+|       |         | sel_pc_next                               |
+| 20    | mod     | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | latch_buff, sel_acc_data_mem, sel_alu_mod |
+|       |         | sel_pc_next                               |
+| 21    | cmp     | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | sel_cmp_acc, sel_pc_next                  |
+| 22    | cntz    | latch_pm, sel_mpc_opc, latch_mc           |
+|       |         | sel_cmp_dc, sel_pc_next                   |
 
 Описание:
 
-| Номер бита | Сигнал         | Описание                                                                                                                                                                                       |
-|------------|----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 0          | latch_pm       | Выбрать в памяти инструкции значение по указанному Program counter                                                                                                                             |
-| 1          | sel_mpc_opc    | Выбрать микропрограмму по значению Opcode                                                                                                                                                      |
-| 2          |                | 10 - загрузка нуля(при запуске процессора), 11 - загрузка по Opcode                                                                                                                            |
-| 3          | latch_mc       | После выбранного номера микропрограммы защелкиваем для выполнения соответствующей последовательности микроинструкций                                                                           |
-| 4          | sel_pc         | Выбираем следующее значение Program Counter. 1000 - SEL_NEXT, 1001 - SEL_JMP, 1010 - SEL_JZ (в зависимости от флага), 1011 - SEL_JE, 1100 - SEL_JGE                                            |
-| 5          |                |                                                                                                                                                                                                |
-| 6          |                |                                                                                                                                                                                                |
-| 7          |                |                                                                                                                                                                                                |
-| 8          | sel_ar         | Выбор адреса для последующего обращения к памяти (запись/чтение). 10 - SEL_NEXT, 11 - SEL_ADDR(декодированное значение из CU)                                                                  |
-| 9          |                |                                                                                                                                                                                                |
-| 10         | latch_data_mem | Выбор значения из аккумулятора в память по указанному адресу                                                                                                                                   |
-| 11         | sel_acc        | Запись в аккумулятор из указанного источника. 100 - SEL_ACC_DATA_MEM, 101 - SEL_ACC_IO(из портов), 110 - SEL_ACC_VAL(декодированное значение из CU)                                            |
-| 12         |                |                                                                                                                                                                                                |
-| 13         |                |                                                                                                                                                                                                |
-| 14         | write_io       | Запись из аккумулятора в указанный порт                                                                                                                                                        |
-| 15         | latch_buff     | Запись из аккумулятора в буферный регистр                                                                                                                                                      |
-| 16         | sel_alu        | Вычисление в алу и запись результата в аккумулятор. 1000 - SEL_ALU_INC, 1001 - SEL_ALU_DEC, 1010 - SEL_ALU_ADD, 1011 - SEL_ALU_SUB, 1100 - SEL_ALU_MUL, 1101 - SEL_ALU_DIV, 1110 - SEL_ALU_MOD |
-| 17         |                |                                                                                                                                                                                                |
-| 18         |                |                                                                                                                                                                                                |
-| 19         |                |                                                                                                                                                                                                |
-| 20         | sel_dc         | Выбор следующего значения для Data Count регистра. 10 - SEL_DC_DEC(декремент) 11 - SEL_DC_ACC (из аккумулятора)                                                                                |
-| 21         |                |                                                                                                                                                                                                |
-| 22         | sel_cmp        | Выбор левого входа для сравнения с декодированным значением из CU. 10 - SEL_CMP_ACC(значение из аккумулятора), 11 - SEL_CMP_DC(значение из data counter)                                       |
-| 23         |                |                                                                                                                                                                                                |
+| Номер бита | Сигнал         | Описание                                                                                                             |
+|------------|----------------|----------------------------------------------------------------------------------------------------------------------|
+| 0          | latch_pm       | Выбрать в памяти команд значение по указанному Program counter                                                       |
+| 1          | sel_mpc        | Выбрать микропрограмму по значению Opcode                                                                            |
+| 2          |                | 100 - загрузка нуля(при запуске процессора), 110 - загрузка по Opcode                                                |
+| 3          |                | 101 - инкремент                                                                                                      |
+| 4          | latch_mc       | После выбранного номера микропрограммы защелкиваем для выполнения соответствующей последовательности микроинструкций |
+| 5          | sel_pc         | Выбираем следующее значение Program Counter.                                                                         |
+| 6          |                | 1000 - SEL_NEXT, 1001 - SEL_JMP,                                                                                     |
+| 7          |                | 1010 - SEL_JZ (в зависимости от флага),                                                                              |
+| 8          |                | 1011 - SEL_JE, 1100 - SEL_JGE                                                                                        |
+| 9          | sel_ar         | Выбор адреса для последующего обращения к памяти (запись/чтение).                                                    |
+| 10         |                | 100 - SEL_NEXT, 101 - SEL_ADDR(декодированное значение из CU)                                                        |
+| 11         |                | 110 - SEL_AR_ACC                                                                                                     |
+| 12         | latch_data_mem | Выбор значения из аккумулятора в память по адресу в AR                                                               |
+| 13         | sel_acc        | Запись в аккумулятор из указанного источника.                                                                        |
+| 14         |                | 100 - SEL_ACC_DATA_MEM, 101 - SEL_ACC_IO(из портов),                                                                 |
+| 15         |                | 110 - SEL_ACC_VAL(декодированное значение из CU)                                                                     |
+| 16         | write_io       | Запись из аккумулятора в указанный порт                                                                              |
+| 17         | latch_buff     | Запись из аккумулятора в буферный регистр                                                                            |
+| 18         | sel_alu        | Вычисление в алу и запись результата в аккумулятор.                                                                  |
+| 19         |                | 1000 - SEL_ALU_INC, 1001 - SEL_ALU_DEC, 1010 - SEL_ALU_ADD,                                                          |
+| 20         |                | 1011 - SEL_ALU_SUB, 1100 - SEL_ALU_MUL, 1101 - SEL_ALU_DIV,                                                          |
+| 21         |                | 1110 - SEL_ALU_MOD                                                                                                   |
+| 22         | sel_dc         | Выбор следующего значения для Data Count регистра.                                                                   |
+| 23         |                | 10 - SEL_DC_DEC(декремент) 11 - SEL_DC_ACC (из аккумулятора)                                                         |
+| 24         | sel_cmp        | Выбор левого входа для сравнения с декодированным значением из CU.                                                   |
+| 25         |                | 10 - SEL_CMP_ACC(значение из аккумулятора), 11 - SEL_CMP_DC(значение из data counter)                                |
+
+## Транслятор
+
+---
+Интерфейс командной строки: python3 translator.py <input_file> <target_program_file> <target_data_file> 
+
+Первый аргумент - путь до файла с исходным кодом,
+второй аргумент - путь до файла, куда будет записан код в бинарном виде,
+третий аргумент - путь до файла, куда будут записаны данные в бинарном виде
+
+Трансляция секции .data:
+
+- translate_stage1: 
+  - Разделяет данные на токены, возвращает данные
+  в формате <label>:<addr>, а код в формате {<addr>, <command>, <args>}.
+  Команды, могут не иметь аргументов, тогда <args> отсутствует.
+  command представлен Enum. Также на этой стадии вернуться текстовые метки,
+  которым будет соответствовать значение pc на котором они встретились.
+
+- translate_data_labels_to_addr:
+  - Вычисляет адреса для меток в памяти, выделяет необходимое адресное пространство для res(<number>)
+- translate_stage2:
+  - Вставляет адреса меток данных и команд в аргументы инструкций.
+
+Правила:
+- .data и .text должны присутствовать в программе, даже если они пустые
+- Одна строка - одна инструкция
 
 
+## Модель процессора
 
+---
+Интерфейс командной строки: python3 machine.py <data_file> <code_file> <input_file>
+
+DataPath
+![img_1.png](img_1.png)
+
+Регистры:
+- `ACC` - аккумулятор
+- `Address register` - регистр для адреса памяти данных
+- `Data count` - регистр счетчика выполнения чтения/записи
+- `Buffer register` - применяется как второй вход в ALU
+
+Сигналы:
+- Защелки
+  - `write_io` - записать значение из acc в порт вывода
+  - `latch_data_mem` - записать по указанному в ar адресу данные из acc
+  - `latch_br` - защелкнуть buffer register
+  
+- Мультиплексор:
+  - `sel_ar` - выбрать `sel_ar_next`, `sel_ar_addr`, `sel_ar_acc`
+  - `sel_dc` - выбрать `sel_dc_next`, `sel_dc_acc`
+  - `sel_acc` - выбрать `sel_acc_data_mem`, `sel_acc_io`, `sel_acc_val`, `sel_alu_*`
+    
+## Control Unit
+
+---
+
+![img.png](img.png)
+
+Регистры:
+- `PC` - program counter - регистр, являющийся указателем на текущую инструкцию в Program Memory
+- `mPC` - регистр, являющийся указателем на текущую микропрограммную инструкцию
+- `SCP` - регистр, указывающий на верхушку стека вызовов
+
+- Сигналы:
+  - Защелки:
+    - `latch_pm`
+    - `latch_mc`
+  - Мультиплексор:
+    - sel_mpc - `sel_mpc_zero`, `sel_mpc_opcode`, `sel_mpc_next`
+    - sel_pc - `sel_pc_next`, `sel_pc_jmp`, `sel_pc_jz`, `sel_je`, `sel_jge`
+
+
+## Тестирование
+
+---
+Golden - тестирование
+Директория с тестами: ./golden
+Директория с генерацией логов тестов для отдельного просмотра-изменения ./logs
+Исполняемый файл: golden_test.py
+
+## CI
+```
+name: Python CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install
+
+      - name: Run tests and collect coverage
+        run: |
+          poetry run coverage run -m pytest .
+          poetry run coverage report -m
+        env:
+          CI: true
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install
+
+      - name: Check code formatting with Ruff
+        run: poetry run ruff format --check .
+
+      - name: Run Ruff linters
+        run: poetry run ruff check .
+```
+
+## Отчёт на примере Hello, world!
+Исходный код:
+```nasm
+section .data
+message_size: 19
+message: "What, is your name?"
+endl: 10
+hello_size: 7
+hello: "Hello, "
+answer_size: 0
+answer: res(15)
+answer_end: "!"
+answer_ptr: answer
+
+
+section .text
+_start:
+    ld message_size
+    setcnt
+    lda message
+    setaddr
+    loop_print1:
+        read
+        output 1
+        cntz
+        jz end_loop_print1
+        jmp loop_print1
+
+    end_loop_print1:
+      ld endl
+      output 1
+      lda answer
+      setaddr
+
+    loop_write:
+        input 0
+        write
+        cmp '\n'
+        je end_write
+        ld answer_size
+        inc
+        st answer_size
+        ld answer_ptr
+        add 4
+        st answer_ptr
+        setaddr
+        jmp loop_write
+
+    end_write:
+
+    ld hello_size
+    setcnt
+    lda hello
+    setaddr
+    loop_print2:
+        read
+        output 1
+        cntz
+        jz loop_print2_end
+        jmp loop_print2
+
+    loop_print2_end:
+
+    ld answer_size
+    setcnt
+    lda answer
+    setaddr
+    loop_print3:
+        read
+        output 1
+        cntz
+        jz print_answer_end
+        jmp loop_print3
+
+    print_answer_end:
+        ld answer_end
+        output 1
+    exit:
+        hlt
+```
+
+Программное хранение кода:
+```python
+  {'addr': 0, 'cmd': {'opcode': <Opcode.LD: 1>, 'args_count': 1}, 'args': 0},
+  {'addr': 1, 'cmd': {'opcode': <Opcode.SETCNT: 6>, 'args_count': 0}}, 
+  {'addr': 2, 'cmd': {'opcode': <Opcode.LDA: 3>, 'args_count': 1}, 'args': 4},
+  {'addr': 3, 'cmd': {'opcode': <Opcode.SETADDR: 7>, 'args_count': 0}}, 
+  {'addr': 4, 'cmd': {'opcode': <Opcode.READ: 5>, 'args_count': 0}},
+  {'addr': 5, 'cmd': {'opcode': <Opcode.OUTPUT: 14>, 'args_count': 1}, 'args': 1}, 
+  {'addr': 6, 'cmd': {'opcode': <Opcode.CNTZ: 22>, 'args_count': 0}},
+  {'addr': 7, 'cmd': {'opcode': <Opcode.JZ: 9>, 'args_count': 1}, 'args': 9},
+  {'addr': 8, 'cmd': {'opcode': <Opcode.JMP: 8>, 'args_count': 1}, 'args': 4}, 
+  {'addr': 9, 'cmd': {'opcode': <Opcode.HLT: 23>, 'args_count': 0}}
+```
+
+Отформатированные данные
+```python
+  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+```
+
+Журнал:
+```
+DEBUG   machine:simulation    LD 0
+    TICK:   0 PC:   0 ADDR:   0 MEM_OUT: 13 ACC: 0 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 0
+    INPUT_PORT:  []
+    OUT_PORT:  []
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    SETCNT 
+    TICK:   4 PC:   1 ADDR:   0 MEM_OUT: 13 ACC: 13 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 0
+    INPUT_PORT:  []
+    OUT_PORT:  []
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    LDA 4
+    TICK:   7 PC:   2 ADDR:   0 MEM_OUT: 13 ACC: 13 BUFF: 0 DC: 13 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 0
+    INPUT_PORT:  []
+    OUT_PORT:  []
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    SETADDR 
+    TICK:  10 PC:   3 ADDR:   0 MEM_OUT: 13 ACC: 4 BUFF: 0 DC: 13 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 0
+    INPUT_PORT:  []
+    OUT_PORT:  []
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    READ 
+    TICK:  13 PC:   4 ADDR:   1 MEM_OUT: 72 ACC: 4 BUFF: 0 DC: 13 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 0
+    INPUT_PORT:  []
+    OUT_PORT:  []
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    OUTPUT 1
+    TICK:  17 PC:   5 ADDR:   2 MEM_OUT: 101 ACC: 72 BUFF: 0 DC: 12 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 0
+    INPUT_PORT:  []
+    OUT_PORT:  []
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    CNTZ 
+    TICK:  20 PC:   6 ADDR:   2 MEM_OUT: 101 ACC: 72 BUFF: 0 DC: 12 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 0
+    INPUT_PORT:  []
+    OUT_PORT:  ['H']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    JZ 9
+    TICK:  23 PC:   7 ADDR:   2 MEM_OUT: 101 ACC: 72 BUFF: 0 DC: 12 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    JMP 4
+    TICK:  26 PC:   8 ADDR:   2 MEM_OUT: 101 ACC: 72 BUFF: 0 DC: 12 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    READ 
+    TICK:  29 PC:   4 ADDR:   2 MEM_OUT: 101 ACC: 72 BUFF: 0 DC: 12 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    OUTPUT 1
+    TICK:  33 PC:   5 ADDR:   3 MEM_OUT: 108 ACC: 101 BUFF: 0 DC: 11 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    CNTZ 
+    TICK:  36 PC:   6 ADDR:   3 MEM_OUT: 108 ACC: 101 BUFF: 0 DC: 11 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H', 'e']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    JZ 9
+    TICK:  39 PC:   7 ADDR:   3 MEM_OUT: 108 ACC: 101 BUFF: 0 DC: 11 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H', 'e']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    JMP 4
+    TICK:  42 PC:   8 ADDR:   3 MEM_OUT: 108 ACC: 101 BUFF: 0 DC: 11 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H', 'e']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    READ 
+    TICK:  45 PC:   4 ADDR:   3 MEM_OUT: 108 ACC: 101 BUFF: 0 DC: 11 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H', 'e']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    OUTPUT 1
+    TICK:  49 PC:   5 ADDR:   4 MEM_OUT: 108 ACC: 108 BUFF: 0 DC: 10 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H', 'e']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    CNTZ 
+    TICK:  52 PC:   6 ADDR:   4 MEM_OUT: 108 ACC: 108 BUFF: 0 DC: 10 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H', 'e', 'l']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    JZ 9
+    TICK:  55 PC:   7 ADDR:   4 MEM_OUT: 108 ACC: 108 BUFF: 0 DC: 10 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H', 'e', 'l']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    JMP 4
+    TICK:  58 PC:   8 ADDR:   4 MEM_OUT: 108 ACC: 108 BUFF: 0 DC: 10 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H', 'e', 'l']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    READ 
+    TICK:  61 PC:   4 ADDR:   4 MEM_OUT: 108 ACC: 108 BUFF: 0 DC: 10 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H', 'e', 'l']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    OUTPUT 1
+    TICK:  65 PC:   5 ADDR:   5 MEM_OUT: 111 ACC: 108 BUFF: 0 DC: 9 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H', 'e', 'l']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    CNTZ 
+    TICK:  68 PC:   6 ADDR:   5 MEM_OUT: 111 ACC: 108 BUFF: 0 DC: 9 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H', 'e', 'l', 'l']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    JZ 9
+    TICK:  71 PC:   7 ADDR:   5 MEM_OUT: 111 ACC: 108 BUFF: 0 DC: 9 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H', 'e', 'l', 'l']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    JMP 4
+    TICK:  74 PC:   8 ADDR:   5 MEM_OUT: 111 ACC: 108 BUFF: 0 DC: 9 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H', 'e', 'l', 'l']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    READ 
+    TICK:  77 PC:   4 ADDR:   5 MEM_OUT: 111 ACC: 108 BUFF: 0 DC: 9 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H', 'e', 'l', 'l']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    OUTPUT 1
+    TICK:  81 PC:   5 ADDR:   6 MEM_OUT: 44 ACC: 111 BUFF: 0 DC: 8 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H', 'e', 'l', 'l']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+    ---------------------------------------
+    DEBUG   machine:simulation    CNTZ 
+    TICK:  84 PC:   6 ADDR:   6 MEM_OUT: 44 ACC: 111 BUFF: 0 DC: 8 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 1
+    INPUT_PORT:  []
+    OUT_PORT:  ['H', 'e', 'l', 'l', 'o']
+    DATA_MEM:  [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+  ......
+  
+  ---------------------------------------
+    INFO    machine:simulation    output_buffer: 'Hello, world!'
+```

@@ -38,7 +38,6 @@ def test_translator_asm_and_machine(golden, caplog):
 
         log_file_path = os.path.join(f"./logs/log_output_{golden.path.name}")
 
-        # Настройка логгера на запись в файл
         logger = logging.getLogger()
         file_handler = logging.FileHandler(log_file_path, mode="w", encoding="utf-8")
         file_handler.setLevel(logging.DEBUG)
@@ -61,7 +60,6 @@ def test_translator_asm_and_machine(golden, caplog):
         with open(target_data, "rb") as file:
             data = file.read()
 
-        # Сравнение бинарных данных в шестнадцатеричном формате
         assert binary_to_hex(code).strip() == golden.out["out_code"].strip()
         assert binary_to_hex(data).strip() == golden.out["out_data"].strip()
         assert stdout.getvalue().strip() == golden.out["out_stdout"].strip()
