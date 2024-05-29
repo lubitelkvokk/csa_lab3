@@ -252,7 +252,7 @@ exit:
 - Гарвардская архитектура
 - Размер машинного слова
     - Память данных - 32 бит. Один символ - 1 машинное слово.
-    - Память команд - 32 бит. 
+    - Память команд - 32 бит.
 - Адресация
     - Прямая (ld <label>)
     - Косвенная. Аналог только для команд write/read, где мы заранее помещаем значение адреса в ar и производим
@@ -370,22 +370,22 @@ exit:
 
 Трансляция секции .data:
 
-- translate_stage1: 
-  - Разделяет данные на токены, возвращает данные
-  в формате <label>:<addr>, а код в формате {<addr>, <command>, <args>}.
-  Команды, могут не иметь аргументов, тогда <args> отсутствует.
-  command представлен Enum. Также на этой стадии вернуться текстовые метки,
-  которым будет соответствовать значение pc на котором они встретились.
+- translate_stage1:
+    - Разделяет данные на токены, возвращает данные
+      в формате <label>:<addr>, а код в формате {<addr>, <command>, <args>}.
+      Команды, могут не иметь аргументов, тогда <args> отсутствует.
+      command представлен Enum. Также на этой стадии вернуться текстовые метки,
+      которым будет соответствовать значение pc на котором они встретились.
 
 - translate_data_labels_to_addr:
-  - Вычисляет адреса для меток в памяти, выделяет необходимое адресное пространство для res(<number>)
+    - Вычисляет адреса для меток в памяти, выделяет необходимое адресное пространство для res(<number>)
 - translate_stage2:
-  - Вставляет адреса меток данных и команд в аргументы инструкций.
+    - Вставляет адреса меток данных и команд в аргументы инструкций.
 
 Правила:
+
 - .data и .text должны присутствовать в программе, даже если они пустые
 - Одна строка - одна инструкция
-
 
 ## Модель процессора
 
@@ -396,40 +396,42 @@ DataPath
 ![DataPath.png](schemes%2FDataPath.png)
 
 Регистры:
+
 - `ACC` - аккумулятор
 - `Address register` - регистр для адреса памяти данных
 - `Data count` - регистр счетчика выполнения чтения/записи
 - `Buffer register` - применяется как второй вход в ALU
 
 Сигналы:
+
 - Защелки
-  - `write_io` - записать значение из acc в порт вывода
-  - `latch_data_mem` - записать по указанному в ar адресу данные из acc
-  - `latch_br` - защелкнуть buffer register
-  
+    - `write_io` - записать значение из acc в порт вывода
+    - `latch_data_mem` - записать по указанному в ar адресу данные из acc
+    - `latch_br` - защелкнуть buffer register
+
 - Мультиплексор:
-  - `sel_ar` - выбрать `sel_ar_next`, `sel_ar_addr`, `sel_ar_acc`
-  - `sel_dc` - выбрать `sel_dc_next`, `sel_dc_acc`
-  - `sel_acc` - выбрать `sel_acc_data_mem`, `sel_acc_io`, `sel_acc_val`, `sel_alu_*`
-    
+    - `sel_ar` - выбрать `sel_ar_next`, `sel_ar_addr`, `sel_ar_acc`
+    - `sel_dc` - выбрать `sel_dc_next`, `sel_dc_acc`
+    - `sel_acc` - выбрать `sel_acc_data_mem`, `sel_acc_io`, `sel_acc_val`, `sel_alu_*`
+
 ## Control Unit
 
 ---
 ![ControlUnit.png](schemes%2FControlUnit.png)
 
 Регистры:
+
 - `PC` - program counter - регистр, являющийся указателем на текущую инструкцию в Program Memory
 - `mPC` - регистр, являющийся указателем на текущую микропрограммную инструкцию
 - `SCP` - регистр, указывающий на верхушку стека вызовов
 
 - Сигналы:
-  - Защелки:
-    - `latch_pm`
-    - `latch_mc`
-  - Мультиплексор:
-    - sel_mpc - `sel_mpc_zero`, `sel_mpc_opcode`, `sel_mpc_next`
-    - sel_pc - `sel_pc_next`, `sel_pc_jmp`, `sel_pc_jz`, `sel_je`, `sel_jge`
-
+    - Защелки:
+        - `latch_pm`
+        - `latch_mc`
+    - Мультиплексор:
+        - sel_mpc - `sel_mpc_zero`, `sel_mpc_opcode`, `sel_mpc_next`
+        - sel_pc - `sel_pc_next`, `sel_pc_jmp`, `sel_pc_jz`, `sel_je`, `sel_jge`
 
 ## Тестирование
 
@@ -443,6 +445,7 @@ Golden - тестирование.
 Исполняемый файл: `golden_test.py`
 
 ## CI
+
 ```
 name: Python CI
 
@@ -503,7 +506,9 @@ jobs:
 ```
 
 ## Отчёт на примере Hello, world!
+
 Исходный код:
+
 ```nasm
 section .data
 message_size: 19
@@ -584,25 +589,28 @@ _start:
 ```
 
 Программное хранение кода:
+
 ```python
-  {'addr': 0, 'cmd': {'opcode': <Opcode.LD: 1>, 'args_count': 1}, 'args': 0},
-  {'addr': 1, 'cmd': {'opcode': <Opcode.SETCNT: 6>, 'args_count': 0}}, 
-  {'addr': 2, 'cmd': {'opcode': <Opcode.LDA: 3>, 'args_count': 1}, 'args': 4},
-  {'addr': 3, 'cmd': {'opcode': <Opcode.SETADDR: 7>, 'args_count': 0}}, 
-  {'addr': 4, 'cmd': {'opcode': <Opcode.READ: 5>, 'args_count': 0}},
-  {'addr': 5, 'cmd': {'opcode': <Opcode.OUTPUT: 14>, 'args_count': 1}, 'args': 1}, 
-  {'addr': 6, 'cmd': {'opcode': <Opcode.CNTZ: 22>, 'args_count': 0}},
-  {'addr': 7, 'cmd': {'opcode': <Opcode.JZ: 9>, 'args_count': 1}, 'args': 9},
-  {'addr': 8, 'cmd': {'opcode': <Opcode.JMP: 8>, 'args_count': 1}, 'args': 4}, 
-  {'addr': 9, 'cmd': {'opcode': <Opcode.HLT: 23>, 'args_count': 0}}
+  {'addr': 0, 'cmd': {'opcode': < Opcode.LD: 1 >, 'args_count': 1}, 'args': 0},
+{'addr': 1, 'cmd': {'opcode': < Opcode.SETCNT: 6 >, 'args_count': 0}},
+{'addr': 2, 'cmd': {'opcode': < Opcode.LDA: 3 >, 'args_count': 1}, 'args': 4},
+{'addr': 3, 'cmd': {'opcode': < Opcode.SETADDR: 7 >, 'args_count': 0}},
+{'addr': 4, 'cmd': {'opcode': < Opcode.READ: 5 >, 'args_count': 0}},
+{'addr': 5, 'cmd': {'opcode': < Opcode.OUTPUT: 14 >, 'args_count': 1}, 'args': 1},
+{'addr': 6, 'cmd': {'opcode': < Opcode.CNTZ: 22 >, 'args_count': 0}},
+{'addr': 7, 'cmd': {'opcode': < Opcode.JZ: 9 >, 'args_count': 1}, 'args': 9},
+{'addr': 8, 'cmd': {'opcode': < Opcode.JMP: 8 >, 'args_count': 1}, 'args': 4},
+{'addr': 9, 'cmd': {'opcode': < Opcode.HLT: 23 >, 'args_count': 0}}
 ```
 
 Отформатированные данные
+
 ```python
   [13, 72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
 ```
 
 Журнал:
+
 ```
 DEBUG   machine:simulation    LD 0
     TICK:   0 PC:   0 ADDR:   0 MEM_OUT: 13 ACC: 0 BUFF: 0 DC: 0 FLAG_ZERO: False FLAG_LT: 0 FLAG_GT: 0
@@ -770,3 +778,13 @@ DEBUG   machine:simulation    LD 0
   ---------------------------------------
     INFO    machine:simulation    output_buffer: 'Hello, world!'
 ```
+
+### Результаты
+
+| ФИО                       | alg         | LoC | code instr | tick  |
+|---------------------------|-------------|-----|------------|-------|
+| Михайлов Павел Максимович | hello_world | 18  | 10         | 219   |
+| Михайлов Павел Максимович | hello_alice | 76  | 46         | 944   |
+| Михайлов Павел Максимович | cat         | 12  | 6          | 130   |
+| Михайлов Павел Максимович | prob1       | 41  | 23         | 48493 |
+
