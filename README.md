@@ -257,7 +257,6 @@ exit:
     - Прямая (ld <label>)
     - Косвенная. Аналог только для команд write/read, где мы заранее помещаем значение адреса в ar и производим
       последовательное чтение.
-    -
 
 ## Система команд
 
@@ -394,7 +393,7 @@ exit:
 Интерфейс командной строки: python3 machine.py <data_file> <code_file> <input_file>
 
 DataPath
-![img_1.png](img_1.png)
+![DataPath.png](schemes%2FDataPath.png)
 
 Регистры:
 - `ACC` - аккумулятор
@@ -416,8 +415,7 @@ DataPath
 ## Control Unit
 
 ---
-
-![img.png](img.png)
+![ControlUnit.png](schemes%2FControlUnit.png)
 
 Регистры:
 - `PC` - program counter - регистр, являющийся указателем на текущую инструкцию в Program Memory
