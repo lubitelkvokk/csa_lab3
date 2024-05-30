@@ -26,7 +26,7 @@ class DataPath:
         self.data_address = 0
         self.acc = 0
         self.buff = 0
-        self.ports = [[], []]
+        self.ports = [[], [], [], []]
         if input_data:
             self.ports[0] = input_data
         self.flag_zero = False
