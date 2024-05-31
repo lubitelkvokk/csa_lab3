@@ -4,4 +4,6 @@ commands_description.txt
 data_file
 .coverage
 pytest.log
+__pycache__
+
 
