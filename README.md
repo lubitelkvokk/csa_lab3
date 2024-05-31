@@ -16,7 +16,7 @@ asm | acc | harv | mc -> hw | instr | binary -> struct | stream | port | pstr | 
 <line> ::=  <opcode_without_arg>
           | <opcode_transfer> " " <term>
           | <opcode_arg> " (" <term> ")"
-          | <opcode_arg> " #" <number>
+          | <opcode_arg> " " <number>
           | <opcode_arg> " " <term>
           | <label>
           | <label> " number " <number>
